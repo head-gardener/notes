@@ -1,0 +1,10 @@
+To keep org files sane and in check you need an auto-syncing solution, capable of competently merging separate notes on machines together.
+In terms of solutions we have:
+- git-sync https://github.com/simonthum/git-sync
+- or scipts like this https://github.com/nvim-neorg/neorg
+
+first one seems more preferable.
+
+i might want to have a service running that will sync up machines nightly or something - but that introduces an issue of not having them running all the time and some weird protocol issues. whatever, i bet cooler tools already got this stuff figured out.
+
+i will need API tokens to do this stuff automatically. the tool should support that.
