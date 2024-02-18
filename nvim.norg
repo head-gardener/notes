@@ -1,0 +1,8 @@
+* Plugins
+** UFO
+   Got a branch but man does it suck ass.
+   But LSP folds are pretty good, ngl.
+** which-key
+   Supports marks, registers, spelling (`z=`), etc.
+   Works kinda good. Hope to improve my workflow with this thing lol.
+   Pretty extensible: [repo]{https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}

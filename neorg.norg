@@ -15,6 +15,19 @@ Also features
 ** Dirman
    Control worlspaces. Can set default
 
+* Commands
+** Workspaces
+   Idea here is to open a neorg instance while doing something else - i.e. configuring nix or writing code.
+   - `Neorg workspace <name>` - open neorg workspace
+   - `Neorg index` - open index file
+   - `Neorg return` - close all norg buffers and return to whatever you where doing.
+** TODO
+   - (-) get good
+   - (x) Research TODO items
+   - `<Ctrl+Space>` - toggles state (huh) .
+   - More types are in the `help neorg.
+   - To reveal what actual character corresponds to a state, toggle concealer with `Neorg toggle-concealer.`
+
 * TODO config
 ** configure settings for filetype
    foldlvl, better highlighting maybe, buffer locla maps, syntax
