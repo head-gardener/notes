@@ -1,0 +1,2 @@
+* Shells
+  Main issue here is that hm and nixos have different startup routines for shells they manage, so services, started from one don't always intercat nicely with shells from another. This brings up a greater question of the healthy amount of separation between hm and nixos i.e. which programs and services go where. Shell is a big point of contemption here.

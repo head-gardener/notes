@@ -1,0 +1,9 @@
+* Configuration
+  `services.ssh-agent` for hm, `programs.ssh.startAgent` for nixos.
+  Both have some other fun stuff in `programs.ssh` that I haven't really figured out yet.
+  Also the config is complete bullshit, more on that in {:hm-vs-nixos:}.
+
+* Usage
+** ssh-add
+   `ssh-add <id>` to add an identity, other flags control the storage. 
+   `ssh-agent -t 1h` might be good, but that depends on my chosen workflow. Also hm doesn't have this, might want to patch it in.

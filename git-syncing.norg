@@ -7,4 +7,10 @@ first one seems more preferable.
 
 i might want to have a service running that will sync up machines nightly or something - but that introduces an issue of not having them running all the time and some weird protocol issues. whatever, i bet cooler tools already got this stuff figured out.
 
-i will need API tokens to do this stuff automatically. the tool should support that.
+Better way of loging in is {:ssh-agent:}.
+
+* git-sync
+  Works in weird ways. Requires all changes to be unstaged before committing - huh.
+  One nice idea is canceling commit when new files are present - `#...#` bullshit from emacs or `result` symlink from nix.
+  While nice in theory, it can get cumbersome always calling `git-sync -n` on new files, which is a frequent occurance when doing notes.
+  How about a patch that allows new files only if they are staged?

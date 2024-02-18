@@ -1,0 +1,6 @@
+* Some commands
+  `:new-session -s name -c root`
+  `:breakp` or `<pref>!` - throws current pane into a new window
+
+* Config quirks
+  Shelld should be set before calling new-session in the config, which makes for a pretty weird nix expression.
