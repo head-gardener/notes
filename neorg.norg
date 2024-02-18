@@ -1,0 +1,20 @@
+* Intro
+Take notes you weirdo
+
+* Readup
+https://www.youtube.com/watch?v=NnmRVY22Lq8&list=PLx2ksyallYzVI8CN1JMXhEf62j2AijeDa
+https://github.com/nvim-neorg/neorg
+
+* Keys
+We got some keys:
+  - <l>nn - newsote
+Also features
+  - folds work as expected
+
+* Modules
+** Dirman
+   Control worlspaces. Can set default
+
+* TODO config
+** configure settings for filetype
+   foldlvl, better highlighting maybe, buffer locla maps, syntax
