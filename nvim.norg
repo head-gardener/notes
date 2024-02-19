@@ -10,3 +10,11 @@
    Supports marks, registers, spelling (`z=`), etc.
    Works kinda good. Hope to improve my workflow with this thing lol.
    Pretty extensible: [repo]{https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}
+** {:neorg:}
+** Folds
+   Treesitter folds are pretty nice. Not as nice as LSP but they do work.
+   #tangle init.lua
+   @code lua
+   vim.opt.foldmethod = "expr"
+   vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+   @end
