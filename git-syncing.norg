@@ -12,7 +12,7 @@
   I might want to have a service running that will sync up machines nightly or something - but that introduces an issue of not having them running all the time and some weird protocol issues. whatever, i bet cooler tools already got this stuff figured out.
   For `git-sync` over `fish` I have this little thingey:
   @code fish
-  while true; sleep $(math 60x 60); nix run nixpkgs#git-sync; end
+  while true; nix run nixpkgs#git-sync; sleep $(math 60x 60); end
   @end
 ** Remote Login
    A good way of login is {:ssh-agent:}.
