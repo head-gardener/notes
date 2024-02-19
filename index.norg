@@ -2,6 +2,7 @@
   - {:config:}
   - {:git-syncing:}
   - {:git:}
+  - {:kernel:}
   - {:neorg:}
   - {:nvim:}
   - {:tmux:}

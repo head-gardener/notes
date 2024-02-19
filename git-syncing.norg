@@ -3,8 +3,7 @@
 
 * Solutions
   In terms of solutions we have:
-  - git-sync https://github.com/simonthum/git-sync
-  - or scipts like this https://github.com/nvim-neorg/neorg
+  - git-sync. [repo]{https://github.com/simonthum/git-sync}
 
   first one seems more preferable.
 
@@ -22,3 +21,7 @@
   One nice idea is canceling commit when new files are present - `#...#` bullshit from emacs or `result` symlink from nix.
   While nice in theory, it can get cumbersome always calling `git-sync -n` on new files, which is a frequent occurance when doing notes.
   How about a patch that allows new files only if they are staged?
+** Options
+   - branch.$branch_name.syncNewFiles (bool)
+   - branch.$branch_name.syncCommitMsg (string)
+   - branch.$branch_name.autocommitscript (string)

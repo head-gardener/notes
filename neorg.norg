@@ -9,10 +9,11 @@ https://github.com/nvim-neorg/neorg
   - folds work as expected (mostly)
 
 * TODO
-  - ( ) set spell and sum else on .norg filetype.
+  - ( ) set spell, lbr, column and sum else on .norg filetype.
   - ( ) keys for quickly opening `:Neorg *` minibuffer (if simillar solution doesn't exist).
   - ( ) folding works really weirdly.
   - ( ) it would be nicer to run neorg in a separate tab or smth.
+  - ( ) why do folds suck so much OMG.
 
 * Keys
 We got some keys:
@@ -20,9 +21,15 @@ We got some keys:
 
 * Modules
 ** Dirman
-   Control worlspaces. Can set default
+   Control workspaces. Can set default. [wiki]{https://github.com/nvim-neorg/neorg/wiki/Dirman}.
+** Tangling
+   Export code blocks. Usage: `#tangle <file>`. [wiki]{https://github.com/nvim-neorg/neorg/wiki/Tangling}.
+** Looking Glass
+   Edit code blocks in a separate buffer via `:Neorg keybind all core.looking-glass.magnify-code-block`.
+** ( ) keybinds
+   [wiki]{https://github.com/nvim-neorg/neorg/wiki/User-Keybinds}.
 
-* Commands
+* Usage
 ** Workspaces
    Idea here is to open a neorg instance while doing something else - i.e. configuring nix or writing code.
    - `Neorg workspace <name>` - open neorg workspace
@@ -33,8 +40,3 @@ We got some keys:
    - More types are in the `help neorg.
    - To cycle between states easily use `<leader>t`.
    - To reveal what actual character corresponds to a state, toggle concealer with `Neorg toggle-concealer.`
-
-* TODO config
-** configure settings for filetype
-   foldlvl, better highlighting maybe, buffer locla maps, syntax
-   keymaps for common actions like making links. the probready exist.

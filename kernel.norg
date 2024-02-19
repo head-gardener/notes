@@ -1,0 +1,9 @@
+* TODO
+** ( ) figure out a metrics script (in nu), run for all kernels mentioned.
+   #tangle stat.nu
+   @code nu
+   # todo
+   @end
+
+* 6.5
+  Quick search shows that 6.5 got some better CPU threading feats, better btrfs support.
