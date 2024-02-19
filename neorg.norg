@@ -5,11 +5,18 @@ Take notes you weirdo
 https://www.youtube.com/watch?v=NnmRVY22Lq8&list=PLx2ksyallYzVI8CN1JMXhEf62j2AijeDa
 https://github.com/nvim-neorg/neorg
 
+* General
+  - folds work as expected (mostly)
+
+* TODO
+  - ( ) set spell and sum else on .norg filetype.
+  - ( ) keys for quickly opening `:Neorg *` minibuffer (if simillar solution doesn't exist).
+  - ( ) folding works really weirdly.
+  - ( ) it would be nicer to run neorg in a separate tab or smth.
+
 * Keys
 We got some keys:
-  - <l>nn - newsote
-Also features
-  - folds work as expected
+  - <l>nn - new note
 
 * Modules
 ** Dirman
@@ -22,10 +29,9 @@ Also features
    - `Neorg index` - open index file
    - `Neorg return` - close all norg buffers and return to whatever you where doing.
 ** TODO
-   - (-) get good
-   - (x) Research TODO items
    - `<Ctrl+Space>` - toggles state (huh) .
    - More types are in the `help neorg.
+   - To cycle between states easily use `<leader>t`.
    - To reveal what actual character corresponds to a state, toggle concealer with `Neorg toggle-concealer.`
 
 * TODO config

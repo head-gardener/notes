@@ -1,13 +1,21 @@
-To keep org files sane and in check you need an auto-syncing solution, capable of competently merging separate notes on machines together.
-In terms of solutions we have:
-- git-sync https://github.com/simonthum/git-sync
-- or scipts like this https://github.com/nvim-neorg/neorg
+* Preface
+  To keep org files sane and in check you need an auto-syncing solution, capable of competently merging separate notes on machines together.
 
-first one seems more preferable.
+* Solutions
+  In terms of solutions we have:
+  - git-sync https://github.com/simonthum/git-sync
+  - or scipts like this https://github.com/nvim-neorg/neorg
 
-i might want to have a service running that will sync up machines nightly or something - but that introduces an issue of not having them running all the time and some weird protocol issues. whatever, i bet cooler tools already got this stuff figured out.
+  first one seems more preferable.
 
-Better way of loging in is {:ssh-agent:}.
+* Service
+  I might want to have a service running that will sync up machines nightly or something - but that introduces an issue of not having them running all the time and some weird protocol issues. whatever, i bet cooler tools already got this stuff figured out.
+  For `git-sync` over `fish` I have this little thingey:
+  @code fish
+  while true; sleep $(math 60x 60); nix run nixpkgs#git-sync; end
+  @end
+** Remote Login
+   A good way of login is {:ssh-agent:}.
 
 * git-sync
   Works in weird ways. Requires all changes to be unstaged before committing - huh.

@@ -1,4 +1,8 @@
 * Plugins
+** Keys
+*** z
+    - `zg` - spell add
+    - `zm`, `zr` - fold more/less
 ** UFO
    Got a branch but man does it suck ass.
    But LSP folds are pretty good, ngl.

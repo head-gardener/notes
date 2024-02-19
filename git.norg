@@ -1,0 +1,6 @@
+*  Branch visualisation
+   @code  bash
+   git log --graph --decorate --oneline --all
+   @end
+*  gitk
+   Weird ass GUI for git. Has visualisation, diffs and all the cool stuff cool kids use. Available in `nix shell nixpkgs#gitFull`.
