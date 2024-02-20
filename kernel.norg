@@ -6,14 +6,14 @@
    @end
 
 * NixOS
-  More on the [wiki]{https://nixos.org/manual/nixos/unstable/index.html#sec-kernel-config}.
+  More on the {https://nixos.org/manual/nixos/unstable/index.html#sec-kernel-config}[wiki].
 ** Version
    Override kernel version with
    @code nix
    boot.kernelPackages = pkgs.linuxPackages_latest;
    @end
 ** Custom
-   More on the [wiki]{https://nixos.org/nixpkgs/manual#sec-linux-kernel}.
+   More on the {https://nixos.org/nixpkgs/manual#sec-linux-kernel}[wiki].
    @code nix
    boot.kernelPackages = pkgs.linuxPackagesFor yourCustomKernel;
    @end
