@@ -5,6 +5,9 @@
 ** z
    - `zg` - spell add
    - `zm`, `zr` - fold more/less
+** `'`
+   Jump to prev selection, prev edited, jumped from - whole lotta stuff!
+
 * Commands
   - `:?a?;/b/g//d` exec command over range. See [traces.vim]{https://github.com/markonm/traces.vim?tab=readme-ov-file}.
   - more stuff.

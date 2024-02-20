@@ -16,7 +16,7 @@ Take notes you weirdo
   - ( ) why do folds suck so much OMG.
 
 * Keys
-We got some keys:
+  We got some keys:
   - <l>nn - new note.
   - <l>t - mark TODO as... .
 
@@ -44,9 +44,14 @@ We got some keys:
 ** concealer
    Toggle with 'toggle-concealer'.
    Can be configured, e.g. change icons for TODO statuses. But *don't* touch performance settings lol. There are some nice icon sets there, might wanna look.
+
 ** Links
    - {* intro} - heading (white space, case insensitive).
    - {** concealer} - remember to duplicate the amount of `*`.
    - {# tangling} - `#` is a *magic char*, searching a file and linking to first occurrence in a heading.
    - {# error} - invalid links can be auto fixed, and the algorithm is pretty good, so you can use it to quickly create headings.
    - {# links}[links] - link comes *first*, then the description! Otherwise it's an anchor.
+   - (!) how the hell do you fold links?
+   - (!) rewrite anchors to links!
+   - ( ) anchors?
+   - {:neorg:# readup} - links in files.
