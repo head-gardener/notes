@@ -13,7 +13,8 @@ Take notes you weirdo
   - ( ) keys for quickly opening `:Neorg *` minibuffer (if similar solution doesn't exist).
   - ( ) folding works really weirdly.
   - ( ) it would be nicer to run neorg in a separate tab or smth.
-  - ( ) why do folds suck so much OMG.
+  - ( ) how do you export todo's
+  - (=) a graph would be nice
 
 * Keys
   We got some keys:
@@ -51,7 +52,7 @@ Take notes you weirdo
    - {# tangling} - `#` is a *magic char*, searching a file and linking to first occurrence in a heading.
    - {# error} - invalid links can be auto fixed, and the algorithm is pretty good, so you can use it to quickly create headings.
    - {# links}[links] - link comes *first*, then the description! Otherwise it's an anchor.
-   - (!) how the hell do you fold links?
+   - (?) how the hell do you fold links?
    - (!) rewrite anchors to links!
    - ( ) anchors?
    - {:neorg:# readup} - links in files.

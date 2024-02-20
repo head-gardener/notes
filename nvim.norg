@@ -25,7 +25,7 @@
    [Repo]{https://github.com/lfilho/cosco.vim}.
    Got a lua rewrite in [here]{https://github.com/jumas-cola/cosco.nvim}.
    - ( ) Gotta make some PRs for my languages.
-   - ( ) Apparently there is another ugin called `tree-sitter`. Can't find it though.
+   - ( ) Apparently there is another plugin called `tree-sitter`. Can't find it though.
 ** haskell-tools
 *** ( ) dap
     Am I retarded? [Source]{https://github.com/mrcjkb/haskell-tools.nvim/tree/master?tab=readme-ov-file#dap}
