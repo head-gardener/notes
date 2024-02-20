@@ -5,5 +5,31 @@
    # todo
    @end
 
+* NixOS
+  More on the [wiki]{https://nixos.org/manual/nixos/unstable/index.html#sec-kernel-config}.
+** Version
+   Override kernel version with
+   @code nix
+   boot.kernelPackages = pkgs.linuxPackages_latest;
+   @end
+** Custom
+   More on the [wiki]{https://nixos.org/nixpkgs/manual#sec-linux-kernel}.
+   @code nix
+   boot.kernelPackages = pkgs.linuxPackagesFor yourCustomKernel;
+   @end
+** ( ) Rust
+   Since 6.7
+   @code nix
+   boot.kernelPatches = [
+     {
+       name = "Rust Support";
+       patch = null;
+       features = {
+         rust = true;
+       };
+     }
+   ];
+   @end
+
 * 6.5
   Quick search shows that 6.5 got some better CPU threading feats, better btrfs support.
