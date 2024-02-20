@@ -1,26 +1,42 @@
+* Bookmarks
+  - ( ) {https://mrcjkb.dev/posts/2023-08-22-setup.html}.
+  - ( ) {https://github.com/altermo/vim-ugin-list?tab=readme-ov-file}.
+* Keys
+** z
+   - `zg` - spell add
+   - `zm`, `zr` - fold more/less
+* Commands
+  - `:?a?;/b/g//d` exec command over range. See [traces.vim]{https://github.com/markonm/traces.vim?tab=readme-ov-file}.
+  - more stuff.
 * Plugins
-** Keys
-*** z
-    - `zg` - spell add
-    - `zm`, `zr` - fold more/less
-** Commands
-   `:?a?;/b/g//d` exec command over range. See [traces.vim]{https://github.com/markonm/traces.vim?tab=readme-ov-file}.
-** Plugins
-*** splitjoin
-    Fun stuff but doesn't support most languages I use.
-    [Repo]{https://github.com/AndrewRadev/splitjoin.vim}.
-*** UFO
-    Got a branch but man does it suck ass.
-    But LSP folds are pretty good, ngl.
-*** which-key
-    Supports marks, registers, spelling (`z=`), etc.
-    Works kinda good. Hope to improve my workflow with this thing lol.
-    Pretty extensible: [repo]{https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}
-*** {:neorg:}
-*** Folds
-    Treesitter folds are pretty nice. Not as nice as LSP but they do work.
-    #tangle init.lua
-    @code lua
-    vim.opt.foldmethod = "expr"
-    vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-    @end
+** TODO
+   - ( ) [sibling-swap]{https://github.com/wansmer/sibling-swap.nvim
+   - ( ) [NeoSwap]{https://github.com/ecthelionvi/neoswap.nvim
+   - ( ) [chartoggle]{https://github.com/saifulapm/chartoggle.nvim}
+** sitjoin
+   Fun stuff but doesn't support most languages I use.
+   [Repo]{https://github.com/AndrewRadev/sitjoin.vim}.
+** cosco
+   I need this. But again where are all my languages?
+   [Repo]{https://github.com/lfilho/cosco.vim}.
+   Got a lua rewrite in [here]{https://github.com/jumas-cola/cosco.nvim}.
+   - ( ) Gotta make some PRs for my languages.
+   - ( ) Apparently there is another ugin called `tree-sitter`. Can't find it though.
+** haskell-tools
+*** ( ) dap
+    Am I retarded? [Source]{https://github.com/mrcjkb/haskell-tools.nvim/tree/master?tab=readme-ov-file#dap}
+** UFO
+   Got a branch but man does it suck ass.
+   But LSP folds are pretty good, ngl.
+** which-key
+   Supports marks, registers, spelling (`z=`), etc.
+   Works kinda good. Hope to improve my workflow with this thing lol.
+   Pretty extensible: [repo]{https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}
+** {:neorg:}
+** Folds
+   Treesitter folds are pretty nice. Not as nice as LSP but they do work.
+   #tangle init.lua
+   @code lua
+   vim.opt.foldmethod = "expr"
+   vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+   @end

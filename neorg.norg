@@ -2,22 +2,23 @@
 Take notes you weirdo
 
 * Readup
-https://www.youtube.com/watch?v=NnmRVY22Lq8&list=PLx2ksyallYzVI8CN1JMXhEf62j2AijeDa
-https://github.com/nvim-neorg/neorg
+  [Tutorials]{https://www.youtube.com/watch?v=NnmRVY22Lq8&list=PLx2ksyallYzVI8CN1JMXhEf62j2AijeDa}.
+  [Repo]{https://github.com/nvim-neorg/neorg}.
 
 * General
   - folds work as expected (mostly)
 
 * TODO
   - ( ) set spell, lbr, column and sum else on .norg filetype.
-  - ( ) keys for quickly opening `:Neorg *` minibuffer (if simillar solution doesn't exist).
+  - ( ) keys for quickly opening `:Neorg *` minibuffer (if similar solution doesn't exist).
   - ( ) folding works really weirdly.
   - ( ) it would be nicer to run neorg in a separate tab or smth.
   - ( ) why do folds suck so much OMG.
 
 * Keys
 We got some keys:
-  - <l>nn - new note
+  - <l>nn - new note.
+  - <l>t - mark TODO as... .
 
 * Modules
 ** Dirman
@@ -38,5 +39,8 @@ We got some keys:
 ** TODO
    - `<Ctrl+Space>` - toggles state (huh) .
    - More types are in the `help neorg.
-   - To cycle between states easily use `<leader>t`.
    - To reveal what actual character corresponds to a state, toggle concealer with `Neorg toggle-concealer.`
+   - nested TODO lists will propagate their changes to children.
+** concealer
+   Toggle with 'toggle-concealer'.
+   Can be configured, e.g. change icons for TODO statuses. But *don't* touch performance settings lol. There are some nice icon sets there, might wanna look.
