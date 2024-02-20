@@ -1,4 +1,5 @@
 * TODO
+** ( ) Better layout switch (like ralt)
 ** (x) figure out the done thing
    The issue was with the script checking for kitty first, before reaching the tmux clause. Simple sed substitution can fix it right away, but need to watch for future changes to the codebase!
    Though I still wonder why this isn't an issue with non-tmux windows, huh.
