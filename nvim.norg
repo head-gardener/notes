@@ -3,18 +3,24 @@
 *** z
     - `zg` - spell add
     - `zm`, `zr` - fold more/less
-** UFO
-   Got a branch but man does it suck ass.
-   But LSP folds are pretty good, ngl.
-** which-key
-   Supports marks, registers, spelling (`z=`), etc.
-   Works kinda good. Hope to improve my workflow with this thing lol.
-   Pretty extensible: [repo]{https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}
-** {:neorg:}
-** Folds
-   Treesitter folds are pretty nice. Not as nice as LSP but they do work.
-   #tangle init.lua
-   @code lua
-   vim.opt.foldmethod = "expr"
-   vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-   @end
+** Commands
+   `:?a?;/b/g//d` exec command over range. See [traces.vim]{https://github.com/markonm/traces.vim?tab=readme-ov-file}.
+** Plugins
+*** splitjoin
+    Fun stuff but doesn't support most languages I use.
+    [Repo]{https://github.com/AndrewRadev/splitjoin.vim}.
+*** UFO
+    Got a branch but man does it suck ass.
+    But LSP folds are pretty good, ngl.
+*** which-key
+    Supports marks, registers, spelling (`z=`), etc.
+    Works kinda good. Hope to improve my workflow with this thing lol.
+    Pretty extensible: [repo]{https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}
+*** {:neorg:}
+*** Folds
+    Treesitter folds are pretty nice. Not as nice as LSP but they do work.
+    #tangle init.lua
+    @code lua
+    vim.opt.foldmethod = "expr"
+    vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+    @end
