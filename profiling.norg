@@ -1,0 +1,12 @@
+* Tools
+   - perf
+   - nsight (nvprof)
+   - hdparm
+   - fio
+   - sysbench
+
+* Script
+   #tangle stat.nu
+   @code nu
+   # todo
+   @end

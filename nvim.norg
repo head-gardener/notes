@@ -1,6 +1,7 @@
 * Bookmarks
   - ( ) {https://mrcjkb.dev/posts/2023-08-22-setup.html}.
   - ( ) {https://github.com/altermo/vim-ugin-list?tab=readme-ov-file}.
+  - ( ) {https://github.com/GoldsteinE/nixos/tree/master/dotfiles/.config/nvim}[Max].
 
 * General
   Nightly is so much better dude. It's bright and shit and plugins work way better.
@@ -16,6 +17,9 @@
 * Commands
   - `:?a?;/b/g//d` exec command over range. See {https://github.com/markonm/traces.vim?tab=readme-ov-file}[traces.vim].
   - more stuff.
+
+* ( ) Rewrite
+  Fat TODO.
 
 * Plugins
 ** TODO
