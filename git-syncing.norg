@@ -17,7 +17,17 @@
   I might want to have a service running that will sync up machines nightly or something - but that introduces an issue of not having them running all the time and some weird protocol issues. whatever, i bet cooler tools already got this stuff figured out.
   For `git-sync` over `fish` I have this little thingey:
   @code fish
-  while true; nix run nixpkgs#git-sync; sleep $(math 60x 60); end
+  while true
+    nix run nixpkgs#git-sync
+    set time "$(date +"%R %D" )"
+    if test $status -eq 0
+      notify-send "git sync" "Sync successful at $time"
+    else
+      notify-send -t $(math 1000x 60x 2) -u critical "git sync" "Sync failure at $time"
+    end
+    echo "time: $time"
+    sleep $(math 10)
+  end
   @end
 ** Remote Login
    A good way of login is {:ssh-agent:}.

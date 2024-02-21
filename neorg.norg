@@ -5,13 +5,10 @@ Take notes you weirdo
   {https://www.youtube.com/watch?v=NnmRVY22Lq8&list=PLx2ksyallYzVI8CN1JMXhEf62j2AijeDa}[Tutorials].
   {https://github.com/nvim-neorg/neorg}[Repo].
 
-* General
-  - folds work as expected (mostly)
-
 * TODO
   - ( ) set spell, lbr, column and sum else on .norg filetype.
   - ( ) keys for quickly opening `:Neorg *` minibuffer (if similar solution doesn't exist).
-  - ( ) folding works really weirdly.
+  - (x) folding works really weirdly.
   - ( ) it would be nicer to run neorg in a separate tab or smth.
   - ( ) how do you export todo's
   - (=) a graph would be nice
@@ -53,6 +50,6 @@ Take notes you weirdo
    - {# error} - invalid links can be auto fixed, and the algorithm is pretty good, so you can use it to quickly create headings.
    - {# links}[links] - link comes *first*, then the description! Otherwise it's an anchor.
    - (?) how the hell do you fold links?
-   - (!) rewrite anchors to links!
+   - (x) rewrite anchors to links!
    - ( ) anchors?
    - {:neorg:# readup} - links in files.
