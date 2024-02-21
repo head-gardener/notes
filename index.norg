@@ -4,6 +4,7 @@
   - {:git:}
   - {:kernel:}
   - {:neorg:}
+  - {:nu:}
   - {:nvim:}
   - {:personal:}
   - {:tmux:}

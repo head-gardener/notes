@@ -10,8 +10,8 @@ Take notes you weirdo
   - ( ) keys for quickly opening `:Neorg *` minibuffer (if similar solution doesn't exist).
   - (x) folding works really weirdly.
   - ( ) it would be nicer to run neorg in a separate tab or smth.
-  - ( ) how do you export todo's
-  - (=) a graph would be nice
+  - (x) how do you export todo's.
+  - (=) a graph would be nice.
 
 * Keys
   We got some keys:
@@ -39,6 +39,7 @@ Take notes you weirdo
    - More types are in the `help neorg.
    - To reveal what actual character corresponds to a state, toggle concealer with `Neorg toggle-concealer.`
    - nested TODO lists will propagate their changes to children.
+   - see {:nu:** Parse neorg TODO's} for getting the goods.
 ** concealer
    Toggle with 'toggle-concealer'.
    Can be configured, e.g. change icons for TODO statuses. But *don't* touch performance settings lol. There are some nice icon sets there, might wanna look.
