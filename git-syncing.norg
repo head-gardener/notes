@@ -1,9 +1,3 @@
-* TODO
-** ( ) Script
-   When last, when next, status in notif and stdout.
-   30 min delay? maybe more often.
-   It should be tangled with config or sum.
-
 * Preface
   To keep org files sane and in check you need an auto-syncing solution, capable of competently merging separate notes on machines together.
 
@@ -11,25 +5,8 @@
   In terms of solutions we have:
   - git-sync. {https://github.com/simonthum/git-sync}[repo]
 
-  first one seems more preferable.
-
 * Service
-  I might want to have a service running that will sync up machines nightly or something - but that introduces an issue of not having them running all the time and some weird protocol issues. whatever, i bet cooler tools already got this stuff figured out.
-  For `git-sync` over `fish` I have this little thingey:
-  @code fish
-  while true
-    nix run nixpkgs#git-sync
-    set time "$(date +"%R %D" )"
-    set sleep "$(math 60x 60x 60)"
-    if test $status -eq 0
-      notify-send "git sync" "Sync successful at $time"
-    else
-      notify-send -t $(math 1000x 60x 2) -u critical "git sync" "Sync failure at $time"
-    end
-    echo "time: $time, next in $sleep seconds"
-    sleep "$sleep"
-  end
-  @end
+  See {:fish:** git-sync bg runner}.
 ** Remote Login
    A good way of login is {:ssh-agent:}.
 

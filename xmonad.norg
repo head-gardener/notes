@@ -4,6 +4,7 @@
 * powerwatch
   - ( ) style notifications
   - ( ) better way of indefinite sleep
+  - (x) does warning level even work?
 
 * cpanel
   this SUCKS. Probably better to just parse `pw-dump`.
