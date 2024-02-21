@@ -1,6 +1,16 @@
-*  Branch visualisation
-   @code  bash
-   git log --graph --decorate --oneline --all
-   @end
-*  gitk
-   Weird ass GUI for git. Has visualisation, diffs and all the cool stuff cool kids use. Available in `nix shell nixpkgs#gitFull`.
+* Snippets
+**  Branch visualisation
+    @code  bash
+    git log --graph --decorate --oneline --all
+    @end
+** ( ) Sing all commits with interactive rebase.
+
+* ( ) Signatures
+** ( ) GPG
+** ( ) SSH
+** ( ) Others
+
+* Tools
+** {:git-syncing:}
+**  gitk
+    Weird ass GUI for git. Has visualisation, diffs and all the cool stuff cool kids use. Available in `nix shell nixpkgs#gitFull`.

@@ -6,12 +6,14 @@ Take notes you weirdo
   {https://github.com/nvim-neorg/neorg}[Repo].
 
 * TODO
+  - ( ) keymap for index maybe. See {**  keybinds}
   - ( ) set spell, lbr, column and sum else on .norg filetype.
   - ( ) keys for quickly opening `:Neorg *` minibuffer (if similar solution doesn't exist).
   - (x) folding works really weirdly.
   - ( ) it would be nicer to run neorg in a separate tab or smth.
-  - (x) how do you export todo's.
-  - (=) a graph would be nice.
+  - (-) how do you export todo's.
+  -- (x) parse rg output with nu.
+  -- (-) export json to nvim! Make a nice command out of it, with followable references.
 
 * Keys
   We got some keys:
@@ -36,7 +38,7 @@ Take notes you weirdo
    - `Neorg return` - close all norg buffers and return to whatever you where doing.
 ** TODO
    - `<Ctrl+Space>` - toggles state (huh) .
-   - More types are in the `help neorg.
+   - More types are in the `help neorg-tasks`.
    - To reveal what actual character corresponds to a state, toggle concealer with `Neorg toggle-concealer.`
    - nested TODO lists will propagate their changes to children.
    - see {:nu:** Parse neorg TODO's} for getting the goods.

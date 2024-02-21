@@ -1,12 +1,22 @@
 * TODO
-** ( ) hercules-ci for autoupdates??
-** ( ) Better layout switch (like ralt)
-** (x) figure out the done thing
-   The issue was with the script checking for kitty first, before reaching the tmux clause. Simple sed substitution can fix it right away, but need to watch for future changes to the codebase!
-   Though I still wonder why this isn't an issue with non-tmux windows, huh.
-** ( ) Linux 6.7.5
-   Backported to 23.11 recently. Might wanna check out!
-   More in {:kernel:}.
-** (-) substitute-* backport?
-   Cool feature. Might be backported, might be in 24.05. Time will show.
-   Once it drops, grep all usages and replace stdenv to normal from unstable.
+  - ( ) Need an auto-updater
+  -- It will be either {:hercules-ci:} or a systemd service on the server.
+  --- Idea is to pull the repo every once in a while, update some inputs and push back again. This will allow using notes in the flake, for example exporting scripts or hosting them on the blog.
+  -- ( ) hercules-ci for autoupdates??
+  -- ( ) Once this is done, do script export.
+  -- ( ) host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
+  - ( ) Better layout switch (like ralt)
+  - (x) figure out the done thing
+  -- See {:done-fish:}. Still wonder why this isn't an issue with non-tmux windows, huh.
+  - ( ) Linux 6.7.5
+  -- Backported to 23.11 recently. Might wanna check out!
+  -- More in {:kernel:}.
+  - (?) substitute-* backport?
+  -- Cool feature. Might be backported, might be in 24.05. Time will show.
+  -- (=) Once it drops, grep all usages and replace stdenv to normal from unstable.
+  - ( ) Colorscheme rework
+  -- ( ) Nix color DSL
+  -- ( ) Kitty colors
+  -- ( ) Nvim colors
+  -- ( ) Fish colors
+  -- ( ) Nu colors

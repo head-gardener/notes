@@ -1,0 +1,5 @@
+* {https://github.com/wfxr/forgit}[Repo]
+
+* Functions
+  Pretty nice and ue fzf. How about exporting them to nu?
+  - grc was remapped to grvrc.

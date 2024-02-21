@@ -23,9 +23,12 @@
 
 * Plugins
 ** TODO
-   - ( ) oil
-   - ( ) [sibling-swap]{https://github.com/wansmer/sibling-swap.nvim
-   - ( ) [NeoSwap]{https://github.com/ecthelionvi/neoswap.nvim
+   - ( ) oil.nvim
+   - ( ) conform.nvim
+   - ( ) nvim-lint
+   - ( ) {https://github.com/Wansmer/langmapper.nvim}[langmapper]
+   - ( ) {https://github.com/wansmer/sibling-swap.nvim}[sibling-swap]
+   - ( ) {https://github.com/ecthelionvi/neoswap.nvim}[NeoSwap]
    - ( ) {https://github.com/saifulapm/chartoggle.nvim}[chartoggle]
 ** sitjoin
    Fun stuff but doesn't support most languages I use.

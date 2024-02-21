@@ -1,4 +1,4 @@
-* Some commands
+* Commands
   `:new-session -s name -c root`
   `:breakp` or `<pref>!` - throws current pane into a new window
 

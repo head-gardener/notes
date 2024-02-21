@@ -1,0 +1,6 @@
+* Readup
+  - ( ) {https://davesteele.github.io/gpg/2014/09/20/anatomy-of-a-gpg-key/#PrimaryPacket}[Anatomy of a GPG key].
+  - ( ) that one 'why gpg sucks' blog post, can't find it.
+
+* Integration
+  - {:sops:}

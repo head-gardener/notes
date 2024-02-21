@@ -1,0 +1,4 @@
+* {https://github.com/franciscolourenco/done}[Repo]
+
+* Usage
+  A simple script that appends pre and post hooks to commands, timing their execution, checking for focus and trying to notify when both the time limit was exceeded and focus wasn't on the window. Seems like it works with screen, kitty, tmux and plain windows. Notification method is picked from a wide variety, but not all of them work - which is the reason for a little patch I have removing kitty notifs.
