@@ -26,7 +26,7 @@
     else
       notify-send -t $(math 1000x 60x 2) -u critical "git sync" "Sync failure at $time"
     end
-    echo "time: $time"
+    echo "time: $time, next in $sleep seconds"
     sleep "$sleep"
   end
   @end
