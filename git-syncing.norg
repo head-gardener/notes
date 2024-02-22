@@ -6,9 +6,30 @@
   - git-sync. {https://github.com/simonthum/git-sync}[repo]
 
 * Service
-  See {:fish:** git-sync bg runner}.
+** git-sync bg runner
+*** TODO
+    - ( ) id selector for fine grained keys.
+*** Code
+    #tangle syncer.fish
+    @code fish
+    function syncer -d "sync remote periodically with notifications"
+      while true
+        nix run nixpkgs#git-sync
+        set time "$(date +"%R %D" )"
+        set sleep "$(math 60x 60)"
+        if test $status -eq 0
+          notify-send "git sync" "Sync successful at $time"
+        else
+          notify-send -t $(math 1000x 60x 2) -u critical "git sync" "Sync failure at $time"
+        end
+        echo "time: $time, next in $sleep seconds"
+        sleep "$sleep"
+      end
+    end
+    @end
 ** Remote Login
    A good way of login is {:ssh-agent:}.
+   You can even have fine grained SSH identities on github for repos read/write access!
 
 * git-sync
   Works in weird ways. Requires all changes to be unstaged before committing - huh.

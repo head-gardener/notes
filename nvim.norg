@@ -6,6 +6,13 @@
 * General
   Nightly is so much better dude. It's bright and shit and plugins work way better.
   And `:e` doesn't just fucking die lol.
+* Functionality
+** Tabs
+   - `:newtab` to create new tab.
+   - `gT` or `gt` scrolls tabs.
+   - ( ) colors
+   -- `TabLineFull` is supposedly responsible for this stuff but changes to it don't seem to affect shit.
+   -- ( ) Probably some plugins are responsible.
 
 * Keys
 ** z
@@ -18,11 +25,33 @@
   - `:?a?;/b/g//d` exec command over range. See {https://github.com/markonm/traces.vim?tab=readme-ov-file}[traces.vim].
   - more stuff.
 
+* Nix
+** Wrapping
+*** General
+   Kinda weird, as all things should be. There is no documentation on this currently.
+   Use `packages.neovim = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (pkgs.neovimUtils.makeNeovimConfig { };` to make a wrapper.
+*** Plugins
+    For `makeNeovimConfig`:
+    @code nix
+    plugins = [
+      {
+        plugin = pkgs.vimPlugins.neorg;
+        config = "lua require('neorg').setup { load = { ['core.defaults'] = {} } }";
+        optional = false;
+      }
+    ];
+    @end
+    Remember to include all dependencies.
+*** References:
+   - {https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/utils.nix#L27}[makeNeovimConfig].
+   - {https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/wrapper.nix}[wrapNeovimUnstable].
+
 * ( ) Rewrite
   Fat TODO.
 
 * Plugins
 ** TODO
+   - (!) rg integration!
    - ( ) oil.nvim
    - ( ) conform.nvim
    - ( ) nvim-lint
@@ -37,6 +66,7 @@
    I need this. But again where are all my languages?
    {https://github.com/lfilho/cosco.vim}[Repo].
    Got a lua rewrite in {https://github.com/jumas-cola/cosco.nvim}[here].
+   - (!) Try it out!
    - ( ) Gotta make some PRs for my languages.
    - ( ) Apparently there is another plugin called `tree-sitter`. Can't find it though.
 ** haskell-tools
@@ -52,7 +82,6 @@
 ** {:neorg:}
 ** Folds
    Treesitter folds are pretty nice. Not as nice as LSP but they do work.
-   #tangle init.lua
    @code lua
    vim.opt.foldmethod = "expr"
    vim.opt.foldexpr = "nvim_treesitter#foldexpr()"

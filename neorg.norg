@@ -1,5 +1,5 @@
 * Intro
-Take notes you weirdo
+  Take notes you weirdo
 
 * Readup
   {https://www.youtube.com/watch?v=NnmRVY22Lq8&list=PLx2ksyallYzVI8CN1JMXhEf62j2AijeDa}[Tutorials].
@@ -11,19 +11,27 @@ Take notes you weirdo
   - ( ) keys for quickly opening `:Neorg *` minibuffer (if similar solution doesn't exist).
   - (x) folding works really weirdly.
   - ( ) it would be nicer to run neorg in a separate tab or smth.
-  - (-) how do you export todo's.
-  -- (x) parse rg output with nu.
-  -- (-) export json to nvim! Make a nice command out of it, with followable references.
 
 * Keys
   We got some keys:
   - <l>nn - new note.
   - <l>t - mark TODO as... .
 
+* Nix
+** ( ) Treesitter
+** Flake
+   - (-) Automatically export scripts.
+   -- ( ) neorg TS modules.
+   - (=) Export this shit to html.
+
+* Tools
+  {:neorg-utils:}
+
 * Modules
 ** Dirman
    Control workspaces. Can set default. {https://github.com/nvim-neorg/neorg/wiki/Dirman}[wiki].
 ** Tangling
+   Doesn't support directories in filenames? Weird.
    Export code blocks. Usage: `#tangle <file>`. {https://github.com/nvim-neorg/neorg/wiki/Tangling}[wiki].
 ** Looking Glass
    Edit code blocks in a separate buffer via `:Neorg keybind all core.looking-glass.magnify-code-block`.

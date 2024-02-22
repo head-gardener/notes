@@ -1,5 +1,5 @@
 * TODO
-  - (!) Need an auto-updater
+  - (-) Need an auto-updater
   -- It will be either {:hercules-ci:} or a systemd {:flake-update-service:} on the server.
   -- ( ) Once this is done, do script export.
   -- ( ) host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]

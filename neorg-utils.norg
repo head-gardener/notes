@@ -1,0 +1,58 @@
+* Scripts
+** Parse neorg TODO's
+   Parent: {:neorg:** TODO}.
+*** TODO
+    - ( ) export json to nvim! Make a nice command out of it, with followable references.
+*** Code
+    #tangle todos.nu
+    @code nu
+    def todos [path: path = ./.] {
+      rg '\(.\)' --json $path
+      | lines
+      | each {|| from json}
+      | filter {|e| $e.type == 'match'}
+      | each {||
+        get data
+        | reject absolute_offset
+        | update lines {||
+          get text
+          | str replace --regex '^.*\(.\)\s+' ""
+        }
+        | update submatches {|| get 0.match.text}
+        | update path {|| get text}
+      }
+      | rename file text line status
+      | move text --after status
+    }
+    @end
+
+** Parse neorg graph
+*** TODO
+    - ( ) graph styling.
+    - (?) actions?
+    - ( ) doesn't work with `foo:} and {:bar`.
+*** Code
+    #tangle graph.nu
+    @code nu
+    def graph [where: path = .] {
+      rg '\{:[a-z\-]*:.*\}' --json
+      | lines
+      | each {|| from json}
+      | filter {|e| $e.type == 'match' }
+      | each {||
+        get data
+        | update path {|| get text}
+        | reject lines line_number absolute_offset
+        | update submatches {||
+          get 0.match.text
+          | str replace -r '\{:(.*):.*\}' '$1'
+        }
+      }
+      | rename from to
+      | update from {|| str replace '.norg' '' }
+      | reduce --fold '' {|it, acc| $acc + $'"($it.from)" -> "($it.to)"' + "\n"}
+      | $"digraph G {\n($in)}"
+      | circo -Tpng
+      | feh -
+    }
+    @end

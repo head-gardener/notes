@@ -1,5 +1,6 @@
 * Notes
   - {:config:}
+  - {:cryptography:}
   - {:fish:}
   - {:git-syncing:}
   - {:git:}
@@ -8,8 +9,8 @@
   - {:neorg:}
   - {:nu:}
   - {:nvim:}
-  - {:cryptography:}
   - {:personal:}
   - {:programming:}
+  - {:stal-ix:}
   - {:tmux:}
   - {:xmonad:}

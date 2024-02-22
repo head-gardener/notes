@@ -1,6 +1,8 @@
 * Commands
-  `:new-session -s name -c root`
-  `:breakp` or `<pref>!` - throws current pane into a new window
+  - `:new-session -s name -c root`
+  - `:breakp` or `<pref>!` - throws current pane into a new window
+  - `:join-pane` or `:move-pane` - weird magical command for moving panes
+  -- `-b` moves stuff to the left or above, i.e. not the default.
 
 * Config quirks
   Shelld should be set before calling new-session in the config, which makes for a pretty weird nix expression.

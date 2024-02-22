@@ -3,6 +3,7 @@
 
 * powerwatch
   - ( ) style notifications
+  - (!) service doesn't start
   - ( ) better way of indefinite sleep
   - (x) does warning level even work?
 
