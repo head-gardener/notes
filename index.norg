@@ -6,9 +6,11 @@
   - {:git:}
   - {:kernel:}
   - {:literature:}
+  - {:mediabox:}
   - {:neorg:}
   - {:nu:}
   - {:nvim:}
+  - {:nix:}
   - {:personal:}
   - {:programming:}
   - {:stal-ix:}

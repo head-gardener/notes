@@ -1,0 +1,3 @@
+* Command
+** Tips
+   - `nix flake lock --update-input <input> --commit-lock-file` updates single input.

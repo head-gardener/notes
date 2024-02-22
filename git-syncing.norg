@@ -9,6 +9,8 @@
 ** git-sync bg runner
 *** TODO
     - ( ) id selector for fine grained keys.
+    - ( ) preCommitHook
+    - ( ) parse dry run from the script beofre taking action
 *** Code
     #tangle syncer.fish
     @code fish
