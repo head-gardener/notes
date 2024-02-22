@@ -1,0 +1,5 @@
+* Preface
+  Idea is to pull the repo every once in a while, update some inputs and push back again. This will allow using notes in the flake, for example exporting scripts or hosting them on the blog.
+
+* Alternatives
+  - {:hercules-ci:}

@@ -1,8 +1,7 @@
 * TODO
-  - ( ) Need an auto-updater
-  -- It will be either {:hercules-ci:} or a systemd service on the server.
+  - (!) Need an auto-updater
+  -- It will be either {:hercules-ci:} or a systemd {:flake-update-service:} on the server.
   --- Idea is to pull the repo every once in a while, update some inputs and push back again. This will allow using notes in the flake, for example exporting scripts or hosting them on the blog.
-  -- ( ) hercules-ci for autoupdates??
   -- ( ) Once this is done, do script export.
   -- ( ) host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
   - ( ) Better layout switch (like ralt)
