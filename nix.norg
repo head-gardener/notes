@@ -33,6 +33,9 @@
    --- `oneshot` - *default* waits for child to exit, i.e. the most demanding.
    --- etc.
    -- `RootDirectory` - dir to chroot into. e.g. `/run/myService`.
+   -- `*Directory` - sets pwd, env, adds dependencies on mounts.
+   --- `WorkingDirectory` - pwd, i.e. 'cd into'.
+   ---  `Runtime`, `State`, `Cache`, `Logs`, `Configuration` - set corresponding env vars and create dirs under some special paths.
 **** Tips
      - ( ) {https://nixos.wiki/wiki/Systemd_Hardening}[Source].
 *** Timers

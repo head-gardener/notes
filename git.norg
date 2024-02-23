@@ -10,6 +10,12 @@
 ** ( ) SSH
 ** ( ) Others
 
+* ENV
+  {https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables}[Source].
+  - `HOME` - where git looks for config.
+  - `GIT_SSH_COMMAND` - ssh command to use, supports cli params.
+  - `GIT_TRACE` - debugging.
+
 * Tools
 ** {:git-syncing:}
 **  gitk
