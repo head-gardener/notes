@@ -1,0 +1,11 @@
+* Process
+  - `master` updates over time
+  - pull `master` weekly
+  - rebase `staging`
+  - `flake update`
+  - push staging
+  - merge PR
+  - repeat
+
+* References
+  - {:flake-update-service:}
