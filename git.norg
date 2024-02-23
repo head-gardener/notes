@@ -15,8 +15,15 @@
   - `HOME` - where git looks for config.
   - `GIT_SSH_COMMAND` - ssh command to use, supports cli params.
   - `GIT_TRACE` - debugging.
+  -- `_PACK_ACCESS` - access packfiles.
+  -- `_PACKET` - network traces.
+  -- `_PERFORMANCE` - time taken to execute subcommands.
+  -- `_SETUP` - env information.
+  - `GIT_AUTHOR_NAME` `GIT_AUTHOR_EMAIL` - exactly what it says.
 
 * Tools
 ** {:git-syncing:}
 **  gitk
     Weird ass GUI for git. Has visualisation, diffs and all the cool stuff cool kids use. Available in `nix shell nixpkgs#gitFull`.
+**  ( ) LFS
+    - ( ) {https://git-lfs.com/}[docs].
