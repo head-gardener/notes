@@ -53,7 +53,7 @@
    - {https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/wrapper.nix}[wrapNeovimUnstable].
 
 * ( ) Rewrite
-  Fat TODO.
+  Do the plugins thing from lazy, where plugins module is imported and exports everything as a table.
 
 * Plugins
 ** TODO
