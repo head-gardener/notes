@@ -1,3 +1,56 @@
 * Command
 ** Tips
    - `nix flake lock --update-input <input> --commit-lock-file` updates single input.
+
+* Configuration
+** Services
+   {https://search.nixos.org/options?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=systemd.services.%3Cname%3E}[Options].
+   Most important options:
+   - `wantedBy` - makes service runnable.
+   - `script` - what to do.
+   - `environment` - drop your env here.
+   - `serviceConfig`
+   -- ( ) {https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html}[Reference 1].
+   -- ( ) {https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html}[Reference 2].
+   -- `User` - who to run as.
+   -- `Type` - type.
+   --- ( ) {https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Options}[Reference].
+   --- `dbus` for dbus dependency, waits for unit to listen on a bus.
+   --- `simple` - simplest, does least checks.
+   --- `exec` - like simple, but makes little more checks. Preferrable for longer services without dbus or notify interface.
+   --- `forking` - discouraged.
+   --- `oneshot` - *default* waits for child to exit, i.e. the most demanding.
+   --- etc.
+   -- `RootDirectory` - dir to chroot into. e.g. `/run/myService`.
+**** Tricks
+     - ( ) {https://nixos.wiki/wiki/Systemd_Hardening}[Source].
+*** Timers
+   {https://nixos.wiki/wiki/Systemd/Timers}[Source].
+   {https://search.nixos.org/options?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=systemd.timers.%3Cname%3E}[Options].
+    Important options:
+    - `serviceConfig.OnCalendar` - when. Kinda like chrone's format but different.
+**** Example
+     @code nix
+     systemd.timers."hello-world" = {
+       wantedBy = [ "timers.target" ];
+         timerConfig = {
+           OnBootSec = "5m";
+           OnUnitActiveSec = "5m";
+           Unit = "hello-world.service";
+         };
+     };
+
+     systemd.services."hello-world" = {
+       script = ''
+         set -eu
+         ${pkgs.coreutils}/bin/echo "Hello World"
+       '';
+       serviceConfig = {
+         Type = "oneshot";
+         User = "root";
+       };
+     };
+     @end
+**** Commands
+     - `systemctl list-timers` - list active timers and their current state,
+     - `systemctl start hello-world` - manually run a service once for testing purposes.
