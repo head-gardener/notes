@@ -10,6 +10,7 @@
   -- Cool feature. Might be backported, might be in 24.05. Time will show.
   -- (=) Once it drops, grep all usages and replace stdenv to normal from unstable.
   - ( ) Colorscheme rework
+  -- ( ) see {https://github.com/danth/stylix}[stylix].
   -- ( ) see {:nix-colors:}
   -- ( ) Kitty colors
   -- ( ) Nvim colors

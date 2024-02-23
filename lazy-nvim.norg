@@ -1,0 +1,17 @@
+* Preface
+  Pretty nice. Think you can go wild with laziness on this thing.
+
+* Source
+  {https://github.com/folke/lazy.nvim}[Repo].
+
+* Plugin Spec, selection
+  - `[1]`, `url`, `dir` - plugin source.
+  - `lazy` - don't load until required.
+  - `dependencies` - deps.
+  - `opts` - passed to `config` ↩️
+  - `init` - always run during startup.
+  - `config` - a function (heuristically determined by default if value set here is `true`) to be executed when plugin loads.
+  - `build` - command to be run after installing when plugin is loaded.
+  - `branch`, `tag`, `commit`, `version` - ref spec.
+  - `pin` - pin version down.
+  - `event`, `cmd`, `ft`, `keys` - load triggers.

@@ -57,13 +57,19 @@
 
 * Plugins
 ** TODO
-   - ( ) oil.nvim
-   - ( ) conform.nvim
-   - ( ) nvim-lint
+   - ( ) {https://github.com/stevearc/oil.nvim}[oil.nvim]
    - ( ) {https://github.com/Wansmer/langmapper.nvim}[langmapper]
    - ( ) {https://github.com/wansmer/sibling-swap.nvim}[sibling-swap]
    - ( ) {https://github.com/ecthelionvi/neoswap.nvim}[NeoSwap]
    - ( ) {https://github.com/saifulapm/chartoggle.nvim}[chartoggle]
+** ( ) nvim-lint
+   {https://github.com/mfussenegger/nvim-lint}[Repo].
+   Async linting, complementary to builtin LSP support structure.
+   {https://github.com/mfussenegger/nvim-lint?tab=readme-ov-file#available-linters}[Available linters].
+** ( ) conform.nvim
+   {https://github.com/stevearc/conform.nvim}[Repo].
+   Can do range formatting, injected language formatting, minimal diff extraction - i.e. better formatting.
+   But do I actually need it? Do this in a branch to check out and maybe revert immediately.
 ** sitjoin
    Fun stuff but doesn't support most languages I use.
    {https://github.com/AndrewRadev/sitjoin.vim}[Repo].
@@ -71,8 +77,9 @@
    I need this. But again where are all my languages?
    {https://github.com/lfilho/cosco.vim}[Repo].
    Got a lua rewrite in {https://github.com/jumas-cola/cosco.nvim}[here].
-   - (!) Try it out!
-   - ( ) Gotta make some PRs for my languages.
+   Example of a {:lazy-nvim:}[lazy] load in my configuration.
+   - (x) Try it out!
+   - (=) Gotta make some PRs for my languages.
    - ( ) Apparently there is another plugin called `tree-sitter`. Can't find it though.
 ** haskell-tools
 *** ( ) dap
@@ -88,3 +95,4 @@
    Works kinda good. Hope to improve my workflow with this thing lol.
    Pretty extensible: {https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}[repo]
 ** {:neorg:}
+** {:lazy-nvim:}
