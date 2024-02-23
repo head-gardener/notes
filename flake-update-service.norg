@@ -1,10 +1,11 @@
 * Preface
   Idea is to pull the repo every once in a while, update some inputs and push back again. This will allow using notes in the flake, for example exporting scripts or hosting them on the blog.
+  Works pretty well! See {https://github.com/head-gardener/config/blob/feature/autoupdate/modules/share/flake-autoupdate/default.nix}[source] for details.
 
 * Details
-  - (x) service need deploy keys to have acess to a single repo.
+  - (x) service needs deploy keys to have acess to a single repo.
   - (x) git: Host key verification failed.
-  - ( ) Specify hosts file
+  - (x) Specify hosts file
   - ( ) export user from config accessible to agenix
   - ( ) dynamic user names based on the repo in question
 
@@ -13,4 +14,6 @@
   - {:git-syncing:# options}
 
 * References
+  - {:git-over-systemd:}
   - {:ssh-over-systemd:}
+  - {:config:}

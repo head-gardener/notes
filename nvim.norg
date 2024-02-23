@@ -24,6 +24,12 @@
 * Commands
   - `:?a?;/b/g//d` exec command over range. See {https://github.com/markonm/traces.vim?tab=readme-ov-file}[traces.vim].
   - more stuff.
+* Folds
+   Treesitter folds are pretty nice. Not as nice as LSP but they do work.
+   @code lua
+   vim.opt.foldmethod = "expr"
+   vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+   @end
 
 * Nix
 ** Wrapping
@@ -51,7 +57,6 @@
 
 * Plugins
 ** TODO
-   - (!) rg integration!
    - ( ) oil.nvim
    - ( ) conform.nvim
    - ( ) nvim-lint
@@ -75,14 +80,11 @@
 ** UFO
    Got a branch but man does it suck ass.
    But LSP folds are pretty good, ngl.
+** Telescope
+   {https://github.com/nvim-telescope/telescope.nvim}[Repo].
+   Got like 1000 functions.
 ** which-key
    Supports marks, registers, spelling (`z=`), etc.
    Works kinda good. Hope to improve my workflow with this thing lol.
    Pretty extensible: {https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}[repo]
 ** {:neorg:}
-** Folds
-   Treesitter folds are pretty nice. Not as nice as LSP but they do work.
-   @code lua
-   vim.opt.foldmethod = "expr"
-   vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-   @end

@@ -17,6 +17,7 @@
 ** Services
    {https://search.nixos.org/options?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=systemd.services.%3Cname%3E}[Options].
    Most important options:
+   - `wants` vs `requires` - first create dependencies, but in the first case dependency is weak and referrer won't be affected by a referenced exiting.
    - `wantedBy` - makes service runnable.
    - `script` - what to do.
    - `environment` - drop your env here.

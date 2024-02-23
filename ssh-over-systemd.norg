@@ -2,3 +2,7 @@
   - {:nix:# services}
   - {:ssh:# client}
 
+* What do you need
+  - identity
+  - known_hosts via `StrictHostKeyChecking=accept-new` and `UserKnownHostsFile=${pkgs.writeText "known_hosts" githubHK}`.
+  - kinda all.

@@ -1,8 +1,7 @@
 * TODO
-  - (-) Need an auto-updater
-  -- It will be either {:hercules-ci:} or a systemd {:flake-update-service:} on the server.
-  -- ( ) Once this is done, do script export.
-  -- ( ) host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
+  - ( ) {:neorg:} Script export.
+  - ( ) {:neorg:} host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
+  - ( ) Look into {:hercules-ci:}
   - ( ) Better layout switch (like ralt)
   - ( ) Linux 6.7.5
   -- Backported to 23.11 recently. Might wanna check out!
@@ -18,5 +17,9 @@
   -- ( ) Nu colors
   - ( ) Rewrite with flake parts
   -- See {:flake-parts:}.
+  - (x) Need an auto-updater
   - (x) figure out the done thing
   -- See {:done-fish:}. Still wonder why this isn't an issue with non-tmux windows, huh.
+
+* References
+  - {:flake-update-service:}
