@@ -1,8 +1,18 @@
 * Command
 ** Tips
    - `nix flake lock --update-input <input> --commit-lock-file` updates single input.
+   -- (=) was replaced with `nix flake update --update-input` in 2.19
+** Changelog
+*** 2.19
+    - ( ) {https://nixos.org/manual/nix/stable/release-notes/rl-2.19}[notes].
+
+* Tools
+** {:flake-parts:}
+** {:flake-update-service:}
 
 * Configuration
+** Colors
+   {:nix-colors:}
 ** Services
    {https://search.nixos.org/options?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=systemd.services.%3Cname%3E}[Options].
    Most important options:
@@ -22,7 +32,7 @@
    --- `oneshot` - *default* waits for child to exit, i.e. the most demanding.
    --- etc.
    -- `RootDirectory` - dir to chroot into. e.g. `/run/myService`.
-**** Tricks
+**** Tips
      - ( ) {https://nixos.wiki/wiki/Systemd_Hardening}[Source].
 *** Timers
    {https://nixos.wiki/wiki/Systemd/Timers}[Source].

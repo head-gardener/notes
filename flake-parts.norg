@@ -1,0 +1,8 @@
+* Readup
+  {https://flake.parts/}[Docs].
+
+* Modules
+** ( ) {https://flake.parts/options/flake-parts-easyoverlay}[easyOverlay]
+** ( ) {https://flake.parts/options/ez-configs}[ez-config]
+** ( ) {https://flake.parts/options/hercules-ci-effects}[hercules-ci-effects]
+   See {:hercules-ci:# effects}.

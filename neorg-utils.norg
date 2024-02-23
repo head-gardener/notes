@@ -25,6 +25,8 @@
       | move text --after status
     }
     @end
+*** Related
+    - {:nu:}
 
 ** Parse neorg graph
 *** TODO
@@ -56,3 +58,6 @@
       | feh -
     }
     @end
+*** Related
+    - {:nu:}
+    - {:graphviz:}

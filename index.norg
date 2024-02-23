@@ -1,14 +1,11 @@
 * Notes
   - {:config:}
   - {:cryptography:}
-  - {:fish:}
-  - {:git-syncing:}
   - {:git:}
   - {:kernel:}
   - {:literature:}
   - {:mediabox:}
   - {:neorg:}
-  - {:nu:}
   - {:nvim:}
   - {:nix:}
   - {:systemd:}
@@ -16,4 +13,5 @@
   - {:programming:}
   - {:stal-ix:}
   - {:tmux:}
+  - {:tools:}
   - {:xmonad:}

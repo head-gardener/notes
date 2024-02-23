@@ -1,0 +1,8 @@
+* Overview
+  Tool for rendering graphs. Cool
+
+* Layouts
+  - `circo` - circular layout, the coolest.
+  - `dot` - weird descending layout.
+
+* ( ) CLI Arguments

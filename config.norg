@@ -4,8 +4,6 @@
   -- ( ) Once this is done, do script export.
   -- ( ) host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
   - ( ) Better layout switch (like ralt)
-  - (x) figure out the done thing
-  -- See {:done-fish:}. Still wonder why this isn't an issue with non-tmux windows, huh.
   - ( ) Linux 6.7.5
   -- Backported to 23.11 recently. Might wanna check out!
   -- More in {:kernel:}.
@@ -13,8 +11,12 @@
   -- Cool feature. Might be backported, might be in 24.05. Time will show.
   -- (=) Once it drops, grep all usages and replace stdenv to normal from unstable.
   - ( ) Colorscheme rework
-  -- ( ) Nix color DSL
+  -- ( ) see {:nix-colors:}
   -- ( ) Kitty colors
   -- ( ) Nvim colors
   -- ( ) Fish colors
   -- ( ) Nu colors
+  - ( ) Rewrite with flake parts
+  -- See {:flake-parts:}.
+  - (x) figure out the done thing
+  -- See {:done-fish:}. Still wonder why this isn't an issue with non-tmux windows, huh.

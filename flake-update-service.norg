@@ -3,6 +3,7 @@
 
 * Details
   - (x) service need deploy keys to have acess to a single repo.
+  - ( ) git: Host key verification failed.
   - ( ) export user from config accessible to agenix
   - ( ) dynamic user names based on the repo in question
 
