@@ -3,6 +3,8 @@
 
 * Details
   - (x) service need deploy keys to have acess to a single repo.
+  - ( ) export user from config accessible to agenix
+  - ( ) dynamic user names based on the repo in question
 
 * Alternatives
   - {:hercules-ci:}
