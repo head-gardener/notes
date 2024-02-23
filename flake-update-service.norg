@@ -3,9 +3,14 @@
 
 * Details
   - (x) service need deploy keys to have acess to a single repo.
-  - ( ) git: Host key verification failed.
+  - (x) git: Host key verification failed.
+  - ( ) Specify hosts file
   - ( ) export user from config accessible to agenix
   - ( ) dynamic user names based on the repo in question
 
 * Alternatives
   - {:hercules-ci:}
+  - {:git-syncing:# options}
+
+* References
+  - {:ssh-over-systemd:}

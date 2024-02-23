@@ -39,6 +39,7 @@
   While nice in theory, it can get cumbersome always calling `git-sync -n` on new files, which is a frequent occurance when doing notes.
   How about a patch that allows new files only if they are staged?
 ** Options
+   - `--exechook-command` - pre commit hook
    - branch.$branch_name.syncNewFiles (bool)
    - branch.$branch_name.syncCommitMsg (string)
    - branch.$branch_name.autocommitscript (string)

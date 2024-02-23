@@ -11,6 +11,7 @@
 ** {:flake-update-service:}
 
 * Configuration
+  {:config:}
 ** Colors
    {:nix-colors:}
 ** Services
