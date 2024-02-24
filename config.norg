@@ -1,9 +1,9 @@
 * TODO
-  - ( ) {:config-staging:}
+  - (x) {:config-staging:}
   - ( ) {:neorg:} Script export.
   - ( ) {:neorg:} host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
   - ( ) Look into {:hercules-ci:}
-  - ( ) Better layout switch (like ralt)
+  - (x) Better layout switch (like ralt)
   - ( ) Linux 6.7.5
   -- Backported to 23.11 recently. Might wanna check out!
   -- More in {:kernel:}.
@@ -24,4 +24,5 @@
   -- See {:done-fish:}. Still wonder why this isn't an issue with non-tmux windows, huh.
 
 * References
-  - {:flake-update-service:}
+  - {:refresher:}
+  - {:xmonad:}

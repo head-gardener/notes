@@ -1,6 +1,6 @@
 * Bookmarks
   - ( ) {https://mrcjkb.dev/posts/2023-08-22-setup.html}.
-  - ( ) {https://github.com/altermo/vim-ugin-list?tab=readme-ov-file}.
+  - ( ) {https://github.com/altermo/vim-plugin-list?tab=readme-ov-file}.
   - ( ) {https://github.com/GoldsteinE/nixos/tree/master/dotfiles/.config/nvim}[Max].
 
 * General
@@ -58,10 +58,12 @@
 * Plugins
 ** TODO
    - ( ) {https://github.com/stevearc/oil.nvim}[oil.nvim]
-   - ( ) {https://github.com/Wansmer/langmapper.nvim}[langmapper]
    - ( ) {https://github.com/wansmer/sibling-swap.nvim}[sibling-swap]
    - ( ) {https://github.com/ecthelionvi/neoswap.nvim}[NeoSwap]
    - ( ) {https://github.com/saifulapm/chartoggle.nvim}[chartoggle]
+** (x) langmapper
+   {https://github.com/Wansmer/langmapper.nvim}[Repo].
+   Kinda works? Requires more scuffing around to make good and takes 15ms on startup - a travesty.
 ** ( ) nvim-lint
    {https://github.com/mfussenegger/nvim-lint}[Repo].
    Async linting, complementary to builtin LSP support structure.
@@ -80,7 +82,7 @@
    Example of a {:lazy-nvim:}[lazy] load in my configuration.
    - (x) Try it out!
    - (=) Gotta make some PRs for my languages.
-   - ( ) Apparently there is another plugin called `tree-sitter`. Can't find it though.
+   - (_) Apparently there is another plugin called `tree-setter`. Can't find it though. Too unpopular.
 ** haskell-tools
 *** ( ) dap
     Am I retarded? {https://github.com/mrcjkb/haskell-tools.nvim/tree/master?tab=readme-ov-file#dap}[Source]

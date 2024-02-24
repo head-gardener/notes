@@ -4,11 +4,18 @@
    -- (=) was replaced with `nix flake update --update-input` in 2.19
 ** Changelog
 *** 2.19
-    - ( ) {https://nixos.org/manual/nix/stable/release-notes/rl-2.19}[notes].
+    - (x) {https://nixos.org/manual/nix/stable/release-notes/rl-2.19}[notes].
+    - `repl-flake` now a part of `flake`.
+    - `flake#.attr` - preceding dot means not to look for attribute in default locations like `packages`.
+    - `builtins.convertHash`
+    - `fetch-tree` experimental feature in builtins.
+    - `nix flake update` supports `--update-input` but without flags, taking on the role of `nix flake lock`. Example: `nix flake update nixpkgs --flake /etc/flake`.
+    - `--update-input` consequently was removed.
+    - `nix store add` - add file or dir to store and print its path.
 
 * Tools
 ** {:flake-parts:}
-** {:flake-update-service:}
+** {:refresher:}
 
 * Configuration
   {:config:}

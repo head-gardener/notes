@@ -7,5 +7,12 @@
   - merge PR
   - repeat
 
+* Script
+  @code bash
+  git clone $repo --depth 1 . --single-branch --branch staging
+  git pull origin master
+  git push
+  @end
+
 * References
-  - {:flake-update-service:}
+  - {:refresher:}

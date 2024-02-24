@@ -1,5 +1,5 @@
 def graph [where: path = .] {
-  rg '\{:[a-z\-]*:.*\}' --json
+  rg '\{:[a-z\-]*:[^\{]*\}' --json
   | lines
   | each {|| from json}
   | filter {|e| $e.type == 'match' }
@@ -16,6 +16,6 @@ def graph [where: path = .] {
   | update from {|| str replace '.norg' '' }
   | reduce --fold '' {|it, acc| $acc + $'"($it.from)" -> "($it.to)"' + "\n"}
   | $"digraph G {\n($in)}"
-  | circo -Tpng
+  | dot -Tpng
   | feh -
 }
