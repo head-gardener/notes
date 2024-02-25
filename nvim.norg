@@ -26,6 +26,7 @@
   - more stuff.
 * Folds
    Treesitter folds are pretty nice. Not as nice as LSP but they do work.
+  Problem with them, is that they break when treesitter breaks, making editing quite uncomfortable. Also the drop on formatting.
    @code lua
    vim.opt.foldmethod = "expr"
    vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -64,7 +65,7 @@
    - (_) {https://github.com/saifulapm/chartoggle.nvim}[chartoggle]
 ** (x) langmapper
    {https://github.com/Wansmer/langmapper.nvim}[Repo].
-   Kinda works? Requires more scuffing around to make good and takes 15ms on startup - a travesty.
+   Doesn't like being run alongside {:nvim:# which-key} - later needs some configuration to support that.
    - ( ) more configuration.
 ** ( ) nvim-lint
    {https://github.com/mfussenegger/nvim-lint}[Repo].
