@@ -62,6 +62,9 @@
    - ( ) {https://github.com/stevearc/oil.nvim}[oil.nvim]
    - (_) {https://github.com/ecthelionvi/neoswap.nvim}[NeoSwap]
    - (_) {https://github.com/saifulapm/chartoggle.nvim}[chartoggle]
+** ( ) diffview.nvim
+   {https://github.com/sindrets/diffview.nvim}[Repo].
+   Adds a diffview and tools for working with it.
 ** (?) sibing-swap
    {https://github.com/wansmer/sibling-swap.nvim}[Repo].
    Works in weird ways idk.

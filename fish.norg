@@ -3,4 +3,8 @@
   - {:gitnow:}
   - {:forgit:}
 
+* Integrations
+** carapace
+   Works, but built-in completions are way better.
+
 * Scripts

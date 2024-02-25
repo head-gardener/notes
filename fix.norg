@@ -1,3 +1,22 @@
 * ( ) Function
 * ( ) Relation to Void
 * ( ) Usage in Nix
+** Questions
+   Should this configuration work? It shouldn't, because you need to evaluate `config` before knowing what `config.foo` is.
+   @code nix
+   {
+     inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+     outputs = { nixpkgs, ... }: {
+
+       nixosConfigurations.test = nixpkgs.lib.nixosSystem {
+         system = "x86_64-linux";
+         modules = [
+           ({ config, ... }: {
+             config = config.foo;
+           })
+         ];
+       };
+     };
+   }
+   @end
