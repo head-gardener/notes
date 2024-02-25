@@ -59,11 +59,13 @@
 ** TODO
    - ( ) {https://github.com/stevearc/oil.nvim}[oil.nvim]
    - (?) {https://github.com/wansmer/sibling-swap.nvim}[sibling-swap]
+   -- ( ) works in weird ways idk.
    - (_) {https://github.com/ecthelionvi/neoswap.nvim}[NeoSwap]
    - (_) {https://github.com/saifulapm/chartoggle.nvim}[chartoggle]
 ** (x) langmapper
    {https://github.com/Wansmer/langmapper.nvim}[Repo].
    Kinda works? Requires more scuffing around to make good and takes 15ms on startup - a travesty.
+   - ( ) more configuration.
 ** ( ) nvim-lint
    {https://github.com/mfussenegger/nvim-lint}[Repo].
    Async linting, complementary to builtin LSP support structure.
