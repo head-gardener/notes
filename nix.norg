@@ -10,7 +10,7 @@
     - `builtins.convertHash`
     - `fetch-tree` experimental feature in builtins.
     - `nix flake update` supports `--update-input` but without flags, taking on the role of `nix flake lock`. Example: `nix flake update nixpkgs --flake /etc/flake`.
-    - `--update-input` consequently was removed.
+    -- `--update-input` consequently was removed.
     - `nix store add` - add file or dir to store and print its path.
 
 * Tools
