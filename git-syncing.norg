@@ -11,6 +11,7 @@
     - ( ) id selector for fine grained keys.
     - ( ) preCommitHook
     - ( ) parse dry run from the script beofre taking action
+    - ( ) change GIT_NAME and such
 *** Code
     #tangle syncer.fish
     @code fish

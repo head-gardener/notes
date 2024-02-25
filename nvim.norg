@@ -109,3 +109,4 @@
    Pretty extensible: {https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}[repo]
 ** {:neorg:}
 ** {:lazy-nvim:}
+** {:treesitter:}
