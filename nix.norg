@@ -46,6 +46,11 @@
    ---  `Runtime`, `State`, `Cache`, `Logs`, `Configuration` - set corresponding env vars and create dirs under some special paths.
 **** Tips
      - ( ) {https://nixos.wiki/wiki/Systemd_Hardening}[Source].
+     - if networm needed with nm present, do 
+       @code nix
+       wants = [ 'NetworkManager-wait-online.service' ];
+       after = [ 'NetworkManager-wait-online.service' ];
+       @end
 *** Timers
    {https://nixos.wiki/wiki/Systemd/Timers}[Source].
    {https://search.nixos.org/options?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=systemd.timers.%3Cname%3E}[Options].
@@ -76,3 +81,5 @@
 **** Commands
      - `systemctl list-timers` - list active timers and their current state,
      - `systemctl start hello-world` - manually run a service once for testing purposes.
+** Examples
+   -  ( ) {https://git.voronind.com/voronind/linux/src/branch/main/.config/linux/system/module/common/Dotfiles.nix}[dotfiles updater].
