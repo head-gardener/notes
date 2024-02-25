@@ -1,9 +1,8 @@
 * TODO
-  - (x) {:config-staging:}
+  - ( ) {:opensmtp:}
   - ( ) {:neorg:} Script export.
   - ( ) {:neorg:} host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
   - ( ) Look into {:hercules-ci:}
-  - (x) Better layout switch (like ralt)
   - ( ) Linux 6.7.5
   -- Backported to 23.11 recently. Might wanna check out!
   -- More in {:kernel:}.
@@ -22,6 +21,8 @@
   - (x) Need an auto-updater
   - (x) figure out the done thing
   -- See {:done-fish:}. Still wonder why this isn't an issue with non-tmux windows, huh.
+  - (x) {:config-staging:}
+  - (x) Better layout switch (like ralt)
 
 * References
   - {:refresher:}
