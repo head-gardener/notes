@@ -1,0 +1,5 @@
+* TODO
+  - ( ) read {https://github.com/ehllie/ez-configs}[ez-configs].
+  -- see {:../../../ez-configs:}
+  - ( ) read {:../../../dotfiles-updater:}.
+  - (?) {:../../../nix-colors:}?
