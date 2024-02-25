@@ -15,13 +15,12 @@
    -- ( ) Probably some plugins are responsible.
 
 * Keys
-** z
-   - `zg` - spell add
-   - `z=` - spell correct
-   - `zm`, `zr` - fold more/less
-   - `zMzv` - fold all but cursor
-** `'`
-   Jump to prev selection, prev edited, jumped from - whole lotta stuff!
+  - z
+  -- `zg` - spell add
+  -- `z=` - spell correct
+  -- `zm`, `zr` - fold more/less
+  -- `zMzv` - fold all but cursor
+  - `'` - jump to prev selection, prev edited, jumped from - whole lotta stuff!
 
 * Commands
   - `:?a?;/b/g//d` exec command over range. See {https://github.com/markonm/traces.vim?tab=readme-ov-file}[traces.vim].
