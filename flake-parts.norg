@@ -1,6 +1,16 @@
 * Readup
   {https://flake.parts/}[Docs].
 
+* General
+  ** mkFlake
+     Parts provide a simple way of defining per-system configurations - `perSysten` attribute.
+     `systems` defines what systems to generate attributes for, `flake` is for everythng else.
+     `perSystem`, being a function, has a couple arguments:
+     - `pkgs` - contains `nixpkgs` for current system.
+     - `inputs'` - inputs, with `system` pre-selected,
+     - `self'` - self, with `system` pre-selected. May benefit from eval caching in the future.
+     - `system` - the system string, e.g. `x86_64-linux`.
+
 * Modules
 ** ( ) {https://flake.parts/options/flake-parts-easyoverlay}[easyOverlay]
 ** ( ) {https://flake.parts/options/ez-configs}[ez-config]

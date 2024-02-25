@@ -82,4 +82,4 @@
      - `systemctl list-timers` - list active timers and their current state,
      - `systemctl start hello-world` - manually run a service once for testing purposes.
 ** Examples
-   -  ( ) {https://git.voronind.com/voronind/linux/src/branch/main/.config/linux/system/module/common/Dotfiles.nix}[dotfiles updater].
+   - {:dotfiles-updater:}.
