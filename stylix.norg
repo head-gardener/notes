@@ -1,0 +1,45 @@
+* Sources
+  {https://danth.github.io/stylix/index.html}[RTD].
+  {https://github.com/danth/stylix}[Repo].
+
+* ( ) General
+  Stylix is a tool that exportc colors to various apps, including but not limited to 16-color sequences used by terminal emulators. The tool also can set backgrounds from images and supposedly can generate themes from the images, making configurations quite small.
+** Example
+   @code nix
+   # Configuration for Stylix
+   # https://github.com/danth/stylix
+   
+   # Genshin Impact by miHoYo
+   # https://genshin.hoyoverse.com/en
+   
+   { pkgs, config, ... }:
+   
+   {
+     stylix = {
+       image = pkgs.fetchurl {
+         name = "Kazuha.jpg";
+         url = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.hdwallpapers.in%2Fdownload%2Fkazuha_4k_hd_genshin_impact_3-HD.jpg";
+         sha256 = "u1OdK21k1sFBLQqLDjLBv/SRm6oiF36QRKrPTqjyohY=";
+       };
+   
+       polarity = "light";
+   
+       fonts = rec {
+         monospace = {
+           name = "Fira Code";
+           package = pkgs.fira-code;
+         };
+         sansSerif = {
+           name = "Cantarell";
+           package = pkgs.cantarell-fonts;
+         };
+         serif = sansSerif;
+       };
+   
+       cursor = {
+         package = pkgs.qogir-icon-theme;
+         name = "Qogir";
+       };
+     };
+   }
+   @end

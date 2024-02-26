@@ -3,3 +3,5 @@
   -- see {:../../../ez-configs:}
   - ( ) read {:../../../dotfiles-updater:}.
   - (?) {:../../../nix-colors:}?
+  - (?) {:../../../stylix:}?
+  - ( ) investigate buider failure on the server.
