@@ -2,6 +2,6 @@
   - ( ) read {https://github.com/ehllie/ez-configs}[ez-configs].
   -- see {:../../../ez-configs:}
   - ( ) read {:../../../dotfiles-updater:}.
-  - (?) {:../../../nix-colors:}?
-  - (?) {:../../../stylix:}?
-  - ( ) investigate buider failure on the server.
+  - (_) {:../../../nix-colors:}?
+  - (-) {:../../../stylix:}?
+  - (x) investigate buider failure on the server.

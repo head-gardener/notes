@@ -10,6 +10,9 @@
      - `inputs'` - inputs, with `system` pre-selected,
      - `self'` - self, with `system` pre-selected. May benefit from eval caching in the future.
      - `system` - the system string, e.g. `x86_64-linux`.
+** Module Structure
+   A module is in general a flake, having a `flakeModule` output, and commonly a template, demonstrating example usage of the module.
+   `flakeModule` is structurally similar to nixos modules: it has both `options` and `config` outputs, and a set of inputs, including `inputs`, `lib`, `config`, etc.. `options` can be set in `flake` attribute of the user, `config` populates aforementioned attribute.
 
 * Modules
 ** ( ) {https://flake.parts/options/flake-parts-easyoverlay}[easyOverlay]

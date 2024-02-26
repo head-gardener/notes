@@ -6,3 +6,7 @@
   - ( ) doc update.
 
 * ( ) General
+  Module generates 6 attributes in `flake` - modules and configurations for home, darwin and nixos.
+
+* References
+  - {:flake-parts:}
