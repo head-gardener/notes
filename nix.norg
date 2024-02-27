@@ -13,10 +13,6 @@
     -- `--update-input` consequently was removed.
     - `nix store add` - add file or dir to store and print its path.
 
-* Tools
-** {:flake-parts:}
-** {:refresher:}
-
 * Configuration
   {:config:}
 ** Colors
@@ -83,3 +79,8 @@
      - `systemctl start hello-world` - manually run a service once for testing purposes.
 ** Examples
    - {:dotfiles-updater:}.
+
+* Rerences
+  - {:flake-parts:}
+  - {:nixops:}
+  - {:refresher:}
