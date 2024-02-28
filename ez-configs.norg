@@ -7,10 +7,18 @@
 
 * General
   Module generates 6 attributes in `flake` - modules and configurations for home, darwin and nixos.
+  By default generates values for all modules found in the module directory, generates home, nixos and darwin configurations for all modules found in corresponding folders.
 
 * Source reference
   - `readModules :: Path -> { Path }`
   -- generates a set of importable paths using `readDir`.
+  -- used to fill out `*Modules` attributes.
+  - `userConfigs :: { ezModules, userModules, extraSpecialArgs, defaultUser } -> { UuserOptions } -> { homeManagerConfiguration }`
+  -- `#Creates an attrset of home manager confgurations for each user on each host.`
+  -- generates `homeManagerConfigurations` attribute.
+  - `systemsWith :: { ... } -> { configurations }`
+  -- generates either NixOS or Darwin configs.
+  -- used for `nixosConfigurations` and `darwinConfigurations`.
 
 * References
   - {:flake-parts:}
