@@ -21,6 +21,7 @@
   -- `zm`, `zr` - fold more/less
   -- `zMzv` - fold all but cursor
   - `'` - jump to prev selection, prev edited, jumped from - whole lotta stuff!
+  - `C-t` - jump up the tag stack - e.g. reverse `gD`.
 
 * Commands
   - `:?a?;/b/g//d` exec command over range. See {https://github.com/markonm/traces.vim?tab=readme-ov-file}[traces.vim].
@@ -62,7 +63,7 @@
    - ( ) {https://github.com/stevearc/oil.nvim}[oil.nvim]
    - (_) {https://github.com/ecthelionvi/neoswap.nvim}[NeoSwap]
    - (_) {https://github.com/saifulapm/chartoggle.nvim}[chartoggle]
-** ( ) diffview.nvim
+** (-) diffview.nvim
    {https://github.com/sindrets/diffview.nvim}[Repo].
    Adds a diffview and tools for working with it.
 ** (?) sibing-swap

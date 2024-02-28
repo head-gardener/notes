@@ -5,8 +5,12 @@
 * TODO
   - ( ) doc update.
 
-* ( ) General
+* General
   Module generates 6 attributes in `flake` - modules and configurations for home, darwin and nixos.
+
+* Source reference
+  - `readModules :: Path -> { Path }`
+  -- generates a set of importable paths using `readDir`.
 
 * References
   - {:flake-parts:}

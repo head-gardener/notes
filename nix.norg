@@ -16,6 +16,7 @@
 * Configuration
   {:config:}
 ** Colors
+   {:stylix:}
    {:nix-colors:}
 ** Services
    {https://search.nixos.org/options?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=systemd.services.%3Cname%3E}[Options].
