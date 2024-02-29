@@ -14,6 +14,9 @@
   - {:fontforge:} can use *SDF*.
   - *SVG* can be used to describe fonts.
 
+* Nix
+  Many programs provide options to set fonts. Use `fonts.packages` to install a font globally.
+
 * Tools
 ** fontconfig
    - `fc-list` shows available fonts, `fc-list : family` shows available families.
