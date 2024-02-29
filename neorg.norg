@@ -6,11 +6,11 @@
   {https://github.com/nvim-neorg/neorg}[Repo].
 
 * TODO
-  - ( ) keymap for index maybe. See {**  keybinds}
   - ( ) set spell, lbr, column and sum else on .norg filetype.
-  - ( ) keys for quickly opening `:Neorg *` minibuffer (if similar solution doesn't exist).
+  - ( ) {:pandoc:} converter
+  - (-) it would be nicer to run neorg in a separate tab or smth.
   - (x) folding works really weirdly.
-  - ( ) it would be nicer to run neorg in a separate tab or smth.
+  - (_) keymap for index maybe. See {**  keybinds}
 
 * Keys
   We got some keys:

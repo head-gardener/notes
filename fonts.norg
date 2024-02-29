@@ -1,5 +1,26 @@
+* General
+  Fonts can be stored in a *bitmap* or an *outline* formats. Former uses pixel matrices for glyphs, while later uses Bezier curves and such - i.e. raster vs vector images.
+  Bitmap formats are:
+  - *BDF* by Adobe.
+  - *PCF* by Xorg.
+  - *PSF* used by kernel.
+  - *OTB*.
+  Outline formats are:
+  - *PFA*/*PFB* by Adobe.
+  - *TTF* by Apple and Microsoft.
+  - *OTF* by Microsoft.
+  Other formats include:
+  - TeX may use own font formats.
+  - {:fontforge:} can use *SDF*.
+  - *SVG* can be used to describe fonts.
+
 * Tools
 ** fontconfig
    - `fc-list` shows available fonts, `fc-list : family` shows available families.
+   - `fc-query` get info about a font.
+** {:fontforge:}
+** Font Manager
+   Pretty nice.
 
 * References
+  - {https://wiki.archlinux.org/title/Fonts}[Arch Wiki].

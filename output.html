@@ -1,0 +1,1008 @@
+<h1 id="process">Process</h1>
+<ul>
+<li><code>master</code> updates over time</li>
+<li>pull <code>master</code> weekly</li>
+<li>rebase <code>staging</code></li>
+<li><code>flake update</code></li>
+<li>push staging</li>
+<li>merge PR</li>
+<li>repeat</li>
+</ul>
+<h1 id="script">Script</h1>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="va">$repo</span> <span class="at">--depth</span> 1 . <span class="at">--single-branch</span> <span class="at">--branch</span> staging</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin master</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="#refreshermd">refresher.md</a></li>
+</ul>
+<h1 id="todo">TODO</h1>
+<ul>
+<li>merge in intalics.</li>
+<li><a href="#opensmtpmd">opensmtp.md</a></li>
+<li><a href="#neorgmd">neorg.md</a> Script export.</li>
+<li><a href="#neorgmd">neorg.md</a> host <a
+href="https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming">library
+of norgxandria</a></li>
+<li>Look into <a href="#hercules-cimd">hercules-ci.md</a></li>
+<li>Linux 6.7.5
+<ul>
+<li>Backported to 23.11 recently. Might wanna check out!</li>
+<li>More in <a href="#kernelmd">kernel.md</a>.</li>
+</ul></li>
+<li>substitute-* backport?
+<ul>
+<li>Cool feature. Might be backported, might be in 24.05. Time will
+show.</li>
+<li>Once it drops, grep all usages and replace stdenv to normal from
+unstable.</li>
+</ul></li>
+<li>Colorscheme rework
+<ul>
+<li>see <a href="https://github.com/danth/stylix">stylix</a>.</li>
+<li>see <a href="#nix-colorsmd">nix-colors.md</a></li>
+<li>Kitty colors</li>
+<li>Nvim colors</li>
+<li>Fish colors</li>
+<li>Nu colors</li>
+</ul></li>
+<li>Rewrite with flake parts
+<ul>
+<li>See <a href="#flake-partsmd">flake-parts.md</a>.</li>
+</ul></li>
+<li>Need an auto-updater</li>
+<li>figure out the done thing
+<ul>
+<li>See <a href="#done-fishmd">done-fish.md</a>. Still wonder why this
+isn’t an issue with non-tmux windows, huh.</li>
+</ul></li>
+<li><a href="#config-stagingmd">config-staging.md</a></li>
+<li>Better layout switch (like ralt)</li>
+</ul>
+<h1 id="references-1">References</h1>
+<ul>
+<li><a href="#refreshermd">refresher.md</a></li>
+<li><a href="#xmonadmd">xmonad.md</a></li>
+<li><a href="#fishmd">fish.md</a></li>
+<li><a href="#nvimmd">nvim.md</a></li>
+<li><a href="#nixmd">nix.md</a></li>
+<li><a href="#stylixmd">stylix.md</a></li>
+</ul>
+<h1 id="user-space">User space</h1>
+<ul>
+<li><a href="#agemd">age.md</a></li>
+<li><a href="#gpgmd">gpg.md</a></li>
+<li><a href="#sopsmd">sops.md</a></li>
+<li><a href="#sshmd">ssh.md</a></li>
+</ul>
+<h1 id="repo"><a
+href="https://github.com/franciscolourenco/done">Repo</a></h1>
+<h1 id="usage">Usage</h1>
+<p>A simple script that appends pre and post hooks to commands, timing
+their execution, checking for focus and trying to notify when both the
+time limit was exceeded and focus wasn’t on the window. Seems like it
+works with screen, kitty, tmux and plain windows. Notification method is
+picked from a wide variety, but not all of them work - which is the
+reason for a little patch I have removing kitty notifs.</p>
+<h1 id="source">Source</h1>
+<p><a
+href="https://git.voronind.com/voronind/linux/src/branch/main/.config/linux/system/module/common/Dotfiles.nix">file</a>.</p>
+<h1 id="code">Code</h1>
+<h1 id="sources">Sources</h1>
+<p><a href="https://github.com/ehllie/ez-configs">Repo</a>. <a
+href="https://flake.parts/options/ez-configs">Docs</a>.</p>
+<h1 id="todo-1">TODO</h1>
+<ul>
+<li>doc update.</li>
+</ul>
+<h1 id="general">General</h1>
+<p>Module generates 6 attributes in <code>flake</code> - modules and
+configurations for home, darwin and nixos. By default generates values
+for all modules found in the module directory, generates home, nixos and
+darwin configurations for all modules found in corresponding
+folders.</p>
+<h1 id="source-reference">Source reference</h1>
+<ul>
+<li><code>readModules :: Path -&gt; { Path</code>
+<ul>
+<li>generates a set of importable paths using <code>readDir</code>.</li>
+<li>used to fill out <code>*Modules</code> attributes.</li>
+</ul></li>
+<li><code>userConfigs :: { ezModules, userModules, extraSpecialArgs, defaultUser } -&gt; { UuserOptions } -&gt; { homeManagerConfiguration</code>
+<ul>
+<li><code>#Creates an attrset of home manager confgurations for each user on each host.</code></li>
+<li>generates <code>homeManagerConfigurations</code> attribute.</li>
+</ul></li>
+<li><code>systemsWith :: { ... } -&gt; { configurations</code>
+<ul>
+<li>generates either NixOS or Darwin configs.</li>
+<li>used for <code>nixosConfigurations</code> and
+<code>darwinConfigurations</code>.</li>
+</ul></li>
+</ul>
+<h1 id="references-2">References</h1>
+<ul>
+<li><a href="#flake-partsmd">flake-parts.md</a></li>
+</ul>
+<h1 id="plugins">Plugins</h1>
+<ul>
+<li><a href="#done-fishmd">done-fish.md</a></li>
+<li><a href="#gitnowmd">gitnow.md</a></li>
+<li><a href="#forgitmd">forgit.md</a></li>
+</ul>
+<h1 id="integrations">Integrations</h1>
+<h2 id="carapace">carapace</h2>
+<p>Works, but built-in completions are way better.</p>
+<h1 id="scripts">Scripts</h1>
+<h1 id="function">Function</h1>
+<h1 id="relation-to-void">Relation to Void</h1>
+<h1 id="usage-in-nix">Usage in Nix</h1>
+<h2 id="questions">Questions</h2>
+<p>Should this configuration work? It shouldn’t, because you need to
+evaluate <code>config</code> before knowing what <code>config.foo</code>
+is.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode nix"><code class="sourceCode nix"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">inputs</span>.<span class="va">nixpkgs</span>.<span class="va">url</span> <span class="op">=</span> <span class="st">&quot;github:NixOS/nixpkgs/nixos-unstable&quot;</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="va">outputs</span> <span class="op">=</span> <span class="op">{</span> <span class="va">nixpkgs</span><span class="op">,</span> <span class="op">...</span> <span class="op">}</span>: <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">nixosConfigurations</span>.<span class="va">test</span> <span class="op">=</span> nixpkgs.lib.nixosSystem <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="va">system</span> <span class="op">=</span> <span class="st">&quot;x86_64-linux&quot;</span><span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="va">modules</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">({</span> <span class="va">config</span><span class="op">,</span> <span class="op">...</span> <span class="op">}</span>: <span class="op">{</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>          <span class="va">config</span> <span class="op">=</span> config.foo<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">})</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="op">];</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="op">};</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h1 id="readup">Readup</h1>
+<p><a href="https://flake.parts/">Docs</a>.</p>
+<h1 id="general-1">General</h1>
+<h2 id="mkflake">mkFlake</h2>
+<p>Parts provide a simple way of defining per-system configurations -
+<code>perSysten</code> attribute. <code>systems</code> defines what
+systems to generate attributes for, <code>flake</code> is for everythng
+else. <code>perSystem</code>, being a function, has a couple arguments:
+- <code>pkgs</code> - contains <code>nixpkgs</code> for current system.
+- <code>inputs'</code> - inputs, with <code>system</code> pre-selected,
+- <code>self'</code> - self, with <code>system</code> pre-selected. May
+benefit from eval caching in the future. - <code>system</code> - the
+system string, e.g. <code>x86_64-linux</code>.</p>
+<h2 id="module-structure">Module Structure</h2>
+<p>A module is in general a flake, having a <code>flakeModule</code>
+output, and commonly a template, demonstrating example usage of the
+module. <code>flakeModule</code> is structurally similar to nixos
+modules: it has both <code>options</code> and <code>config</code>
+outputs, and a set of inputs, including <code>inputs</code>,
+<code>lib</code>, <code>config</code>, etc.. <code>options</code> can be
+set in <code>flake</code> attribute of the user, <code>config</code>
+populates aforementioned attribute.</p>
+<h1 id="modules">Modules</h1>
+<h2 id="easyoverlay"><a
+href="https://flake.parts/options/flake-parts-easyoverlay">easyOverlay</a></h2>
+<h2 id="ez-configs.md"><a href="#ez-configsmd">ez-configs.md</a></h2>
+<h2 id="hercules-ci-effects"><a
+href="https://flake.parts/options/hercules-ci-effects">hercules-ci-effects</a></h2>
+<p>See <a href="hercules-ci.md#effects">effects</a>.</p>
+<h1 id="repo-1"><a href="https://github.com/wfxr/forgit">Repo</a></h1>
+<h1 id="functions">Functions</h1>
+<p>Pretty nice and ue fzf. How about exporting them to nu? - grc was
+remapped to grvrc.</p>
+<h1 id="references-3">References</h1>
+<ul>
+<li><a href="#gitmd">git.md</a></li>
+<li><a href="#ssh-over-systemdmd">ssh-over-systemd.md</a></li>
+<li><a href="nix.md#services">services</a></li>
+</ul>
+<h1 id="what-do-you-need">What do you need</h1>
+<ul>
+<li><code>GIT_SSH_COMMAND</code> - working ssh wrap, see <a
+href="#ssh-over-systemdmd">ssh-over-systemd.md</a></li>
+<li>to have remote configured to accept your identity, pass it to
+ssh.</li>
+<li><code>HOME</code> - idk if actually needed.</li>
+<li><code>GIT_AUTHOR_NAME</code>, <code>GIT_COMMITTER_NAME</code> one of
+this, or both idk.</li>
+<li><code>EMAIL</code> - email.</li>
+</ul>
+<h1 id="preface">Preface</h1>
+<p>To keep org files sane and in check you need an auto-syncing
+solution, capable of competently merging separate notes on machines
+together.</p>
+<h1 id="solutions">Solutions</h1>
+<p>In terms of solutions we have: - git-sync. <a
+href="https://github.com/simonthum/git-sync">repo</a></p>
+<h1 id="service">Service</h1>
+<h2 id="git-sync-bg-runner">git-sync bg runner</h2>
+<h3 id="todo-2">TODO</h3>
+<ul>
+<li>id selector for fine grained keys.</li>
+<li>preCommitHook</li>
+<li>parse dry run from the script beofre taking action</li>
+<li>change GIT_NAME and such</li>
+</ul>
+<h3 id="code-1">Code</h3>
+<pre class="fish"><code>function syncer -d &quot;sync remote periodically with notifications&quot;
+  while true
+    nix run nixpkgs#git-sync
+    set time &quot;$(date +&quot;%R %D&quot; )&quot;
+    set sleep &quot;$(math 60x 60)&quot;
+    if test $status -eq 0
+      notify-send &quot;git sync&quot; &quot;Sync successful at $time&quot;
+    else
+      notify-send -t $(math 1000x 60x 2) -u critical &quot;git sync&quot; &quot;Sync failure at $time&quot;
+    end
+    echo &quot;time: $time, next in $sleep seconds&quot;
+    sleep &quot;$sleep&quot;
+  end
+end</code></pre>
+<h2 id="remote-login">Remote Login</h2>
+<p>A good way of login is <a href="#ssh-agentmd">ssh-agent.md</a>. You
+can even have fine grained SSH identities on github for repos read/write
+access!</p>
+<h1 id="git-sync">git-sync</h1>
+<p>Works in weird ways. Requires all changes to be unstaged before
+committing - huh. One nice idea is canceling commit when new files are
+present - <code>#...#</code> bullshit from emacs or <code>result</code>
+symlink from nix. While nice in theory, it can get cumbersome always
+calling <code>git-sync -n</code> on new files, which is a frequent
+occurance when doing notes. How about a patch that allows new files only
+if they are staged?</p>
+<h2 id="options">Options</h2>
+<ul>
+<li><code>--exechook-command</code> - pre commit hook</li>
+<li>branch.$branch_name.syncNewFiles (bool)</li>
+<li>branch.$branch_name.syncCommitMsg (string)</li>
+<li>branch.$branch_name.autocommitscript (string)</li>
+</ul>
+<h1 id="snippets">Snippets</h1>
+<h2 id="branch-visualisation">Branch visualisation</h2>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--graph</span> <span class="at">--decorate</span> <span class="at">--oneline</span> <span class="at">--all</span></span></code></pre></div>
+<h2 id="sing-all-commits-with-interactive-rebase.">Sing all commits with
+interactive rebase.</h2>
+<h1 id="signatures">Signatures</h1>
+<h2 id="gpg">GPG</h2>
+<h2 id="ssh">SSH</h2>
+<h2 id="others">Others</h2>
+<h1 id="env">ENV</h1>
+<p><a
+href="https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables">Source</a>.
+- <code>HOME</code> - where git looks for config. -
+<code>GIT_SSH_COMMAND</code> - ssh command to use, supports cli params.
+- <code>GIT_TRACE</code> - debugging. - <code>_PACK_ACCESS</code> -
+access packfiles. - <code>_PACKET</code> - network traces. -
+<code>_PERFORMANCE</code> - time taken to execute subcommands. -
+<code>_SETUP</code> - env information. - <code>GIT_AUTHOR_NAME</code>
+<code>GIT_AUTHOR_EMAIL</code> - exactly what it says.</p>
+<h1 id="tools">Tools</h1>
+<h2 id="git-syncing.md"><a href="#git-syncingmd">git-syncing.md</a></h2>
+<h2 id="gitk">gitk</h2>
+<p>Weird ass GUI for git. Has visualisation, diffs and all the cool
+stuff cool kids use. Available in
+<code>nix shell nixpkgs#gitFull</code>.</p>
+<h2 id="lfs">LFS</h2>
+<ul>
+<li><a href="https://git-lfs.com/">docs</a>.</li>
+</ul>
+<h1 id="repo-2"><a
+href="https://github.com/joseluisq/gitnow">Repo</a></h1>
+<h1 id="keybinds">Keybinds</h1>
+<ul>
+<li>Too cool.</li>
+<li>remap <code>alt-f</code> to something that doesn’t interfere with
+emacs keys in fish.</li>
+</ul>
+<h1 id="readup-1">Readup</h1>
+<ul>
+<li><a
+href="https://davesteele.github.io/gpg/2014/09/20/anatomy-of-a-gpg-key/#PrimaryPacket">Anatomy
+of a GPG key</a>.</li>
+<li>that one ‘why gpg sucks’ blog post, can’t find it.</li>
+</ul>
+<h1 id="integration">Integration</h1>
+<ul>
+<li><a href="#sopsmd">sops.md</a></li>
+</ul>
+<h1 id="overview">Overview</h1>
+<p>Tool for rendering graphs. Cool</p>
+<h1 id="layouts">Layouts</h1>
+<ul>
+<li><code>circo</code> - circular layout, the coolest.</li>
+<li><code>dot</code> - weird descending layout.</li>
+</ul>
+<h1 id="cli-arguments">CLI Arguments</h1>
+<h1 id="readup-2">Readup</h1>
+<p><a
+href="https://docs.hercules-ci.com/hercules-ci/getting-started/">docs</a></p>
+<h1 id="effects">Effects</h1>
+<h1 id="deploying">Deploying</h1>
+<h1 id="shells">Shells</h1>
+<p>Main issue here is that hm and nixos have different startup routines
+for shells they manage, so services, started from one don’t always
+intercat nicely with shells from another. This brings up a greater
+question of the healthy amount of separation between hm and nixos
+i.e. which programs and services go where. Shell is a big point of
+contemption here.</p>
+<h1 id="notes">Notes</h1>
+<ul>
+<li><a href="#configmd">config.md</a></li>
+<li><a href="#cryptographymd">cryptography.md</a></li>
+<li><a href="#fontsmd">fonts.md</a></li>
+<li><a href="#gitmd">git.md</a></li>
+<li><a href="#kernelmd">kernel.md</a></li>
+<li><a href="#literaturemd">literature.md</a></li>
+<li><a href="#mediaboxmd">mediabox.md</a></li>
+<li><a href="#neorgmd">neorg.md</a></li>
+<li><a href="#nvimmd">nvim.md</a></li>
+<li><a href="#nixmd">nix.md</a></li>
+<li><a href="#systemdmd">systemd.md</a></li>
+<li><a href="#personalmd">personal.md</a></li>
+<li><a href="#programmingmd">programming.md</a></li>
+<li><a href="#stal-ixmd">stal-ix.md</a></li>
+<li><a href="#techmd">tech.md</a></li>
+<li><a href="#tmuxmd">tmux.md</a></li>
+<li><a href="#toolsmd">tools.md</a></li>
+<li><a href="#xmonadmd">xmonad.md</a></li>
+</ul>
+<h1 id="notes-1">Notes</h1>
+<h2 id="section">02-26</h2>
+<h3 id="неравенство-йенсена">Неравенство Йенсена</h3>
+<p>Обобщает утверждение, что хорда к графику выпуклой фунции находится
+под графиком. В более частном случае оно утверждает, для выпуклой
+функции значение этой функции от среднего аргументов будет не больше
+среднего значений функции от аргументов. Доказательство через свойства
+выпуклой функции. В нашем случае это означает, что E(f(x)) &lt;=
+f(E(x)).</p>
+<h3 id="задача">Задача</h3>
+<p>Пример сообщения, которое не уменьшает, а увеличивает энтропию? |<a
+href="#08-01-01">0.8, 0.1, 0.1</a> -&gt; <a href="#0-05-05">0, 0.5,
+0.5</a>|</p>
+<h1 id="reference">Reference</h1>
+<ul>
+<li>E(x) - мат ожидание.</li>
+<li>H(x)=-sum(p_i*log_2(p_i)) - бинарная энтропия.</li>
+</ul>
+<h1 id="preface-1">Preface</h1>
+<p>Pretty nice. Think you can go wild with laziness on this thing.</p>
+<h1 id="source-1">Source</h1>
+<p><a href="https://github.com/folke/lazy.nvim">Repo</a>.</p>
+<h1 id="tips">Tips</h1>
+<ul>
+<li><code>nvim --headless "+Lazy! sync" +qa</code> - headless
+update</li>
+</ul>
+<h1 id="plugin-spec-selection">Plugin Spec, selection</h1>
+<ul>
+<li><code>[1]</code>, <code>url</code>, <code>dir</code> - plugin
+source.</li>
+<li><code>lazy</code> - don’t load until required.</li>
+<li><code>dependencies</code> - deps.</li>
+<li><code>opts</code> - passed to <code>config</code> ↩︎️</li>
+<li><code>config</code> - a function (heuristically determined by
+default if value set here is <code>true</code>) to be executed when
+plugin loads.</li>
+<li><code>init</code> - always run during startup.</li>
+<li><code>build</code> - command to be run after installing when plugin
+is loaded.</li>
+<li><code>branch</code>, <code>tag</code>, <code>commit</code>,
+<code>version</code> - ref spec.</li>
+<li><code>pin</code> - pin version down.</li>
+<li><code>event</code>, <code>cmd</code>, <code>ft</code>,
+<code>keys</code> - load triggers.</li>
+</ul>
+<h1 id="information-theory-basics">Information Theory Basics</h1>
+<h1 id="description">Description</h1>
+<p>I would like a simple setup attached to a large monitor, with remote
+controls. It should support streaming youtube, spotify and ani-cli.</p>
+<h1 id="readup-3">Readup</h1>
+<h1 id="scripts-1">Scripts</h1>
+<h2 id="parse-neorg-todos">Parse neorg TODO’s</h2>
+<p>Parent: <a href="neorg.md#todo">TODO</a>.</p>
+<h3 id="todo-3">TODO</h3>
+<ul>
+<li>export json to nvim! Make a nice command out of it, with followable
+references.</li>
+</ul>
+<h3 id="code-2">Code</h3>
+<pre class="nu"><code>def todos [path: path = ./.] {
+  rg &#39;\(.\)&#39; --json $path
+  | lines
+  | each {|| from json}
+  | filter {|e| $e.type == &#39;match&#39;}
+  | each {||
+    get data
+    | reject absolute_offset
+    | update lines {||
+      get text
+      | str replace --regex &#39;^.*\(.\)\s+&#39; &quot;&quot;
+    }
+    | update submatches {|| get 0.match.text}
+    | update path {|| get text}
+  }
+  | rename file text line status
+  | move text --after status
+}</code></pre>
+<h3 id="related">Related</h3>
+<ul>
+<li><a href="#numd">nu.md</a></li>
+</ul>
+<h2 id="parse-neorg-graph">Parse neorg graph</h2>
+<h3 id="todo-4">TODO</h3>
+<ul>
+<li>graph styling.</li>
+<li>actions?</li>
+<li>doesn’t work with <code>foo:} and {:</code>.</li>
+</ul>
+<h3 id="code-3">Code</h3>
+<pre class="nu"><code>def graph [where: path = .] {
+  rg &#39;\{:[a-z\-]*:[^\{]*\}&#39; --json
+  | lines
+  | each {|| from json}
+  | filter {|e| $e.type == &#39;match&#39; }
+  | each {||
+    get data
+    | update path {|| get text}
+    | reject lines line_number absolute_offset
+    | update submatches {||
+      get 0.match.text
+      | str replace -r &#39;\{:(.*):.*\}&#39; &#39;$1&#39;
+    }
+  }
+  | rename from to
+  | update from {|| str replace &#39;.norg&#39; &#39;&#39; }
+  | reduce --fold &#39;&#39; {|it, acc| $acc + $&#39;&quot;($it.from)&quot; -&gt; &quot;($it.to)&quot;&#39; + &quot;\n&quot;}
+  | $&quot;digraph G {\n($in)}&quot;
+  | dot -Tpng
+  | feh -
+}</code></pre>
+<h3 id="related-1">Related</h3>
+<ul>
+<li><a href="#numd">nu.md</a></li>
+<li><a href="#graphvizmd">graphviz.md</a></li>
+</ul>
+<h1 id="intro">Intro</h1>
+<p>Take notes you weirdo</p>
+<h1 id="readup-4">Readup</h1>
+<p><a
+href="https://www.youtube.com/watch?v=NnmRVY22Lq8&amp;list=PLx2ksyallYzVI8CN1JMXhEf62j2AijeDa">Tutorials</a>.
+<a href="https://github.com/nvim-neorg/neorg">Repo</a>.</p>
+<h1 id="todo-5">TODO</h1>
+<ul>
+<li>keymap for index maybe. See <a href="#keybinds">keybinds</a></li>
+<li>set spell, lbr, column and sum else on .norg filetype.</li>
+<li>keys for quickly opening <code>:Neorg *</code> minibuffer (if
+similar solution doesn’t exist).</li>
+<li>folding works really weirdly.</li>
+<li>it would be nicer to run neorg in a separate tab or smth.</li>
+</ul>
+<h1 id="keys">Keys</h1>
+<p>We got some keys: - lnn - new note. - lt - mark TODO as… .</p>
+<h1 id="nix">Nix</h1>
+<h2 id="treesitter">Treesitter</h2>
+<h2 id="flake">Flake</h2>
+<ul>
+<li>Automatically export scripts.
+<ul>
+<li>neorg TS modules.</li>
+</ul></li>
+<li>Export this shit to html.</li>
+</ul>
+<h1 id="tools-1">Tools</h1>
+<p><a href="#neorg-utilsmd">neorg-utils.md</a></p>
+<h1 id="modules-1">Modules</h1>
+<h2 id="dirman">Dirman</h2>
+<p>Control workspaces. Can set default. <a
+href="https://github.com/nvim-neorg/neorg/wiki/Dirman">wiki</a>.</p>
+<h2 id="tangling">Tangling</h2>
+<p>Doesn’t support directories in filenames? Weird. Export code blocks.
+Usage: <code>#tangle &lt;file&gt;</code>. <a
+href="https://github.com/nvim-neorg/neorg/wiki/Tangling">wiki</a>.</p>
+<h2 id="looking-glass">Looking Glass</h2>
+<p>Edit code blocks in a separate buffer via
+<code>:Neorg keybind all core.looking-glass.magnify-code-block</code>.</p>
+<h2 id="keybinds-1">keybinds</h2>
+<p><a
+href="https://github.com/nvim-neorg/neorg/wiki/User-Keybinds">wiki</a>.</p>
+<h1 id="usage-1">Usage</h1>
+<h2 id="workspaces">Workspaces</h2>
+<p>Idea here is to open a neorg instance while doing something else -
+i.e. configuring nix or writing code. -
+<code>Neorg workspace &lt;name&gt;</code> - open neorg workspace -
+<code>Neorg index</code> - open index file - <code>Neorg return</code> -
+close all norg buffers and return to whatever you where doing.</p>
+<h2 id="todo-6">TODO</h2>
+<ul>
+<li><code>&lt;Ctrl+Space&gt;</code> - toggles state (huh) .</li>
+<li>More types are in the <code>help neorg-tasks</code>.</li>
+<li>To reveal what actual character corresponds to a state, toggle
+concealer with <code>Neorg toggle-concealer.</code></li>
+<li>nested TODO lists will propagate their changes to children.</li>
+<li>see <a href="nu.md#parse-neorg-todos">Parse neorg TODO’s</a> for
+getting the goods.</li>
+</ul>
+<h2 id="concealer">concealer</h2>
+<p>Toggle with ‘toggle-concealer’. Can be configured, e.g. change icons
+for TODO statuses. But <strong>don’t</strong> touch performance settings
+lol. There are some nice icon sets there, might wanna look.</p>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="#intro">intro</a> - heading (white space, case
+insensitive).</li>
+<li><a href="#concealer">concealer</a> - remember to duplicate the
+amount of <code>*</code>.</li>
+<li><a href="#tangling">tangling</a> - <code>#</code> is a <strong>magic
+char</strong>, searching a file and linking to first occurrence in a
+heading.</li>
+<li><a href="#error">error</a> - invalid links can be auto fixed, and
+the algorithm is pretty good, so you can use it to quickly create
+headings.</li>
+<li><a href="#links">links</a> - link comes <strong>first</strong>, then
+the description! Otherwise it’s an anchor.</li>
+<li>how the hell do you fold links?</li>
+<li>rewrite anchors to links!</li>
+<li>anchors?</li>
+<li><a href="neorg.md#readup">readup</a> - links in files.</li>
+</ul>
+<h1 id="readup-5">Readup</h1>
+<ul>
+<li><a href="https://github.com/Misterio77/nix-colors">Repo</a>.</li>
+</ul>
+<h1 id="usage-2">Usage</h1>
+<h1 id="command">Command</h1>
+<h2 id="tips-1">Tips</h2>
+<ul>
+<li><code>nix flake lock --update-input &lt;input&gt; --commit-lock-file</code>
+updates single input.
+<ul>
+<li>was replaced with <code>nix flake update --update-input</code> in
+2.19</li>
+</ul></li>
+</ul>
+<h2 id="changelog">Changelog</h2>
+<h3 id="section-1">2.19</h3>
+<ul>
+<li><a
+href="https://nixos.org/manual/nix/stable/release-notes/rl-2.19">notes</a>.</li>
+<li><code>repl-flake</code> now a part of <code>flake</code>.</li>
+<li><code>flake#.attr</code> - preceding dot means not to look for
+attribute in default locations like <code>packages</code>.</li>
+<li>`<a href="nix/builtins.md#converthash">convertHash</a></li>
+<li><code>fetch-tree</code> experimental feature in <a
+href="#nixbuiltinsmd">nix/builtins.md</a>.</li>
+<li><code>nix flake update</code> supports <code>--update-input</code>
+but without flags, taking on the role of <code>nix flake lock</code>.
+Example: <code>nix flake update nixpkgs --flake /etc/flake</code>.
+<ul>
+<li><code>--update-input</code> consequently was removed.</li>
+</ul></li>
+<li><code>nix store add</code> - add file or dir to store and print its
+path.</li>
+</ul>
+<h1 id="configuration">Configuration</h1>
+<p><a href="#configmd">config.md</a></p>
+<h2 id="colors">Colors</h2>
+<p><a href="#stylixmd">stylix.md</a> <a
+href="#nix-colorsmd">nix-colors.md</a></p>
+<h2 id="services">Services</h2>
+<p><a
+href="https://search.nixos.org/options?channel=23.11&amp;from=0&amp;size=50&amp;sort=relevance&amp;type=packages&amp;query=systemd.services.%3Cname%3E">Options</a>.
+Most important options: - <code>wants</code> vs <code>requires</code> -
+first create dependencies, but in the first case dependency is weak and
+referrer won’t be affected by a referenced exiting. -
+<code>wantedBy</code> - makes service runnable. - <code>script</code> -
+what to do. - <code>environment</code> - drop your env here. -
+<code>serviceConfig</code> - <a
+href="https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html">Reference
+1</a>. - <a
+href="https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html">Reference
+2</a>. - <code>User</code> - who to run as. - <code>Type</code> - type.
+- <a
+href="https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Options">Reference</a>.
+- <code>dbus</code> for dbus dependency, waits for unit to listen on a
+bus. - <code>simple</code> - simplest, does least checks. -
+<code>exec</code> - like simple, but makes little more checks.
+Preferrable for longer services without dbus or notify interface. -
+<code>forking</code> - discouraged. - <code>oneshot</code> -
+<strong>default</strong> waits for child to exit, i.e. the most
+demanding. - etc. - <code>RootDirectory</code> - dir to chroot into.
+e.g. <code>/run/myService</code>. - <code>*Directory</code> - sets pwd,
+env, adds dependencies on mounts. - <code>WorkingDirectory</code> - pwd,
+i.e. ‘cd into’. - <code>Runtime</code>, <code>State</code>,
+<code>Cache</code>, <code>Logs</code>, <code>Configuration</code> - set
+corresponding env vars and create dirs under some special paths.</p>
+<h4 id="tips-2">Tips</h4>
+<ul>
+<li><a href="https://nixos.wiki/wiki/Systemd_Hardening">Source</a>.</li>
+<li>if networm needed with nm present, do</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode nix"><code class="sourceCode nix"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>wants = <span class="op">[</span> &#39;NetworkManager-wait-online.service&#39; <span class="op">]</span>;</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>after = <span class="op">[</span> &#39;NetworkManager-wait-online.service&#39; <span class="op">]</span>;</span></code></pre></div>
+<h3 id="timers">Timers</h3>
+<p><a href="https://nixos.wiki/wiki/Systemd/Timers">Source</a>. <a
+href="https://search.nixos.org/options?channel=23.11&amp;from=0&amp;size=50&amp;sort=relevance&amp;type=packages&amp;query=systemd.timers.%3Cname%3E">Options</a>.
+Important options: - <code>serviceConfig.OnCalendar</code> - when. Kinda
+like chrone’s format but different.</p>
+<h4 id="example">Example</h4>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode nix"><code class="sourceCode nix"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>systemd.timers.<span class="st">&quot;hello-world&quot;</span> = <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">wantedBy</span> <span class="op">=</span> <span class="op">[</span> <span class="st">&quot;timers.target&quot;</span> <span class="op">];</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">timerConfig</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>      <span class="va">OnBootSec</span> <span class="op">=</span> <span class="st">&quot;5m&quot;</span><span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>      <span class="va">OnUnitActiveSec</span> <span class="op">=</span> <span class="st">&quot;5m&quot;</span><span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>      <span class="va">Unit</span> <span class="op">=</span> <span class="st">&quot;hello-world.service&quot;</span><span class="op">;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>;</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>systemd.services.<span class="st">&quot;hello-world&quot;</span> = <span class="op">{</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="va">script</span> <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="st">    set -eu</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="st">    </span><span class="sc">${</span>pkgs.coreutils<span class="sc">}</span><span class="st">/bin/echo &quot;Hello World&quot;</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="st">  &#39;&#39;</span><span class="op">;</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="va">serviceConfig</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="va">Type</span> <span class="op">=</span> <span class="st">&quot;oneshot&quot;</span><span class="op">;</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="va">User</span> <span class="op">=</span> <span class="st">&quot;root&quot;</span><span class="op">;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">};</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>;</span></code></pre></div>
+<h4 id="commands">Commands</h4>
+<ul>
+<li><code>systemctl list-timers</code> - list active timers and their
+current state,</li>
+<li><code>systemctl start hello-world</code> - manually run a service
+once for testing purposes.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<ul>
+<li><a href="#dotfiles-updatermd">dotfiles-updater.md</a>.</li>
+</ul>
+<h1 id="rerences">Rerences</h1>
+<ul>
+<li><a href="#flake-partsmd">flake-parts.md</a></li>
+<li><a href="#nixopsmd">nixops.md</a></li>
+<li><a href="#refreshermd">refresher.md</a></li>
+</ul>
+<h1 id="source-2">Source</h1>
+<ul>
+<li><a href="https://github.com/NixOS/nixops">Repo</a>.</li>
+<li><a href="https://nixos.org/nixops/manual/">Manual</a>.</li>
+</ul>
+<h1 id="scripts-2">Scripts</h1>
+<h1 id="bookmarks">Bookmarks</h1>
+<ul>
+<li><a
+href="https://mrcjkb.dev/posts/2023-08-22-setup.html">https://mrcjkb.dev/posts/2023-08-22-setup.html</a>.</li>
+<li><a
+href="https://github.com/altermo/vim-plugin-list?tab=readme-ov-file">https://github.com/altermo/vim-plugin-list?tab=readme-ov-file</a>.</li>
+<li><a
+href="https://github.com/GoldsteinE/nixos/tree/master/dotfiles/.config/nvim">Max</a>.</li>
+</ul>
+<h1 id="general-2">General</h1>
+<p>Nightly is so much better dude. It’s bright and shit and plugins work
+way better. And <code>:e</code> doesn’t just fucking die lol.</p>
+<h1 id="functionality">Functionality</h1>
+<h2 id="tabs">Tabs</h2>
+<ul>
+<li><code>:newtab</code> to create new tab.</li>
+<li><code>gT</code> or <code>gt</code> scrolls tabs.</li>
+<li>colors
+<ul>
+<li><code>TabLineFull</code> is supposedly responsible for this stuff
+but changes to it don’t seem to affect shit.</li>
+<li>Probably some plugins are responsible.</li>
+</ul></li>
+</ul>
+<h1 id="keys-1">Keys</h1>
+<ul>
+<li>z
+<ul>
+<li><code>zg</code> - spell add</li>
+<li><code>z=</code> - spell correct</li>
+<li><code>zm</code>, <code>zr</code> - fold more/less</li>
+<li><code>zMzv</code> - fold all but cursor</li>
+</ul></li>
+<li><code>'</code> - jump to prev selection, prev edited, jumped from -
+whole lotta stuff!</li>
+<li><code>C-t</code> - jump up the tag stack - e.g. reverse
+<code>gD</code>.</li>
+<li><code>C-g</code> - show buffer stat like file path, line, col,
+etc..</li>
+</ul>
+<h1 id="commands-1">Commands</h1>
+<ul>
+<li><code>:?a?;/b/g//d</code> exec command over range. See <a
+href="https://github.com/markonm/traces.vim?tab=readme-ov-file">traces.vim</a>.</li>
+<li>more stuff.</li>
+</ul>
+<h1 id="folds">Folds</h1>
+<p>Treesitter folds are pretty nice. Not as nice as LSP but they do
+work. Problem with them, is that they break when treesitter breaks,
+making editing quite uncomfortable. Also the drop on formatting.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode lua"><code class="sourceCode lua"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">vim</span><span class="op">.</span><span class="va">opt</span><span class="op">.</span><span class="va">foldmethod</span> <span class="op">=</span> <span class="st">&quot;expr&quot;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">vim</span><span class="op">.</span><span class="va">opt</span><span class="op">.</span><span class="va">foldexpr</span> <span class="op">=</span> <span class="st">&quot;nvim_treesitter#foldexpr()&quot;</span></span></code></pre></div>
+<h1 id="nix-1">Nix</h1>
+<h2 id="wrapping">Wrapping</h2>
+<h3 id="general-3">General</h3>
+<p>Kinda weird, as all things should be. There is no documentation on
+this currently. Use
+<code>packages.neovim = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (pkgs.neovimUtils.makeNeovimConfig { };</code>
+to make a wrapper.</p>
+<h3 id="plugins-1">Plugins</h3>
+<p>For <code>makeNeovimConfig</code>:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode nix"><code class="sourceCode nix"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plugins = <span class="op">[</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">plugin</span> <span class="op">=</span> pkgs.vimPlugins.neorg<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">config</span> <span class="op">=</span> <span class="st">&quot;lua require(&#39;neorg&#39;).setup { load = { [&#39;core.defaults&#39;] = {} } }&quot;</span><span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">optional</span> <span class="op">=</span> <span class="cn">false</span><span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="op">]</span>;</span></code></pre></div>
+<p>Remember to include all dependencies.</p>
+<h3 id="references-4">References:</h3>
+<ul>
+<li><a
+href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/utils.nix#L27">makeNeovimConfig</a>.</li>
+<li><a
+href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/wrapper.nix">wrapNeovimUnstable</a>.</li>
+</ul>
+<h1 id="rewrite">Rewrite</h1>
+<p>Do the plugins thing from lazy, where plugins module is imported and
+exports everything as a table.</p>
+<h1 id="plugins-2">Plugins</h1>
+<h2 id="todo-7">TODO</h2>
+<ul>
+<li><a href="https://github.com/stevearc/oil.nvim">oil.nvim</a></li>
+<li><a
+href="https://github.com/ecthelionvi/neoswap.nvim">NeoSwap</a></li>
+<li><a
+href="https://github.com/saifulapm/chartoggle.nvim">chartoggle</a></li>
+</ul>
+<h2 id="diffview.nvim">diffview.nvim</h2>
+<p><a href="https://github.com/sindrets/diffview.nvim">Repo</a>. Adds a
+diffview and tools for working with it.</p>
+<h2 id="sibing-swap">sibing-swap</h2>
+<p><a href="https://github.com/wansmer/sibling-swap.nvim">Repo</a>.
+Works in weird ways idk.</p>
+<h2 id="langmapper">langmapper</h2>
+<p><a href="https://github.com/Wansmer/langmapper.nvim">Repo</a>.
+Doesn’t like being run alongside <a
+href="nvim.md#which-key">which-key</a> - later needs some configuration
+to support that. - more configuration.</p>
+<h2 id="nvim-lint">nvim-lint</h2>
+<p><a href="https://github.com/mfussenegger/nvim-lint">Repo</a>. Async
+linting, complementary to builtin LSP support structure. <a
+href="https://github.com/mfussenegger/nvim-lint?tab=readme-ov-file#available-linters">Available
+linters</a>.</p>
+<h2 id="conform.nvim">conform.nvim</h2>
+<p><a href="https://github.com/stevearc/conform.nvim">Repo</a>. Can do
+range formatting, injected language formatting, minimal diff extraction
+- i.e. better formatting. But do I actually need it? Do this in a branch
+to check out and maybe revert immediately.</p>
+<h2 id="sitjoin">sitjoin</h2>
+<p>Fun stuff but doesn’t support most languages I use. <a
+href="https://github.com/AndrewRadev/sitjoin.vim">Repo</a>.</p>
+<h2 id="cosco">cosco</h2>
+<p>I need this. But again where are all my languages? <a
+href="https://github.com/lfilho/cosco.vim">Repo</a>. Got a lua rewrite
+in <a href="https://github.com/jumas-cola/cosco.nvim">here</a>. Example
+of a <a href="#lazy-nvimmd">lazy</a> load in my configuration. - Try it
+out! - Gotta make some PRs for my languages. - Apparently there is
+another plugin called <code>tree-setter</code>. Can’t find it though.
+Too unpopular.</p>
+<h2 id="haskell-tools">haskell-tools</h2>
+<h3 id="dap">dap</h3>
+<p>Am I retarded? <a
+href="https://github.com/mrcjkb/haskell-tools.nvim/tree/master?tab=readme-ov-file#dap">Source</a></p>
+<h2 id="ufo">UFO</h2>
+<p>Got a branch but man does it suck ass. But LSP folds are pretty good,
+ngl.</p>
+<h2 id="telescope">Telescope</h2>
+<p><a href="https://github.com/nvim-telescope/telescope.nvim">Repo</a>.
+Got like 1000 functions.</p>
+<h3 id="todo-8">TODO:</h3>
+<ul>
+<li>bind for <code>jumplist</code>?</li>
+<li>swap binds for buffers and file browser</li>
+</ul>
+<h2 id="which-key">which-key</h2>
+<p>Supports marks, registers, spelling (<code>z=</code>), etc. Works
+kinda good. Hope to improve my workflow with this thing lol. Pretty
+extensible: <a
+href="https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration">repo</a></p>
+<h2 id="neorg.md"><a href="#neorgmd">neorg.md</a></h2>
+<h2 id="lazy-nvim.md"><a href="#lazy-nvimmd">lazy-nvim.md</a></h2>
+<h2 id="treesitter.md"><a href="#treesittermd">treesitter.md</a></h2>
+<h1 id="general-4">General</h1>
+<ul>
+<li>Педагогика</li>
+<li>КМ - Синтаксис криптографических сообщений (на основе СТБ
+34.101.23).</li>
+</ul>
+<h1 id="references-5">References</h1>
+<ul>
+<li><a href="#fixmd">fix.md</a></li>
+<li><a href="#webmd">web.md</a></li>
+</ul>
+<h1 id="preface-2">Preface</h1>
+<p>Idea is to pull the repo every once in a while, update some inputs
+and push back again. This will allow using notes in the flake, for
+example exporting scripts or hosting them on the blog. Works pretty
+well! See <a
+href="https://github.com/head-gardener/config/blob/feature/autoupdate/modules/share/flake-autoupdate/default.nix">source</a>
+for details. Also implements <a
+href="#config-stagingmd">config-staging.md</a> strategy.</p>
+<h1 id="details">Details</h1>
+<ul>
+<li>service needs deploy keys to have acess to a single repo.</li>
+<li>git: Host key verification failed.</li>
+<li>Specify hosts file</li>
+<li>dynamic user names based on the repo in question</li>
+</ul>
+<h1 id="alternatives">Alternatives</h1>
+<ul>
+<li><a href="#hercules-cimd">hercules-ci.md</a></li>
+<li><a href="git-syncing.md#options">options</a></li>
+</ul>
+<h1 id="references-6">References</h1>
+<ul>
+<li><a href="#git-over-systemdmd">git-over-systemd.md</a></li>
+<li><a href="#ssh-over-systemdmd">ssh-over-systemd.md</a></li>
+<li><a href="#configmd">config.md</a></li>
+</ul>
+<h1 id="configuration-1">Configuration</h1>
+<p><code>services.ssh-agent</code> for hm,
+<code>programs.ssh.startAgent</code> for nixos. Both have some other fun
+stuff in <code>programs.ssh</code> that I haven’t really figured out
+yet. Also the config is complete bullshit, more on that in <a
+href="#hm-vs-nixosmd">hm-vs-nixos.md</a>.</p>
+<h1 id="usage-3">Usage</h1>
+<h2 id="ssh-add">ssh-add</h2>
+<p><code>ssh-add &lt;id&gt;</code> to add an identity, other flags
+control the storage. <code>ssh-agent -t 1h</code> might be good, but
+that depends on my chosen workflow. Also hm doesn’t have this, might
+want to patch it in.</p>
+<h1 id="references-7">References</h1>
+<ul>
+<li><a href="nix.md#services">services</a></li>
+<li><a href="ssh.md#client">client</a></li>
+</ul>
+<h1 id="what-do-you-need-1">What do you need</h1>
+<ul>
+<li>identity</li>
+<li>known_hosts via <code>StrictHostKeyChecking=accept-new</code> and
+<code>UserKnownHostsFile=${pkgs.writeText "known_hosts" githubHK}</code>.</li>
+<li>kinda all.</li>
+</ul>
+<h1 id="client">Client</h1>
+<h1 id="server">Server</h1>
+<h1 id="encryption">Encryption</h1>
+<h1 id="preface-3">Preface</h1>
+<p>Like nix but cooler?</p>
+<h1 id="readup-6">Readup</h1>
+<ul>
+<li><a
+href="https://stal-ix.github.io/INSTALL.html">https://stal-ix.github.io/INSTALL.html</a></li>
+</ul>
+<h1 id="sources-1">Sources</h1>
+<p><a href="https://danth.github.io/stylix/index.html">RTD</a>. <a
+href="https://github.com/danth/stylix">Repo</a>.</p>
+<h1 id="general-5">General</h1>
+<p>Stylix is a tool that exportc colors to various apps, including but
+not limited to 16-color sequences used by terminal emulators. If you
+only set a wallpaper, Stylix will use a genetic algorithm to create a
+color scheme. The quality of these schemes can vary, but more colorful
+images tend to have better results. Stylix has releases, and it does
+actually matter that you pick the corresponding one.</p>
+<h2 id="example-1">Example</h2>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode nix"><code class="sourceCode nix"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuration for Stylix</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://github.com/danth/stylix</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Genshin Impact by miHoYo</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># https://genshin.hoyoverse.com/en</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span> <span class="va">pkgs</span><span class="op">,</span> <span class="va">config</span><span class="op">,</span> <span class="op">...</span> <span class="op">}</span>:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="va">stylix</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># image used as a background and base for the generative algorithm.</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">image</span> <span class="op">=</span> pkgs.fetchurl <span class="op">{</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>      <span class="va">name</span> <span class="op">=</span> <span class="st">&quot;Kazuha.jpg&quot;</span><span class="op">;</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>      <span class="va">url</span> <span class="op">=</span> <span class="st">&quot;https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.hdwallpapers.in%2Fdownload%2Fkazuha_4k_hd_genshin_impact_3-HD.jpg&quot;</span><span class="op">;</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>      <span class="va">sha256</span> <span class="op">=</span> <span class="st">&quot;u1OdK21k1sFBLQqLDjLBv/SRm6oiF36QRKrPTqjyohY=&quot;</span><span class="op">;</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># polarity allows fine-tuning a generated theme, for example making it darker or lighter. Can be &quot;lilght&quot;, &quot;dark&quot; or &quot;either&quot;.</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="va">polarity</span> <span class="op">=</span> <span class="st">&quot;light&quot;</span><span class="op">;</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="va">fonts</span> <span class="op">=</span> <span class="kw">rec</span> <span class="op">{</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>      <span class="va">monospace</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">name</span> <span class="op">=</span> <span class="st">&quot;Fira Code&quot;</span><span class="op">;</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">package</span> <span class="op">=</span> pkgs.fira<span class="op">-</span>code<span class="op">;</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>      <span class="op">};</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>      <span class="va">sansSerif</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">name</span> <span class="op">=</span> <span class="st">&quot;Cantarell&quot;</span><span class="op">;</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>        <span class="va">package</span> <span class="op">=</span> pkgs.cantarell<span class="op">-</span>fonts<span class="op">;</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>      <span class="op">};</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>      <span class="va">serif</span> <span class="op">=</span> sansSerif<span class="op">;</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    <span class="va">cursor</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>      <span class="va">package</span> <span class="op">=</span> pkgs.qogir<span class="op">-</span>icon<span class="op">-</span>theme<span class="op">;</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>      <span class="va">name</span> <span class="op">=</span> <span class="st">&quot;Qogir&quot;</span><span class="op">;</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  <span class="op">};</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h1 id="services-1">Services</h1>
+<p>See <a href="nix.md#services">services</a>.</p>
+<h2 id="commands-2">Commands</h2>
+<ul>
+<li><code>systemd-analyze service</code> - analyze service’s
+security.</li>
+</ul>
+<h2 id="references-8">References</h2>
+<ul>
+<li><code>man systemd.exec</code></li>
+<li><code>man systemd.resource-control</code></li>
+</ul>
+<h1 id="references-9">References</h1>
+<ul>
+<li><a href="#kernelmd">kernel.md</a></li>
+<li><a href="#profilingmd">profiling.md</a></li>
+<li><a href="#uart-over-usbmd">uart-over-usb.md</a></li>
+<li><a href="#uartmd">uart.md</a></li>
+</ul>
+<h1 id="commands-3">Commands</h1>
+<ul>
+<li><code>:new-session -s name -c root</code></li>
+<li><code>:breakp</code> or <code>&lt;pref&gt;!</code> - throws current
+pane into a new window</li>
+<li><code>:join-pane</code> or <code>:move-pane</code> - weird magical
+command for moving panes
+<ul>
+<li><code>-b</code> moves stuff to the left or above, i.e. not the
+default.</li>
+</ul></li>
+</ul>
+<h1 id="config-quirks">Config quirks</h1>
+<p>Shelld should be set before calling new-session in the config, which
+makes for a pretty weird nix expression.</p>
+<h1 id="fish.md"><a href="#fishmd">fish.md</a></h1>
+<h1 id="git-syncing.md-1"><a
+href="#git-syncingmd">git-syncing.md</a></h1>
+<h1 id="graphviz.md"><a href="#graphvizmd">graphviz.md</a></h1>
+<h1 id="nu.md"><a href="#numd">nu.md</a></h1>
+<h1 id="refresher.md"><a href="#refreshermd">refresher.md</a></h1>
+<h1 id="bookmarks-1">Bookmarks</h1>
+<ul>
+<li><a
+href="https://andrewcourter.substack.com/p/code-folding-in-neovim">https://andrewcourter.substack.com/p/code-folding-in-neovim</a></li>
+<li><a
+href="https://www.josean.com/posts/nvim-treesitter-and-textobjects">https://www.josean.com/posts/nvim-treesitter-and-textobjects</a></li>
+<li><a
+href="https://thevaluable.dev/tree-sitter-neovim-overview/">https://thevaluable.dev/tree-sitter-neovim-overview/</a></li>
+<li><a
+href="https://www.reddit.com/r/neovim/comments/16xz3q9/treesitter_highlighted_folds_are_now_in_neovim/">reddit
+post on treesitter folds PR</a>.</li>
+</ul>
+<h1 id="concepts">Concepts</h1>
+<h2 id="edit-in-place">Edit in place</h2>
+<p>Edit remote’s entries directly in whatever forms they are displayed
+in (e.g. a table), without requiring extra pages.</p>
+<h1 id="todo-9">TODO</h1>
+<ul>
+<li><a href="https://pastebin.com/QHRTUTEq">Omonos’s hotkeys</a>.</li>
+</ul>
+<h1 id="powerwatch">powerwatch</h1>
+<ul>
+<li>style notifications</li>
+<li>service doesn’t start</li>
+<li>better way of indefinite sleep</li>
+<li>does warning level even work?</li>
+</ul>
+<h1 id="cpanel">cpanel</h1>
+<p>this SUCKS. Probably better to just parse <code>pw-dump</code>.</p>
