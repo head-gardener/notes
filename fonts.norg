@@ -1,0 +1,5 @@
+* Tools
+** fontconfig
+   - `fc-list` shows available fonts, `fc-list : family` shows available families.
+
+* References
