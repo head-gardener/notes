@@ -1,9 +1,10 @@
 * Tools
-   - perf
-   - nsight (nvprof)
-   - hdparm
-   - fio
-   - sysbench
+** {:perf:}
+** nsight (nvprof)
+** hdparm
+** fio
+** sysbench
+** stress
 
 * Script
    #tangle stat.nu

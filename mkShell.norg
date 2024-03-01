@@ -1,0 +1,8 @@
+* Readup
+  {http://ryantm.github.io/nixpkgs/builders/special/mkshell/}[Docs].
+
+* Args
+  - `name` - name for the shell.
+  - `packages` - packages to include into the environment.
+  - `inputsFrom` - packages, that will have their build dependencies included in the environment.
+  - `shellHook` - `.bashrc` essentially.
