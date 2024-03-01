@@ -16,7 +16,33 @@
 ** Tracepoint events
    Events, provided by the `ftrace` infrastructure.
 
+* Multiplexing
+  When there are more events than counters, kernel will *not* measure an event all the time, but will do so in intervals, scaling the count once tool has finished running. Thus, in such situations `perf` displays only an estimate of what number of events was emitted.
+  When scaling, `perf` will report the amount in percents.
+  @code bash
+  $ perf stat -B -e cycles,cycles,cycles,cycles,cycles,cycles stress --cpu 4 -t 1s
+  stress: info: [2448427] dispatching hogs: 4 cpu, 0 io, 0 vm, 0 hdd
+  stress: info: [2448427] successful run completed in 1s
+
+   Performance counter stats for 'stress --cpu 4 -t 1s':
+
+      14,965,192,076      cycles:u                                                                (83.33%)
+      14,963,395,776      cycles:u                                                                (83.32%)
+      14,964,864,137      cycles:u                                                                (83.31%)
+      14,963,907,082      cycles:u                                                                (83.37%)
+      14,964,520,486      cycles:u                                                                (83.34%)
+      14,965,279,701      cycles:u                                                                (83.36%)
+
+         1.001521732 seconds time elapsed
+
+         3.963546000 seconds user
+         0.000998000 seconds sys
+  @end
+  Reporting seems to become progressively less accurate as scaling is utilized more heavily.
+
 * Commands
   - `perf list` - shows supported events,
   - `perf stat <cmd>` - execute a command and record emitted events.
-  --- `-e <event>[:u/k]` - to record a specific event, userspace or kernel.
+  -- `-e <event>[:ukhHG]` - to record a specific event, userspace or kernel - or other modifiers.
+  -- `-r <n>` - perform repeated measurements, displaying mean alongside measures.
+  -- `-a` - count stats in per-cpu mode. Default is per-thread, which doesn't require root privileges. However, listening on all cores will capture events by *all* user level processes, running on the CPU.

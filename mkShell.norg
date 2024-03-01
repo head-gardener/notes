@@ -6,3 +6,6 @@
   - `packages` - packages to include into the environment.
   - `inputsFrom` - packages, that will have their build dependencies included in the environment.
   - `shellHook` - `.bashrc` essentially.
+
+* Output
+  Result is a shell with all required programs, or, when built, a text file with all the dependencies, useful for creating GC roots.
