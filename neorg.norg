@@ -2,8 +2,9 @@
   Take notes you weirdo
 
 * Readup
-  {https://www.youtube.com/watch?v=NnmRVY22Lq8&list=PLx2ksyallYzVI8CN1JMXhEf62j2AijeDa}[Tutorials].
-  {https://github.com/nvim-neorg/neorg}[Repo].
+  - (-){https://www.youtube.com/watch?v=NnmRVY22Lq8&list=PLx2ksyallYzVI8CN1JMXhEf62j2AijeDa}[Tutorials].
+  - (-) {https://github.com/nvim-neorg/neorg}[Repo].
+  - ( ) {https://github.com/nvim-neorg/norg-specs}[Specs].
 
 * TODO
   - ( ) set spell, lbr, column and sum else on .norg filetype.

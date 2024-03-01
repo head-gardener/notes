@@ -1,0 +1,42 @@
+* General
+** Factors to consider
+   - User can forge requests regardless of the designed protocols.
+   - User has access to a part of a source code in the form of front-end code, delivered to the client.
+   - A web service is simultaneously accessible to many users, some of which may pose a direct threat to others - e.g. DoS, MitM.
+** STRIDE model
+   STRIDE model includes a set of threats:
+*** Spoofing
+    Implies a threat of forged or stolen identities, used to gain authentication.
+*** Tampering
+    Modification restriction bypass.
+*** Repudiation
+    Claim of non-responsibility, possible due to a lack of evidence.
+*** Information disclosure
+    Read restriction bypass.
+*** Denial of Service
+    Malicious overuse of the application's resources.
+*** Elevation of privilege
+    Authentication mechanism bypass.
+** Design principles
+   - Model your threats.
+   - Subdivide your application.
+   - Identify threats, document and analyze them.
+   - Use cost-benefit analysis to assess the threats.
+   -- Possible model can be as simple as $probability * damage$.
+   -- Using multiple parameters a model should weight them based on the particular application.
+   -- More thorough model can consider the following parameters:
+   --- Damage potential
+   --- Reproducibility
+   --- Exploitability
+   --- Affected users
+   --- Discoverability
+** Gatekeeper model
+   Going from least critical points to the most important user should encounter an increasing amount of /gatekeepers/ - layers of defence.
+   A secure application should always be guarded by more layers than necessary.
+   An example of the gatekeeper model is the authorisation/authentication pair.
+** SSL/TLS
+   ^ Just use Let's Encrypt certificates.
+
+   CA signs certificates, browsers have a collection of CA and trust their signatures, i.e. /network of trust/.
+   Certificates use `X.509` for signatures.
+

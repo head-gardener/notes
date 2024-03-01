@@ -15,14 +15,18 @@
    -- ( ) Probably some plugins are responsible.
 
 * Keys
-  - z
-  -- `zg` - spell add
-  -- `z=` - spell correct
-  -- `zm`, `zr` - fold more/less
-  -- `zMzv` - fold all but cursor
-  - `'` - jump to prev selection, prev edited, jumped from - whole lotta stuff!
-  - `C-t` - jump up the tag stack - e.g. reverse `gD`.
-  - `C-g` - show buffer stat like file path, line, col, etc..
+** Spell
+   - `zg` - spell add.
+   - `z=` - spell correct.
+** Fold
+   - `zm`, `zr` - fold more/less.
+   - `zx` - reload folds.
+   - `zMzv` - fold all but cursor.
+** Marks
+   - `'` - jump to prev selection, prev edited, jumped from - whole lotta stuff!
+** Etc
+   - `C-t` - jump up the tag stack - e.g. reverse `gD`.
+   - `C-g` - show buffer stat like file path, line, col, etc..
 
 * Commands
   - `:?a?;/b/g//d` exec command over range. See {https://github.com/markonm/traces.vim?tab=readme-ov-file}[traces.vim].

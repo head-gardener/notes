@@ -16,7 +16,7 @@
 * Functions
   - {:mkShell:}
 * Configuration
-  {:config:}
+ See {:config:}
 ** Colors
    {:stylix:}
    {:nix-colors:}

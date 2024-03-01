@@ -1,3 +1,7 @@
 * Concepts
 ** Edit in place
    Edit remote's entries directly in whatever forms they are displayed in (e.g. a table), without requiring extra pages.
+
+* References
+  - {:grpc:}
+  - {:web-security:}
