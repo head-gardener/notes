@@ -46,3 +46,11 @@
   -- `-e <event>[:ukhHG]` - to record a specific event, userspace or kernel - or other modifiers.
   -- `-r <n>` - perform repeated measurements, displaying mean alongside measures.
   -- `-a` - count stats in per-cpu mode. Default is per-thread, which doesn't require root privileges. However, listening on all cores will capture events by *all* user level processes, running on the CPU.
+  -- `-p` - attach to a running PID.
+  - Sampling
+  -- `perf record` - generate a `perf.data` file, sampling events.
+  -- `perf report/annotate` - read a `perf.data` file.
+  -- `perf script` - traces perf data, allows you to export a flamegraph or other cool stuff.
+  --- `perf script record` records data.
+  --- `perf script report` reports data, can be used with scripts, e.g. `perf script report flamegraph`.
+  - `perf top` - prints samples in real time.
