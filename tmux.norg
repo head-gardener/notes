@@ -4,5 +4,19 @@
   - `:join-pane` or `:move-pane` - weird magical command for moving panes
   -- `-b` moves stuff to the left or above, i.e. not the default.
 
+* Features
+** Sessions
+   Sessions are separate groups of windows. Multiple sessions can be used simultaneously on a single server.
+   Sessions can be managed with things like `tmuxinator`.
+   Sessions can share windows, but have their own notion of what window is selected:
+   @code bash
+   tmux new-session -s <name> -t <old_session>
+   @end
+   Keys:
+   - `(`, `)` - prev, next.
+   - `L` - last.
+   - `s` - list select.
+   - `$` - rename.
+
 * Config quirks
   Shelld should be set before calling new-session in the config, which makes for a pretty weird nix expression.
