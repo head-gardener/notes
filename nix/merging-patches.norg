@@ -1,0 +1,17 @@
+* Prep
+  Have all your patches ready, you'll need them.
+  The package should be exposed through an overlay or packages for the best experience.
+  Run 
+  @code bash
+  nix develop .#foo
+  cd $(mktemp -d)
+  unpackPhase
+  cp $patches .
+  @end
+  And you are all set to begin merging.
+
+* Merging
+
+
+* References
+  - {:../git:}

@@ -85,5 +85,6 @@
 
 * Rerences
   - {:flake-parts:}
+  - {:nix/merging-patches:}
   - {:nixops:}
   - {:refresher:}
