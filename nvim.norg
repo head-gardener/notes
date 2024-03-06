@@ -65,6 +65,7 @@
 
 * Plugins
 ** TODO
+   - ( ) {https://github.com/mhinz/vim-startify}[starify]
    - ( ) {https://github.com/stevearc/oil.nvim}[oil.nvim]
    - (_) {https://github.com/ecthelionvi/neoswap.nvim}[NeoSwap]
    - (_) {https://github.com/saifulapm/chartoggle.nvim}[chartoggle]
