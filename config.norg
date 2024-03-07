@@ -32,4 +32,3 @@
   - {:nvim:}
   - {:nix:}
   - {:stylix:}
-  - {? Impermanence}
