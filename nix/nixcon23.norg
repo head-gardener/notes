@@ -3,19 +3,59 @@
   Speakers: Kim Lindberger (@talyz).
   To boot NixOS you only need `/boot` and `/nix` - everything else can be impermanent.
   What do you need:
-  - auto-wiping root.
-  -- easiest way is `tmpfs`.
-  ---  but memory is limited.
-  ---  power loss will ruin impermanent data.
-  -- `btrfs` subvols - for example create a new vol on every boot.
-  --- you need a script in `boot.initrd.postDeviceCommands = lib.mkAfter`.
-  - persistent volumes
-  - persistence modules
+** Ephemeral volumes.
+   There are a couple ways:
+*** `tmpfs`
+    - easiest way.
+    - memory is limited.
+    - power loss will ruin impermanent data.
+*** `btrfs` subvols
+    - for example create a new vol on every boot.
+    - you need a script in `boot.initrd.postDeviceCommands = lib.mkAfter`.
+    - the sctipt will mount vols, move old subvols to storage, timestamp them, remove anything older-than.
+** Persistent volumes.
+   This should include mounts, needed on boot.
+   E.g.`boot`, `nix`.
+** Persistence modules.
+   `nixosModules.impermanence`, or anything similar.
+   Use `environment.persistance` to declare persistent files.
+   @code nix
+   {
+     environment.persitance.main = {
+       persistentStoragePath = "/persistent";
+       direcotries = [
+         "/var/log"
+       ];
+       files = [
+         "/etc/machine-id"
+         { file = "/etc/machine-id"; user = "user"; group = "group"; };
+       ];
+     };
+   }
+   @end
+   Home manager module also exists, you can use it to have persistent documents, downloads and what not.
+   It uses bind mounts and symlinks. First are preferable.
+*** Symlinks vs bind mounts
+   $ bind mounts
+    You can mount files with `mount --bind`. This can be usable for accessing files on a drive from multiple places, even when some of their paths are hidden by other mount commands, accessing files in chroot env, etc..
+
+    Bind mounts can't really point to non-existent files, but are otherwise more secure.
+
+** Questions
+   - sensible defaults for services are currently being worked on.
+   - impermanence can be used to create more succinct snapshots of home.
+   - bind mounts can be used across file systems, so LUKS shouldn't be an issue.
+   - you can have impermanent store, but be careful.
 
 * What Flakes needs (technically)
   {https://www.youtube.com/watch?v=UHhnG4rbvzo}[Video].
   Speaker: Linux Heckermann.
+  Flake have became more popular than `default.nix` in new repos, which introduces a problem for new technical solutions. The main idea is to have  newer versions of nix preserve older flakes but reject newer unless action is taken.
+  Flakes need *discoverability*. Registry does that, but not enough.
+  Flakes' outputs have to be *enumerable*.
 ** lazytrees
+   {https://github.com/NixOS/nix/pull/6530}[PR].
+   Flakes are copied wholesale when evaluated. lazytrees introduces a number of mechanisms for lazily copying files into store.
 
 * Tvix
   {https://www.youtube.com/watch?v=j67prAPYScY}[Video].
