@@ -1,6 +1,21 @@
+* Impermanence
+  {https://www.youtube.com/watch?v=s2fkgkN55vk}[Video].
+  Speakers: Kim Lindberger (@talyz).
+  To boot NixOS you only need `/boot` and `/nix` - everything else can be impermanent.
+  What do you need:
+  - auto-wiping root.
+  -- easiest way is `tmpfs`.
+  ---  but memory is limited.
+  ---  power loss will ruin impermanent data.
+  -- `btrfs` subvols - for example create a new vol on every boot.
+  --- you need a script in `boot.initrd.postDeviceCommands = lib.mkAfter`.
+  - persistent volumes
+  - persistence modules
+
 * What Flakes needs (technically)
   {https://www.youtube.com/watch?v=UHhnG4rbvzo}[Video].
-** ( ) lazytrees
+  Speaker: Linux Heckermann.
+** lazytrees
 
 * Tvix
   {https://www.youtube.com/watch?v=j67prAPYScY}[Video].
