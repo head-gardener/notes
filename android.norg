@@ -10,3 +10,7 @@
 * Recovery
   Like a recovery USB stick, but inbuilt. Enter it form the bootloader or `adb reboot recovery`.
   Use it for backups, flashing, shell access, etc..
+
+* Usage
+  - `adb install foo.apk` - install an apk onto the device.
+  - *deprecated* `adb backup/restore --twrp <file>` - twrp-style backups.
