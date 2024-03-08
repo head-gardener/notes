@@ -1,4 +1,5 @@
 * Notes
+  - {:android:}
   - {:config:}
   - {:cryptography:} 
   - {:fonts:}
@@ -9,6 +10,7 @@
   - {:neorg:}
   - {:nvim:}
   - {:nix:}
+  - {:s3:}
   - {:systemd:}
   - {:personal:}
   - {:programming:}

@@ -3,3 +3,4 @@
   - {:profiling:}
   - {:uart-over-usb:}
   - {:uart:}
+  - {:s3:}
