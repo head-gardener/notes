@@ -1,0 +1,12 @@
+* Readup
+  - {http://www.fmwconcepts.com/imagemagick/levels/index.php}[Fred's ImageMagick Scripts].
+  - {https://imagemagick.org/}[Page].
+
+* General
+  Set of utilities for manipulating images from the command line.
+
+* Tools
+** `magick`
+   Main things.
+** `convert`
+   Converts file types. Just pass two filenames.
