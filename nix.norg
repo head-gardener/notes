@@ -84,8 +84,8 @@
    - {:dotfiles-updater:}.
 
 * Rerences
-  - {:stylix:}
   - {:flake-parts:}
   - {:nix/merging-patches:}
   - {:nixops:}
   - {:refresher:}
+  - {:stylix:}
