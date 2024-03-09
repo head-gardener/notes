@@ -17,7 +17,7 @@
   -- ( ) Nvim colors
   -- ( ) Fish colors
   -- ( ) Nu colors
-  - ( ) Rewrite with flake parts
+  - (x) Rewrite with flake parts
   -- See {:flake-parts:}.
   - (x) Need an auto-updater
   - (x) figure out the done thing
@@ -26,10 +26,11 @@
   - (x) Better layout switch (like ralt)
 
 * References
-  - {:refresher:}
-  - {:xmonad:}
+  - {:btrfs:}
   - {:fish:}
-  - {:nvim:}
-  - {:nix:}
-  - {:stylix:}
   - {:minio:}
+  - {:nix:}
+  - {:nvim:}
+  - {:refresher:}
+  - {:stylix:}
+  - {:xmonad:}

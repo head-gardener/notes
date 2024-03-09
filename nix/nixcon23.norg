@@ -18,7 +18,7 @@
    E.g.`boot`, `nix`.
 ** Persistence modules.
    `nixosModules.impermanence`, or anything similar.
-   Use `environment.persistance` to declare persistent files.
+   Use `environment.persistence` to declare persistent files.
    @code nix
    {
      environment.persitance.main = {
