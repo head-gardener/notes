@@ -4,7 +4,8 @@
 
 * Targets
   > In Stylix terms, a target is anything which can have colors, fonts or a wallpaper applied to it. Each module in this repository should correspond to a target of the same name.
-    You should be aware of applicatons enabled through HM and Nix when setting targets.
+
+  You should be aware of applicatons enabled through HM and Nix when setting targets. More: {:hm-vs-nixos:}.
 
 * ( ) General
   Stylix is a tool that exportc colors to various apps, including but not limited to 16-color sequences used by terminal emulators. If you only set a wallpaper, Stylix will use a genetic algorithm to create a color scheme. The quality of these schemes can vary, but more colorful images tend to have better results.
