@@ -3,20 +3,21 @@
   - ( ) {:opensmtp:}
   - ( ) {:neorg:} Script export.
   - ( ) {:neorg:} host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
-  - ( ) Look into {:hercules-ci:}
+  - (=) Look into {:hercules-ci:}
   - ( ) Linux 6.7.5
   -- Backported to 23.11 recently. Might wanna check out!
   -- More in {:kernel:}.
   - (?) substitute-* backport?
   -- Cool feature. Might be backported, might be in 24.05. Time will show.
   -- (=) Once it drops, grep all usages and replace stdenv to normal from unstable.
-  - ( ) Colorscheme rework
-  -- ( ) see {:stylix:}
-  -- ( ) see {:nix-colors:}
-  -- ( ) Kitty colors
+  - (x) Colorscheme rework
+  -- (x) see {:stylix:}
+  -- (_) see {:nix-colors:}
+  -- (x) Kitty colors
   -- ( ) Nvim colors
-  -- ( ) Fish colors
-  -- ( ) Nu colors
+  -- (x) Fish colors
+  -- (x) Nu colors
+  -- ( ) GTK theming
   - (x) Rewrite with flake parts
   -- See {:flake-parts:}.
   - (x) Need an auto-updater

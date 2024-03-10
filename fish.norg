@@ -2,6 +2,7 @@
   - {:done-fish:}
   - {:gitnow:}
   - {:forgit:}
+  - ( ) `async-prompt`
 
 * Integrations
 ** carapace

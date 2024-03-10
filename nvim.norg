@@ -27,6 +27,7 @@
 ** Etc
    - `C-t` - jump up the tag stack - e.g. reverse `gD`.
    - `C-g` - show buffer stat like file path, line, col, etc..
+   - `gx` - open selection with `xdg-open` - e.g. open url's.
 
 * Commands
   - `:?a?;/b/g//d` exec command over range. See {https://github.com/markonm/traces.vim?tab=readme-ov-file}[traces.vim].
