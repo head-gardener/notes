@@ -1,1 +1,6 @@
 * Scripts
+
+* Cookbook
+  - `detect columns` - parse input and spit out a table.
+  - `journalctl -n 10 -ef  -o json | lines | each { |e| print ($e | from json) }` - stream processing.
+  - `transpose` and `transpose -r -d` - convert between tables and lists.
