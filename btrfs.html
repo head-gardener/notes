@@ -1,0 +1,106 @@
+<h1 id="readup">Readup</h1>
+<ul>
+<li><a href="https://fedoramagazine.org/author/hartan/">Fedora’s series
+on btrfs by Andreas Hartmann</a>.</li>
+<li><a
+href="https://archive.kernel.org/oldwiki/btrfs.wiki.kernel.org/index.php/SysadminGuide.html#Layout">Archived
+and obsolet sysadmin’s guide to btrfs</a>.</li>
+<li><a
+href="https://computingforgeeks.com/working-with-btrfs-filesystem-in-linux/">Blog
+post on working with btrfs by Josphat Mutai with many examples</a>.</li>
+<li><a href="https://btrfs.readthedocs.io/en/latest/index.html">btrfs
+rtd</a>.</li>
+<li><a href="https://nixos.wiki/wiki/Btrfs">NixOS wiki entry on using
+btrfs with NixOS</a>.</li>
+</ul>
+<h1 id="general">General</h1>
+<p>good.</p>
+<h2 id="cow">COW</h2>
+<p>moo.</p>
+<h1 id="subvols">Subvols</h1>
+<p>Like directories, but can be manipulated like file systems, have
+snapshots and such. This stuff is kinda like bind mounts,</p>
+<h2 id="commands">Commands:</h2>
+<ul>
+<li><code>findmnt</code> - display info about mounts.</li>
+<li><code>btrfs subvolume create &lt;path&gt;</code> - create a subvol.
+<code>path</code> should be non existent.</li>
+<li><code>btrfs subvolume list &lt;path&gt;</code> - show subvols in the
+fs containing <code>path</code>.
+<ul>
+<li><code>-o</code> - show subvols below <code>path</code>.</li>
+</ul></li>
+<li><code>rm -r &lt;vol&gt;</code> or
+<code>doas btrfs subvolume delete &lt;vol&gt;</code> - delete
+subvol.</li>
+<li><code>umount &lt;subvol&gt;</code> - unmount subvol after it has
+been mounted to a different path.</li>
+<li><code>mount -o subvol=&lt;path&gt;,&lt;opts&gt; &lt;drive&gt; &lt;path&gt;</code>
+- mount subvol. <code>subvol</code> is how <code>fstab</code> nows where
+to mount what.</li>
+</ul>
+<h2 id="options">Options</h2>
+<ul>
+<li><code>subvol</code> - subvol path.</li>
+<li><code>subvolid</code> - subvol id.</li>
+<li><code>compression</code> - subvol compression. See <a
+href="#compression">Compression</a>.</li>
+</ul>
+<h2 id="nested-vs.-flat">Nested vs. flat</h2>
+<p>There are several basic schemas to layout subvolumes (and
+snapshots).</p>
+<p>All subvols are children of root and later mounted into appropriate
+directories. E.g. you can create all your subvolumes in
+<code>/subvolumes</code> - a directory, with parent <code>root</code>,
+and use <code>/snapshots</code> - directory, - for snapshots.Flat</p>
+<p>Subvols are located anywhere in file hierarchy - typically in their
+desired locations.Nested</p>
+<p>Comparison: - <strong>management</strong>: easier with flat, because
+layout is directyl visible and explicit. - <strong>mounting</strong>:
+with flat all subvolumes need to be mounted separately, with nested no
+explicit mounting is needed. - <strong>mount</strong> options: with flat
+options don’t propagate from fs and need to be specified separately, but
+also can be modified per subvolume. With nested options propagate from
+fs. - <strong>visibility</strong>: ? - <strong>snapshots</strong>:
+neither way will or include nested subvols in snapshots, so care should
+be taken. See <a href="#snapshots">snapshots</a>.</p>
+<h2 id="subvolume-ids">Subvolume ID’s</h2>
+<p>Displayed by <code>doas btrfs subvolume list &lt;path&gt;</code>.
+Start at 256 and increase by 1 for every new subvol. FS root always has
+subvol name <code>/</code> and id 5. When a btrfs partition is mounted
+without an explicit subvolume, <code>subvolid=5</code> is assumed.
+<code>list</code> shows top level id, most often it’s 5 - root.</p>
+<h2 id="snapshots">Snapshots</h2>
+<p>Snapshots are a diff vcs on a fs level.</p>
+<p>See <a href="#cow">COW</a> for how this is possible. Subvol snapshot
+won’t contain children - so with subvols <code>/</code> and
+<code>/home</code> snapshoting <code>/</code> won’t copy
+<code>/home</code>. Snapshots are created with
+<code>btrfs subvolume snapshot &lt;opts&gt; &lt;from&gt; &lt;to&gt;</code>.
+Benefit of snapshots over simple copying is COW - small changes to files
+will cause small changes to diks usage. This can be verified with
+<code>compsize</code>.Snapshot is a subvolume with added content: it
+holds references to current and/or past versions of files (inodes).</p>
+<h2 id="backups">Backups</h2>
+<p>Storing snapshots on a single fs is convenient but not really secure
+- fs failure will cascade to snapshots. Remedying this requries
+efficiently exchanging information about snapshots between btrfs (or
+between btrfs and non-btrfs) file systems. To <strong>back up</strong> a
+subvolume - <strong>create</strong> a ro snapshot with
+<code>btrfs subvolume snapshot -r &lt;subvol&gt; &lt;snapshot&gt;</code>.
+- <strong>transfer</strong> it with
+<code>btrfs send &lt;snapshot&gt; | btrfs receive &lt;dest&gt;</code> -
+for <strong>non-btrfs</strong> destinations you can store snapshots in
+files -
+<code>btrfs send -f &lt;snapshot&gt;.btrfs &lt;snapshot&gt;</code>. To
+utilize shared nodes between sent snapshots - send <strong>incremental
+stream</strong> with
+<code>btrfs send -p &lt;parent&gt; &lt;snapshot&gt;</code>. To
+<strong>restore</strong> a subvolume from a snapshot -
+<strong>receive</strong> the snapshot with
+<code>btrfs send &lt;snapshot&gt; | btrfs receive &lt;dest&gt;</code>, -
+<strong>recreate</strong> a rw subvol from a snapshot with
+<code>btrfs subvolume snapshot &lt;snapshot&gt; &lt;subvol&gt;</code>.</p>
+<h2 id="compression">Compression</h2>
+<p>Can only be applied on a <strong>filesystem-wide</strong> level. blah
+blah.</p>
