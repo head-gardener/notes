@@ -83,6 +83,11 @@
 ** Examples
    - {:dotfiles-updater:}.
 
+* Installers
+  There are a couple installers and you can build your own.
+  To create an installer provide a configuration through a flake or a nix file, which has some module from `${modulesPath}/installer/` as import. E.g. `${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix` - the one you would most commonly use.
+  Building configurations can be done with `nixos-generate --flake .#installer --format iso -o result` from `nixos-generators`.
+
 * Rerences
   - {:flake-parts:}
   - {:nix/merging-patches:}

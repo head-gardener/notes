@@ -18,9 +18,10 @@
      `path` should be non existent.
    - `btrfs subvolume list <path>` - show subvols in the fs containing `path`.
    -- `-o` - show subvols below `path`.
+   - `btrfs subvolume show <path>` - show comprehensive information about subvol at `path`.
    - `rm -r <vol>` or `doas btrfs subvolume delete <vol>` - delete subvol.
    - `umount <subvol>` - unmount subvol after it has been mounted to a different path.
-   - `mount -o subvol=<path>,<opts> <drive> <path>` - mount subvol. `subvol` is how `fstab` nows where to mount what.
+   - `mount -o subvol=<path>,<opts> <drive> <path>` - mount subvol. `subvol` is how `fstab` knows where to mount what.
 ** Options
    - `subvol` - subvol path.
    - `subvolid` - subvol id.
@@ -35,11 +36,13 @@
    Subvols are located anywhere in file hierarchy - typically in their desired locations.
 
    Comparison:
-   - *management*: easier with flat, because layout is directyl visible and explicit.
+
+   - *management*: easier with flat, because layout is directly visible and explicit.
    - *mounting*: with flat all subvolumes need to be mounted separately, with nested no explicit mounting is needed.
    - *mount* options: with flat options don't propagate from fs and need to be specified separately, but also can be modified per subvolume. With nested options propagate from fs.
    - ( ) *visibility*: ?
    - *snapshots*: neither way will or include nested subvols in snapshots, so care should be taken. See {# snapshots}.
+
 ** Subvolume ID's
    Displayed by `doas btrfs subvolume list <path>`.
    Start at 256 and increase by 1 for every new subvol. FS root always has subvol name `/` and id 5. When a btrfs partition is mounted without an explicit subvolume, `subvolid=5` is assumed.
@@ -50,17 +53,23 @@
    See {# COW} for how this is possible.
    Subvol snapshot won't contain children - so with subvols `/` and `/home` snapshoting `/` won't copy `/home`.
    Snapshots are created with `btrfs subvolume snapshot <opts> <from> <to>`.
-   Benefit of snapshots over simple copying is COW - small changes to files will cause small changes to diks usage. This can be verified with `compsize`.
+   Benefit of snapshots over simple copying is COW - small changes to files will cause small changes to disk usage. This can be verified with `compsize`.
 
 ** Backups
-   Storing snapshots on a single fs is convenient but not really secure - fs failure will cascade to snapshots. Remedying this requries efficiently exchanging information about snapshots between btrfs (or between btrfs and non-btrfs) file systems.
+   Storing snapshots on a single fs is convenient but not really secure - fs failure will cascade to snapshots. Remedying this requires efficiently exchanging information about snapshots between btrfs (or between btrfs and non-btrfs) file systems.
+
    To *back up* a subvolume
+
    - *create* a ro snapshot with `btrfs subvolume snapshot -r <subvol> <snapshot>`.
    - *transfer* it with `btrfs send <snapshot> | btrfs receive <dest>`
    - for *non-btrfs* destinations you can store snapshots in files - `btrfs send -f <snapshot>.btrfs <snapshot>`.
+
    To utilize shared nodes between sent snapshots
+
    - send *incremental stream* with `btrfs send -p <parent> <snapshot>`.
+
    To *restore* a subvolume from a snapshot
+
    - *receive* the snapshot with `btrfs send <snapshot> | btrfs receive <dest>`,
    - *recreate* a rw subvol from a snapshot with `btrfs subvolume snapshot <snapshot> <subvol>`.
 ** Compression
