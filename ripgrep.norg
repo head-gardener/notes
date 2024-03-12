@@ -2,3 +2,4 @@
   Like `grep` but rusty.
 
 * Notes
+  - like `grep`, can't write to input. Just use `sed`: `sed -i '/host/!d' ~/.ssh/known_hosts`.

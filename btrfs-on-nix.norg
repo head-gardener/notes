@@ -1,0 +1,23 @@
+* Intro
+  Btrfs is cool, nixos is cool. Together they are pretty good.
+
+* Setup
+  You can use snapshots in addition to nix's links to ensure reproducibility of state - stuff that isn't managed by nix. For example var, keys, out-of-nix configs like `hydra`, keys. But don't forget to encrypt it all, or your secrets will end up in plaintext on your NAS.
+** Subvolumes
+   The main question is what to separate. Snapshots allow you to inspect entire filesystem at some point in time - both state and nix's links. Hovewer the two have different requirements and you might want to keep their separation as high as possible.
+
+   Consider the following distribution of mounts.
+
+   - `/boot` - different fs mounted.
+   - `/nix` - a subvolume, no snapshots.
+   - `/var` - a subvolume, frequent snapshots - since FHS suggests to keep state here, e.g. logs.
+   - `/home` - a subvolume, snapshots depend on usecase.
+   - `/` - also a subvolume, infrequent snapshots - mainly for state in `etc`.
+
+   All these subvolumes should be created on a separate fs, which itself isn't mounted.
+
+** Switching to subvolumes from plain btrfs
+   Hard to do on a running? probably easier on a cold drive and straigt-forward when installing. The easies approach here is to backup your state, i.e. `/`, than do a full reinstall and lift out-of-nix state from the backup.
+
+* References
+  - {:btrfs:}

@@ -111,6 +111,7 @@
   Flash resulting iso with `dd if=result/iso/nixos-smth.iso of=/dev/disk/by-id/usb-ID status=progress && sync`.
 
 * Rerences
+  - {:btrfs-on-nix:}
   - {:flake-parts:}
   - {:nix/merging-patches:}
   - {:nixops:}
