@@ -1,4 +1,5 @@
 * Command
+** {:nix-copy:}
 ** Tips
    - `nix flake lock --update-input <input> --commit-lock-file` updates single input.
    -- (=) was replaced with `nix flake update --update-input` in 2.19
