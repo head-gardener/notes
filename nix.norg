@@ -86,7 +86,29 @@
 * Installers
   There are a couple installers and you can build your own.
   To create an installer provide a configuration through a flake or a nix file, which has some module from `${modulesPath}/installer/` as import. E.g. `${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix` - the one you would most commonly use.
-  Building configurations can be done with `nixos-generate --flake .#installer --format iso -o result` from `nixos-generators`.
+  Example configuration:
+  @code nix
+  {
+    nixosConfigurations.installer = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ({ pkgs, modulesPath, lib, ... }: {
+          imports = [
+            "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+          ];
+          boot.kernelPackages = pkgs.linuxPackages_latest;
+          boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
+          users.users.nixos.openssh.authorizedKeys.keyFiles = [ ./ssh/mykey ];
+        })
+        ./modules/default/tools.nix
+      ];
+    };
+  }
+  @end
+  Building configurations can be done with `nixos-generate --flake .#installer --format iso -o result` from `nixos-generators`. Beware that the process is quite slow due to `squashfs` generation and can take around 6 minutes.
+  Try out your installer before flashing with `nixos-rebuild build-vm --flake .#installer`.
+  Flash resulting iso with `dd if=result/iso/nixos-smth.iso of=/dev/disk/by-id/usb-ID status=progress && sync`.
 
 * Rerences
   - {:flake-parts:}
