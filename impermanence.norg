@@ -1,0 +1,8 @@
+* General
+  You can use any imperm mechanism (tmpfs, btrfs subvols, zfs smth).
+
+* What to persist
+  - `/var/lib/postgresql` - postgresql state.
+  - `/var/lib/hydra` - hydra state.
+  - `/var/lib/minio` - minio state and data.
+  - `/var/lib` - probably? Though what's the point then.
