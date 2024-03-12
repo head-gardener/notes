@@ -4,3 +4,4 @@
   - {:uart-over-usb:}
   - {:uart:}
   - {:s3:}
+  - {:legacy-vs-uefi:}

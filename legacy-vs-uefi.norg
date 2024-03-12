@@ -1,0 +1,11 @@
+* Readup
+  - {https://wiki.archlinux.org/title/Installation_guide}[Arch install guide].
+  - {https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation#Designing_a_partition_scheme}[Gentoo install guide, the partitions part].
+
+* General
+  Most system past like 2010 run UEFI, so go ahead and do UEFI install. But if the system boots into `_` symbol blinking with no output, or you where smart and checked `/sys/firmware/efi` directory - tough luck, you got legacy boot on your hands.
+** UEFI installation
+   Straight forward - you need a `vfat` partition, around 512 - 1000 MB to store your boot data.
+   You can also look into `/sys/firmware/efi/fw_platform_size`, which will return 64 for x64 UEFI or 32 for 32-bit IA32 UEFI. Later is only supported by `systemd-boot`, or so I've heard.
+** Legacy installation.
+   Either use MBR (ass), or on GPT create a /BIOS boot partition/ - 1-2 MB partition used to store some legacy BIOS boot code. MBR had this baked in, but on GPT you need to create it explicitly. FS for this partition probably should be `vfat`. Some distributions work with GPT, on some it's easier to just do MBR.
