@@ -1,5 +1,5 @@
 * Tools
-  - `awcli`
+  - {:awcli:}
   - {:s3fs:}
 
 * References

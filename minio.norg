@@ -1,5 +1,21 @@
+* Readup
+  - {https://github.com/nitisht/cookbook}[The cookbook].
+
 * TODO
   - ( ) SSL certs don't work?
 
 * General
   Users, buckets, comprehensive actions, privilege management.
+
+* Tools
+** mc
+   Works.
+
+** {:awscli:}
+   {https://github.com/nitisht/cookbook/blob/master/docs/aws-cli-with-minio.md}[ref].
+   Configuration:
+   @code bash
+   aws configure --profile minio-cli
+   aws configure set default.s3.signature_version s3v4 --profile minio-cli
+   aws --endpoint-url http://<host>:9000 s3 ls --profile minio-cli
+   @end
