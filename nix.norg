@@ -46,7 +46,8 @@
    ---  `Runtime`, `State`, `Cache`, `Logs`, `Configuration` - set corresponding env vars and create dirs under some special paths.
 **** Tips
      - ( ) {https://nixos.wiki/wiki/Systemd_Hardening}[Source].
-     - if networm needed with nm present, do 
+     - you can use `serviceConfig.DynamicUser = true` to not create a user system user, saving lines in `/etc/passwd`.
+     - if networmk is needed with nm present, do 
        @code nix
        wants = [ 'NetworkManager-wait-online.service' ];
        after = [ 'NetworkManager-wait-online.service' ];
