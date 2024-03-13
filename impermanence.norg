@@ -1,8 +1,18 @@
+* Readup
+  - {https://nixos.wiki/wiki/Impermanence}[Wiki].
+  - {https://github.com/nix-community/impermanence}[Repo].
+
 * General
   You can use any imperm mechanism (tmpfs, btrfs subvols, zfs smth).
+  You'll need modules from the {* Readup}[repo] to implement persistance.
 
 * What to persist
   - `/var/lib/postgresql` - postgresql state.
   - `/var/lib/hydra` - hydra state.
   - `/var/lib/minio` - minio state and data.
   - `/var/lib` - probably? Though what's the point then.
+
+* References
+  - {:nix:}
+  - {:btrfs:}
+  - {:btrfs-on-nixos:}

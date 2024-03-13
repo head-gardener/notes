@@ -2,7 +2,4 @@
   - {https://github.com/s3fs-fuse/s3fs-fuse}[Repo].
 
 * Minio
-  - {https://github.com/nitisht/cookbook/blob/master/docs/s3fs-fuse-with-minio.md}[doc].
-  - {:minio:}
-
-  The important part is `s3fs <bucket> <mount_point> -o passwd_file=/etc/s3cred,use_path_request_style,url=http://minio-server:9000`.
+  - {:minio:* {:s3fs:}}[Notes].

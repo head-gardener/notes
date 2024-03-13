@@ -1,0 +1,5 @@
+* General
+  A tool for managing btrfs backups - creating, maintaining, receiving.
+
+* ( ) S3
+  ATM requires {:s3fs:}.
