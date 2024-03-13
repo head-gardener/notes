@@ -1,7 +1,8 @@
 * References
   - {:kernel:}
+  - {:legacy-vs-uefi:}
+  - {:password:}
   - {:profiling:}
+  - {:s3:}
   - {:uart-over-usb:}
   - {:uart:}
-  - {:s3:}
-  - {:legacy-vs-uefi:}
