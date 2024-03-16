@@ -1,0 +1,11 @@
+* General
+  `umask` applies to new files, setting their permissions in accordance with the octal value provided. Notice that the mask is negative, i.e. it will be subtracted from the permissions. You can use this little table for some common permissions.
+  @code
+  umask 022 => 777 - 022 => chmod 755
+  umask 077 => 777 - 077 => chmod 700
+  umask 002 => 777 - 002 => chmod 775
+  umask 007 => 777 - 007 => chmod 770
+  umask 027 => 777 - 027 => chmod 750
+  umask 177 => 777 - 177 => chmod 600
+  @end
+  `umask` is used in fstab.

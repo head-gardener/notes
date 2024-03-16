@@ -6,3 +6,4 @@
   - {:s3:}
   - {:uart-over-usb:}
   - {:uart:}
+  - {:umask:}
