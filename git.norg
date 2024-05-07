@@ -3,7 +3,12 @@
     @code  bash
     git log --graph --decorate --oneline --all
     @end
-** ( ) Sing all commits with interactive rebase.
+**  Grep history
+    @code  bash
+    git log --all --patch --oneline | rg foo
+    @end
+**  Sign all commits during interactive rebase.
+   `git rebase -i origin/master` and insert `git commit --amend -S --no-edit` after each commit.
 
 * ( ) Signatures
 ** ( ) GPG

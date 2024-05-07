@@ -1,0 +1,9 @@
+* Tools
+** KinD
+   Playground for testing out clusters.
+
+* Backends
+** k8s
+   The thing.
+** k3s
+   Simpler and more light-weight solution, contained in a single binary. Looks preferable for personal workloads.
