@@ -1,0 +1,4 @@
+* World Wide Web
+** HSTS 
+   HTTP Strict Transport Only, websites that have requested to be contacted vi HTTPS only. Initial request to these sites is sent via HTTPS, not the default HTTP.
+   Exists to mitigate downgrade attacks, since the initial HTTP request can be used to perform one.

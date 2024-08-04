@@ -1,2 +1,14 @@
 * Load Balancers
   Examples: Apache, Nginx.
+
+** Modes of operation:
+   In-line or DSR
+   - In-line means that the load balancer will handle all incoming and outgoing connection between the client and the http server
+   - DSR (direct server return) means that the incoming connections may come through the load balancer, but outgoing connections will be between the web server and the client.
+
+   Threads or forks
+   - Threads consume less resources but are more complex.
+   - Forks are the default.
+
+
+
