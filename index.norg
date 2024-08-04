@@ -5,17 +5,18 @@
   - {:fonts:}
   - {:git:}
   - {:kernel:}
+  - {:kubernetes:}
   - {:literature:}
   - {:mediabox:}
   - {:neorg:}
-  - {:nvim:}
-  - {:kubernetes:}
   - {:nix:}
-  - {:s3:}
-  - {:systemd:}
+  - {:nvim:}
   - {:personal:}
   - {:programming:}
+  - {:s3:}
+  - {:sre-prep/index:}
   - {:stal-ix:}
+  - {:systemd:}
   - {:tech:}
   - {:tmux:}
   - {:tools:}

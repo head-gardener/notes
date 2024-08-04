@@ -1,0 +1,7 @@
+* TCP
+  Connection is established via a 3 way handshake: syn, sync-ack, ack.
+
+* BGP
+  Border Gateway Protocol, a routing protocol run by the Internet gateway.
+  BGP routing table contains the list of all public IP addresses that have been assigned by ISP's.
+  Other routing protocols: RIP, OSPF.
