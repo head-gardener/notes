@@ -17,6 +17,16 @@
   -- The other sides ACKs the FIN packet and sends its own FIN
   -- The closer acknowledges the other side's FIN with an ACK
 
+** TCP congestion control
+   Is used for working with connections, that drop packets. Gets implemented via the cubic algorithm on newer operating systems and New Reno on almost all others.
+   Operates via a congestion window (CWND), which is one of the factors that determine the number of bytes that can be sent out at any time. CWND gets set to a small multiple of the maximum segment size (MSS), and futher edited via additive increase/multiplicative decrease approach (AIMD).
+   Slow start describes additive or multiplicative increase in CWND when connection is established or recovers after a congestion.
+
+** TCP Tuning
+   Adjusting values, dictating different parameters of TCP operation.
+   Invloves:
+   - Adjusting TCP congestion control parameters.
+
 * BGP
   Border Gateway Protocol, a routing protocol run by the Internet gateway.
   BGP routing table contains the list of all public IP addresses that have been assigned by ISP's.

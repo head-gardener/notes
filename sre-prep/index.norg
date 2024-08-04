@@ -5,12 +5,11 @@
 ** Topics
    - {:arp:}
    - {:dns:}
+   - {:http:}
    - {:load-balancers:}
    - {:tcp-ip:}
    - {:tls:}
    - {:www:}
-
-  Can be used 
 
 ** References
    - {:questions:} from [https://github.com/mxssl/sre-interview-prep-guide].
