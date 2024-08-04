@@ -108,9 +108,11 @@
 ** Telescope
    {https://github.com/nvim-telescope/telescope.nvim}[Repo].
    Got like 1000 functions.
+*** Tips:
+    - `C-q` to send to quickfix.
 *** TODO:
     - (?) bind for `jumplist`?
-    - ( ) swap binds for buffers and file browser
+    - (_) swap binds for buffers and file browser
 ** which-key
    Supports marks, registers, spelling (`z=`), etc.
    Works kinda good. Hope to improve my workflow with this thing lol.
