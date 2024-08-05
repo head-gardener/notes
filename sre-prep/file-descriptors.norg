@@ -1,0 +1,9 @@
+* File Descriptors
+  `fd`, a positive integer used by fs calls to identify files for various operations. fd describes a file and a set of flags (e.g. `0_DIRECT`, `0_SYNC`, `0_APPEND`).
+  Every process has a *fd table*, and there is a system-wide *open file descriptor table* (`man 2 open`), which is not a concrete table but a set of structs and pointers, storing information about files, flags, etc.
+  Opening a new file picks the lowest positive number not currently opened by the calling process, which means that fd numbers can be *reused* during the process life.
+  First three fd's are usually `stdin`, `stdout` and `stderr`, which are special file descriptors pointing to a pseudoterminal.
+
+** Flags
+   Flags are strored in tables with fd's, can be system-wide or per-process.
+   There is only one per-process flag currently, it's `0_CLOEXEC`.

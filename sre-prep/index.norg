@@ -3,13 +3,17 @@
   Good luck!
 
 ** Topics
-   - {:arp:}
-   - {:dns:}
-   - {:http:}
-   - {:load-balancers:}
-   - {:tcp-ip:}
-   - {:tls:}
-   - {:www:}
+*** Web
+    - {:arp:}
+    - {:dns:}
+    - {:http:}
+    - {:load-balancers:}
+    - {:tcp-ip:}
+    - {:tls:}
+    - {:www:}
+
+*** Linux
+    - {:file-descriptors:}
 
 ** References
    - {:questions:} from [https://github.com/mxssl/sre-interview-prep-guide].
