@@ -1,0 +1,4 @@
+* Pipes
+  Pipes allow to build one-directional communication channels between related processes. They re available in shells through the `|` symbol, or as `pipe()` and `pipe2()` syscalls.
+  An important feature of pipes is the max size of an atomic write. The `PIPE_BUF` constant (man 7 pipe) determines it and sets it to 4096 bytes. Please, read the man carefully if you want to rely on this guarantee.
+  The default size of the pipe buffer (which is a ring buffer with slots), is the number of slots multiplied by the `PIPE_BUF` constant, which is 16 and 4KiB by default, giving us 64KiB.
