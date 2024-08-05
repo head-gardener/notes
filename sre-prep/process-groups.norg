@@ -1,0 +1,8 @@
+* Process groups, jobs and sessions
+  A new process group is created every time we execute a command or a pipeline of commands in a shell. Inside a shell, a process group is usually called a job. In its turn, each process group belongs to a session. As such, a process group is a set of processes, and a session is a set of related process groups.
+
+** Process groups
+   A process group has its process group identificator `PGID` and a leader who created this group. The `PID` of the group leader is equal to the corresponding `PGID`. A process group lives as long as it has at least one member. All members of a process group can be killed or waited for using its `PGID`.
+
+** Sessions
+   For its part, a session is a collection of process groups. All members of a session identify themselves by the identical `SID`, which, as in a process group, also inherited from the session leader. All processes in the session share a single controlling terminal.
