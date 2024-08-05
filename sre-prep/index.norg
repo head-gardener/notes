@@ -16,6 +16,7 @@
     - {:file-descriptors:}
     - {:pipes:}
     - {:process-groups:}
+    - {:terminals:}
 
 ** References
    - {:questions:} from [https://github.com/mxssl/sre-interview-prep-guide].
