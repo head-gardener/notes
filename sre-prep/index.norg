@@ -20,5 +20,8 @@
     - {:process-groups:}
     - {:terminals:}
 
+*** Tools
+    - {:iac:}
+
 ** References
    - {:questions:} from [https://github.com/mxssl/sre-interview-prep-guide].

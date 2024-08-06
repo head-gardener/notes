@@ -1,0 +1,10 @@
+* Terraform
+  Terraform is an open-source client-only declarative IaC tool.
+
+** Design
+   Terraform uses a DSL called HCL. It's declarative, deploying Terraform configurations is idempotent. When deploying configurations, Terraform builds out a dependency graph, which determines the order, in which resources are deployed to the provider.
+
+** Tools
+   - `terraform` cli
+   -- `plan` prints out necessary changes to the env.
+   -- `graph` outputs resources in DOT language.
