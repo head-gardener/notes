@@ -20,7 +20,8 @@
     - {:process-groups:}
     - {:terminals:}
 
-*** Tools
+*** DevOps
+    - {:deployment:}
     - {:iac:}
 
 ** References
