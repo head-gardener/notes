@@ -8,9 +8,11 @@
    HCL includes various objects:
    - expressions - FP style definitions, that return a value.
    - resources - provider-defined objects, similarly to k8s resources.
-   - variables - reusable expressions, that can be set in apply-time.
-   - outputs - expressions, that get evaluated and returned post-application, e.g. resource IP address.
-   - data sources - expressions, that get fetched from provider's API apply-time, e.g. VPC data, or separate Terraform configurations (`terraform_remote_state`).
+   - variables - reusable expressions, that can be set in apply-time or sourced when a module is imported.
+   - locals - like variables, but visible only inside the module.
+   - outputs - expressions, that get evaluated and returned post-application, e.g. resource IP address. You can use them as the cli command's output in scripts, when importing a configuration as a data source and when importing a module.
+   - data sources - expressions, that get fetched from provider's API apply-time, e.g. VPC data, or from outputs of a separate Terraform configurations (`terraform_remote_state`).
+   - modules - a group of Terraform files, can be reused.
 
 ** State
    Terraform state means a relation between defined resources and real-world objects, which is stored in `terraform.tfstate`. The state is similar to a lock file, but has enough differences to require special treatment.
@@ -26,16 +28,32 @@
    Control projects workspaces with `terraform worskapce`.
 
 ** File Structure
-   You can use separate folders to maintain strict separation between environments and to roll out different components independently.
+   You can use separate folders to maintain strict separation between environments, to roll out different components independently and to separate _live_ configuration (what you deploy) from modules.
    A possible naming convention for files inside component directories could look like this:
    - `variables.tf`: Input variables.
    - `outputs.tf`: Output variables.
    - `main.tf`: Resources and data sources.
 
    Which is a minimalistic set of files based on what's the first things someone might want to jump to.
+   When resolving relative filepaths Terraform uses cwd as root. When such behaviour is undesirable refer to `path.module`, `path.root` and `path.cwd` variables.
+
+** Secrets
+   The simplest way to store secrets is to use `sensitive` variables, which are set apply-time from env.
+
+** Modules
+   Terraform achieves code reusability through modules. A module is any set of Terraform configuration files in a folder. Modules are configured through variables. To achieve versioning, you can publish modules (e.g. to Git), and pull them into different environments using tags with semantic versioning.
+
+** Language features
+   Terraform (or HCL?) supports `count`, `for_each` and list comprehensions for iteration, string interpolation and file templates (as a built-in function), conditional resource creation through `count`, the ternary operator, `if` and `for` string directives, `HEREDOC`'s.
+
+** Resources
+   Resources normally start with a provider followed by an underscore (e.g. `aws_instance`). There are a few built-in resources, like `random_integer`. When defining a resource, you can specify `count` of `for_each` to create multiple (or zero) copies.
 
 ** Tools
    - `terraform` cli
+   -- `init` is an idempotent opertion, that needs to be run when starting a new project or changing its modules.
    -- `plan` prints out necessary changes to the env.
    -- `graph` outputs resources in DOT language.
    -- `workspace` allows you to temporarily maintain separate environments in a single project.
+   -- `import` can add infrastructure already present on the provider to the state file, which is useful when validating plans.
+   -- `state` helps in manipulating state when performing more involved configuration changes. Discouraged, since the ad-hoc approach is error-prone - there are language features like `moved` to perform the changes in a declarative manner.
