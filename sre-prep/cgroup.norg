@@ -5,3 +5,4 @@
   cgroups have separate PSI counters. These are available through `{memory,io,cpu}.pressure` files.
   cgroup v2 has IO controllers `io.cost` and `io.latency`, that help with controlling disk operations and guarding from IO PSI spikes. Of these two, the former is less invasive.
   You can use `systemd-run` to create cgroups on the fly for ad-hoc tasks that can be unpredictably heavy on IO.
+  PSI is one of the better methods of determining resource limits for a cgroup. Tools like `senpai` can automatically set cgroup limits after observing a service's pressure metrics under load.
