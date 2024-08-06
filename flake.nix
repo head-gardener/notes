@@ -2,6 +2,9 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    neorg-haskell-parser.url = "github:Simre1/neorg-haskell-parser";
+    neorg-haskell-parser.flake = false;
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
@@ -10,7 +13,7 @@
 
       ];
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      perSystem = { config, self', inputs', pkgs, system, lib, ... }: {
 
         packages.neovim = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (pkgs.neovimUtils.makeNeovimConfig {
           plugins = [
@@ -30,18 +33,28 @@
           ];
         });
 
-        packages.scripts = pkgs.stdenvNoCC.mkDerivation {
-          name = "scripts";
-          version = self.lastModified;
-          src = self;
+        packages.neorg-parser = lib.pipe
+          (pkgs.haskellPackages.callCabal2nix
+            "neorg-parser"
+            inputs.neorg-haskell-parser
+            { }
+          )
+          [ pkgs.haskell.lib.dontCheck # tests depend on helper files that get filtered
+            pkgs.haskell.lib.justStaticExecutables
+          ];
 
-          installPhase = ''
-            ${nixpkgs.lib.getExe self'.packages.neovim} -v -es ./nu.norg -c ':Neorg tangle current-file'
-            mkdir $out
-            cp *.nu $out/
-          '';
-        };
+          packages.scripts = pkgs.stdenvNoCC.mkDerivation {
+          name = "scripts";
+        version = self.lastModified;
+        src = self;
+
+        installPhase = ''
+          ${nixpkgs.lib.getExe self'.packages.neovim} -v -es ./nu.norg -c ':Neorg tangle current-file'
+          mkdir $out
+          cp *.nu $out/
+        '';
       };
-      flake = { };
     };
+  flake = { };
+};
 }
