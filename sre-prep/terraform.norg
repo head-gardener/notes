@@ -10,7 +10,7 @@
    - resources - provider-defined objects, similarly to k8s resources.
    - variables - reusable expressions, that can be set in apply-time.
    - outputs - expressions, that get evaluated and returned post-application, e.g. resource IP address.
-   - data sources - expressions, that get fetched from provider's API apply-time, e.g. VPC data.
+   - data sources - expressions, that get fetched from provider's API apply-time, e.g. VPC data, or separate Terraform configurations (`terraform_remote_state`).
 
 ** State
    Terraform state means a relation between defined resources and real-world objects, which is stored in `terraform.tfstate`. The state is similar to a lock file, but has enough differences to require special treatment.
@@ -18,8 +18,24 @@
    > You can manage S3 with Terraform.
 
    Locking with S3 can be achieved using DynamoDB.
+   It's useful to isolate state and configurations of different environments (e.g. dev, stage, prod) via workspaces or file layout.
+
+** Workspaces
+   Essentially separate state and settings. When using multiple workspaces, Terraform maintains separate state files for each. Can be error prone, since all workspaces use the same backend and are invisible in code.
+   You can use the ternary operator to use different settings between workspaces: `terraform.workspace == "default" ? "t2.medium" : "t2.micro"`
+   Control projects workspaces with `terraform worskapce`.
+
+** File Structure
+   You can use separate folders to maintain strict separation between environments and to roll out different components independently.
+   A possible naming convention for files inside component directories could look like this:
+   - `variables.tf`: Input variables.
+   - `outputs.tf`: Output variables.
+   - `main.tf`: Resources and data sources.
+
+   Which is a minimalistic set of files based on what's the first things someone might want to jump to.
 
 ** Tools
    - `terraform` cli
    -- `plan` prints out necessary changes to the env.
    -- `graph` outputs resources in DOT language.
+   -- `workspace` allows you to temporarily maintain separate environments in a single project.
