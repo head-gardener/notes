@@ -13,6 +13,7 @@
     - {:www:}
 
 *** Linux
+    - {:cgroup:}
     - {:file-descriptors:}
     - {:page-cache:}
     - {:pipes:}
