@@ -19,3 +19,9 @@
    - `sync` (`man 1 sync`) – a tool to flush all dirty pages to persistent storage;
    - `/proc/sys/vm/drop_caches` (`man 5 proc`) – the kernel `procfs` file to trigger Page Cache clearance;
    - `vmtouch` – a tool for getting Page Cache info about a particular file by its path.
+   -- use `-e` to evict all pages related to a file.
+
+** Page eviction and reclaim
+   The kernel keeps a large cache of pages, evicting those that were last used the earliest. You can evict pages manually using `POSIX_FADV_DONTNEED` option.
+   Memory can be made unevictable using the `mlock` family syscalls. Maximum amount of memory that can be used for unevictable pages on per-user basis is defined in `limits.conf`. On per-cgoup basis you can check the amount of unevictable memory using `memory.stat` file.
+   Swap mechanics can be min-maxed using `vm.swappiness`, a sysctl that defines how preferable dropping file pages is to swapping out anonymous pages, and cgroup v2's settings (`memory.swap.*`).
