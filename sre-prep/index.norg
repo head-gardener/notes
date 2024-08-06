@@ -2,6 +2,19 @@
 
   Good luck!
 
+** TODO
+   - (x) Linux
+   - ( ) CI/CD
+   - ( ) DevOps
+   - (-) IaC
+   -- (-) Terraform
+   -- ( ) Ansible
+   - ( ) Network
+   -- ( ) DNS
+   -- ( ) TCP/IP
+   -- ( ) HTTP/HTTPS
+   - ( ) Clouds
+
 ** Topics
 *** Web
     - {:arp:}

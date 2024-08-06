@@ -1,0 +1,67 @@
+# File Descriptors
+
+`fd`, a positive integer used by fs calls to identify files for various
+operations. fd describes a file and a set of flags (e.g. `0_DIRECT`,
+`0_SYNC`, `0_APPEND`). Every process has a **fd table**, and there is a
+system-wide **open file descriptor table** (`man 2 open`), which is not
+a concrete table but a set of structs and pointers, storing information
+about files, flags, etc. Opening a new file picks the lowest positive
+number not currently opened by the calling process, which means that fd
+numbers can be **reused** during the process life. fd\'s can be
+transferred between processes on a single Linux machine using Unix
+sockets (by transferring a special UDP packet, a Unix datagram) or, in
+more special circumstances, by `pidfd_getfd()` syscall. This useful for
+zero downtime updates, where a running process gets replaced by a
+different binary on the fly. fd\`s can be duplicated using multiple
+syscalls:
+
+-   `dup()` duplicates a fd
+-   `dup2()` allows to specify the target integer number, closes it if
+    it\'s taken. Is atomic.
+-   `dup3()` also allows to set `0_CLOEXEC`, which is cleared by default
+-   `fcntl()` same as `dup2()`, but doesn\'t close the target and seeks
+    the next free one.
+
+## `stding`, `stdout` and `stderr` {#stding,-stdout-and-stderr}
+
+First three fd\'s are usually `stdin`, `stdout` and `stderr`, which are
+special file descriptors pointing to a pseudoterminal by default.
+
+## Procfs and fd\'s {#procfs-and-fd's}
+
+Open fd\'s of a process are exposed through `procfs` (`/proc`) and can
+be accessed from `/proc/$pid/fd/`, where they are shown as symlinks.
+Information aboud open fd\'s can be accessed through
+`/proc/$pid/fdinfo/$fd`
+
+## Forking
+
+When a process forks, fd\'s get shared, which means that changes to a
+file behind it in one process will affect a fd of other processes. This
+is done to avoid parents and children overwriting same files. If it\'s
+not what you want, you should close all fd\'s after a successful
+`fork()`, including the three standard ones, which is basically how the
+classical daemons usually start.
+
+## `execve()` and fd\'s {#execve()-and-fd's}
+
+`execve()` is essentially the only way Linux can start a new program.
+Doing so will leak any fd\'s without `0_CLOEXEC` set. You can combat
+this by closing all open fd\'s using iteration, `procfs` or
+`close_range()`.
+
+## Shell redirections and fd\'s {#shell-redirections-and-fd's}
+
+In Bash, shell redirections call `open()` to open targets and `dup2()`
+to replacefd\'s under the hood. Another important concept is file
+**substitution**, which uses `/dev/fd/<n>` files to save output of a
+command. In bash it can be used like this: `foo <(bar)`.
+
+## Flags
+
+Flags are strored in tables with fd\'s, can be system-wide or
+per-process. There is only one per-process flag currently, it\'s
+`0_CLOEXEC`. It causes the file descriptor to be automatically (and
+atomically) closed when any of the exec-family functions succeed. It\'s
+recommended to always set it to avoid having to track all opened files
+from the main program.

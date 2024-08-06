@@ -1,0 +1,37 @@
+# Load Balancers
+
+Examples: Apache, Nginx. Generally a load balancer consists of several
+parts: listener, listener rule and target groups.
+
+## Modes of operation: {#modes-of-operation:}
+
+In-line or DSR
+
+-   In-line means that the load balancer will handle all incoming and
+    outgoing connection between the client and the http server
+-   DSR (direct server return) means that the incoming connections may
+    come through the load balancer, but outgoing connections will be
+    between the web server and the client.
+
+Threads or forks
+
+-   Threads consume less resources but are more complex.
+-   Forks are the default.
+
+## AWS
+
+AWS offers three types of load balancers:
+
+-   Application Load Balancer (ALB). Best suited for load balancing of
+    HTTP and HTTPS traffic. Operates at the application layer (Layer 7)
+    of the Open Systems Interconnection (OSI) model.
+-   Network Load Balancer (NLB). Best suited for load balancing of TCP,
+    UDP, and TLS traffic. Can scale up and down in response to load
+    faster than the ALB (the NLB is designed to scale to tens of
+    millions of requests per second). Operates at the transport layer
+    (Layer 4) of the OSI model.
+-   Classic Load Balancer (CLB). This is the "legacy" load balancer that
+    predates both the ALB and NLB. It can handle HTTP, HTTPS, TCP, and
+    TLS traffic but with far fewer features than either the ALB or NLB.
+    Operates at both the application layer (L7) and transport layer (L4)
+    of the OSI model.

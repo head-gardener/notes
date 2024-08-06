@@ -1,0 +1,22 @@
+# HTTP
+
+## Headers
+
+Request Headers
+
+-   `Host` - what host the request is addressed to. Used by reverse
+    proxies like `nginx` to determine which Virtual Host to forward the
+    request to.
+
+Response Headers
+
+-   `Connection`
+    -   `close` indicates that the http connection is closed after the
+        response. Applications that don\'t support persistent
+        connections MUST include this header option in every message.
+
+## Response Codes
+
+-   `200` - OK
+-   `304` - Not modified, client should retrieve the page from its
+    cache.

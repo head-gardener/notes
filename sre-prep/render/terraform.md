@@ -1,0 +1,116 @@
+# Terraform
+
+Terraform is an open-source client-only declarative IaC tool.
+
+## Design
+
+Working with Terraform in many things feels similar to kubernetes.
+Terraform uses a DSL called HCL. It\'s declarative, deploying Terraform
+configurations is idempotent. When deploying configurations, Terraform
+builds out a dependency graph, which determines the order, in which
+resources are deployed to the provider. Terraform uses lifecycles to
+decide how resources should be created and destroyed. In some situations
+you have to use them to resolve conflicts between existing and new
+configurations (e.g. `create_before_destroy = true` when using launch
+configurations and autoscaling groups). HCL includes various objects:
+
+-   expressions - FP style definitions, that return a value.
+-   resources - provider-defined objects, similarly to k8s resources.
+-   variables - reusable expressions, that can be set in apply-time or
+    sourced when a module is imported.
+-   locals - like variables, but visible only inside the module.
+-   outputs - expressions, that get evaluated and returned
+    post-application, e.g. resource IP address. You can use them as the
+    cli command\'s output in scripts, when importing a configuration as
+    a data source and when importing a module.
+-   data sources - expressions, that get fetched from provider\'s API
+    apply-time, e.g. VPC data, or from outputs of a separate Terraform
+    configurations (`terraform_remote_state`).
+-   modules - a group of Terraform files, can be reused.
+
+## State
+
+Terraform state means a relation between defined resources and
+real-world objects, which is stored in `terraform.tfstate`. The state is
+similar to a lock file, but has enough differences to require special
+treatment. It\'s a bad idea to store this file in VC, since the file
+requires locking, can store secrets and can be broken by a manual error.
+Better way is to use Terraform\'s built-in support for remote backends
+like S3, etc. This way you can impose locking, secret management and
+access control.
+
+> You can manage S3 with Terraform.
+
+Locking with S3 can be achieved using DynamoDB. It\'s useful to isolate
+state and configurations of different environments (e.g. dev, stage,
+prod) via workspaces or file layout.
+
+## Workspaces
+
+Essentially separate state and settings. When using multiple workspaces,
+Terraform maintains separate state files for each. Can be error prone,
+since all workspaces use the same backend and are invisible in code. You
+can use the ternary operator to use different settings between
+workspaces:
+`terraform.workspace == "default" ? "t2.medium" : "t2.micro"` Control
+projects workspaces with `terraform worskapce`.
+
+## File Structure
+
+You can use separate folders to maintain strict separation between
+environments, to roll out different components independently and to
+separate [live]{.underline} configuration (what you deploy) from
+modules. A possible naming convention for files inside component
+directories could look like this:
+
+-   `variables.tf`: Input variables.
+-   `outputs.tf`: Output variables.
+-   `main.tf`: Resources and data sources.
+
+Which is a minimalistic set of files based on what\'s the first things
+someone might want to jump to. When resolving relative filepaths
+Terraform uses cwd as root. When such behaviour is undesirable refer to
+`path.module`, `path.root` and `path.cwd` variables.
+
+## Secrets
+
+The simplest way to store secrets is to use `sensitive` variables, which
+are set apply-time from env.
+
+## Modules
+
+Terraform achieves code reusability through modules. A module is any set
+of Terraform configuration files in a folder. Modules are configured
+through variables. To achieve versioning, you can publish modules (e.g.
+to Git), and pull them into different environments using tags with
+semantic versioning.
+
+## Language features
+
+Terraform (or HCL?) supports `count`, `for_each` and list comprehensions
+for iteration, string interpolation and file templates (as a built-in
+function), conditional resource creation through `count`, the ternary
+operator, `if` and `for` string directives, `HEREDOC`\'s.
+
+## Resources
+
+Resources normally start with a provider followed by an underscore (e.g.
+`aws_instance`). There are a few built-in resources, like
+`random_integer`. When defining a resource, you can specify `count` of
+`for_each` to create multiple (or zero) copies.
+
+## Tools
+
+-   `terraform` cli
+    -   `init` is an idempotent opertion, that needs to be run when
+        starting a new project or changing its modules.
+    -   `plan` prints out necessary changes to the env.
+    -   `graph` outputs resources in DOT language.
+    -   `workspace` allows you to temporarily maintain separate
+        environments in a single project.
+    -   `import` can add infrastructure already present on the provider
+        to the state file, which is useful when validating plans.
+    -   `state` helps in manipulating state when performing more
+        involved configuration changes. Discouraged, since the ad-hoc
+        approach is error-prone - there are language features like
+        `moved` to perform the changes in a declarative manner.
