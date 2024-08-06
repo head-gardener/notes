@@ -4,56 +4,56 @@ Good luck!
 
 ## TODO
 
--   d
+- [x]
     Linux
--   u
+- [ ]
     CI/CD
--   u
+- [ ]
     DevOps
--   i
+- [ ]
     IaC
-    -   i
+    - [ ]
         Terraform
-    -   u
+    - [ ]
         Ansible
--   u
+- [ ]
     Network
-    -   u
+    - [ ]
         DNS
-    -   u
+    - [ ]
         TCP/IP
-    -   u
+    - [ ]
         HTTP/HTTPS
--   u
+- [ ]
     Clouds
 
 ## Topics
 
 ### Web
 
--   [arp](arp)
--   [dns](dns)
--   [http](http)
--   [load-balancers](load-balancers)
--   [tcp-ip](tcp-ip)
--   [tls](tls)
--   [www](www)
+-   [arp](arp.md)
+-   [dns](dns.md)
+-   [http](http.md)
+-   [load-balancers](load-balancers.md)
+-   [tcp-ip](tcp-ip.md)
+-   [tls](tls.md)
+-   [www](www.md)
 
 ### Linux
 
--   [cgroup](cgroup)
--   [file-descriptors](file-descriptors)
--   [page-cache](page-cache)
--   [pipes](pipes)
--   [process-groups](process-groups)
--   [terminals](terminals)
+-   [cgroup](cgroup.md)
+-   [file-descriptors](file-descriptors.md)
+-   [page-cache](page-cache.md)
+-   [pipes](pipes.md)
+-   [process-groups](process-groups.md)
+-   [terminals](terminals.md)
 
 ### DevOps
 
--   [deployment](deployment)
--   [iac](iac)
+-   [deployment](deployment.md)
+-   [iac](iac.md)
 
 ## References
 
--   [questions](questions) from
+-   [questions](questions.md) from
     \[https://github.com/mxssl/sre-interview-prep-guide\].

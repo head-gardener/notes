@@ -5,11 +5,11 @@ version-controlled code.
 
 ## Tools
 
--   [terraform](terraform)
+-   [terraform](terraform.md)
 
 ## Relevant topics
 
--   [load-balancers](load-balancers)
+-   [load-balancers](load-balancers.md)
 
 ## Configuration management vs Provisioning
 
