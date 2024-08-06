@@ -4,6 +4,9 @@
 ** Tools
    - {:terraform:}
 
+** Relevant topics
+   - {:load-balancers:}
+
 ** Configuration management vs Provisioning
    Chef, Puppet, and Ansible are all configuration management tools, which means they are designed to install and manage software on existing servers. CloudFormation, Heat, Pulumi, and Terraform are provisioning tools, which means they are designed to provision the servers themselves (as well as the rest of your infrastructure, like load balancers, databases, networking configuration, etc), leaving the job of configuring those servers to other tools.
    Provisioning tools are good when you only need the servers and all of the services are already packed into e.g. containers. If that's not the case using configuration management and provisioning together (e.g. Terraform and Ansible) is a good pick.

@@ -2,7 +2,22 @@
   Terraform is an open-source client-only declarative IaC tool.
 
 ** Design
+   Working with Terraform in many things feels similar to kubernetes.
    Terraform uses a DSL called HCL. It's declarative, deploying Terraform configurations is idempotent. When deploying configurations, Terraform builds out a dependency graph, which determines the order, in which resources are deployed to the provider.
+   Terraform uses lifecycles to decide how resources should be created and destroyed. In some situations you have to use them to resolve conflicts between existing and new configurations (e.g. `create_before_destroy = true` when using launch configurations and autoscaling groups).
+   HCL includes various objects:
+   - expressions - FP style definitions, that return a value.
+   - resources - provider-defined objects, similarly to k8s resources.
+   - variables - reusable expressions, that can be set in apply-time.
+   - outputs - expressions, that get evaluated and returned post-application, e.g. resource IP address.
+   - data sources - expressions, that get fetched from provider's API apply-time, e.g. VPC data.
+
+** State
+   Terraform state means a relation between defined resources and real-world objects, which is stored in `terraform.tfstate`. The state is similar to a lock file, but has enough differences to require special treatment.
+   It's a bad idea to store this file in VC, since the file requires locking, can store secrets and can be broken by a manual error. Better way is to use Terraform's built-in support for remote backends like S3, etc. This way you can impose locking, secret management and access control.
+   > You can manage S3 with Terraform.
+
+   Locking with S3 can be achieved using DynamoDB.
 
 ** Tools
    - `terraform` cli
