@@ -51,7 +51,7 @@
 
 ** Tools
    - `terraform` cli
-   -- `init` is an idempotent opertion, that needs to be run when starting a new project or changing its modules.
+   -- `init` is an idempotent operation, that needs to be run when starting a new project or changing its modules.
    -- `plan` prints out necessary changes to the env.
    -- `graph` outputs resources in DOT language.
    -- `workspace` allows you to temporarily maintain separate environments in a single project.
