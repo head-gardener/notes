@@ -1,0 +1,35 @@
+* Page Cache
+  Page Cache is a part of the Virtual File System (VFS) whose primary purpose is improving the IO latency of read and write operations.
+  Pages are the unit of memory used by the kernel and are usually 4KiB long.
+  All file IO in Linux is paged, except for Direct IO (DIO), which means a cache layer. Also writes use `dirty` flags, meaning that writes are asynchronous in nature.
+  When reading files, kernel usually performs read-ahead, loading more pages than needed (e.g. 4-20 pages when reading only 2 bytes). This has little overhead but can save cs's when working with large files. This behaviour can be tweaked with `posix_fadvise()`.
+  `mmap()` syscall performs much more aggressive read-ahead (e.g. 1024 pages).
+
+** Dirty pages
+   When writing files, a paged read should be performed beforehand (e.g. reading a full 4KiB page before writing 2 bytes), though with less read-ahead than during reads.
+   Total size of all dirty pages is shown as `Dirty` field in `/proc/meminfo`, or in `file_dirty` in `memory.stat` of a cgroup. On a per-file basis number of dirty pages can be accessed through `/proc/$pid/pagemap` and `/prod/kpageflags`, or the `page-types` tool from the kernel repo.
+   Synchronization of the dirty pages can be done with a few methods:
+   - `sync` - a tool that flushes all dirty pages;
+   - `fsync()` – blocks until all dirty pages of the target file and its metadata are synced;
+   - `fdatasync()` – the same as the above but excluding metadata;
+   - `msync()` – the same as the `fsync()` but for memory mapped file;
+   - open a file with `O_SYNC` or `O_DSYNC` flags to make all file writes synchronous by default and work as a corresponding `fsync()` and `fdatasync()` syscalls accordingly.
+
+** Tools
+   - `sync` (`man 1 sync`) – a tool to flush all dirty pages to persistent storage;
+   - `/proc/sys/vm/drop_caches` (`man 5 proc`) – the kernel `procfs` file to trigger Page Cache clearance;
+   - `vmtouch` – a tool for getting Page Cache info about a particular file by its path.
+   -- use `-e` to evict all pages related to a file.
+
+** Page eviction and reclaim
+   The kernel keeps a large cache of pages, evicting those that were last used the earliest. You can evict pages manually using `POSIX_FADV_DONTNEED` option.
+   Memory can be made unevictable using the `mlock` family syscalls. Maximum amount of memory that can be used for unevictable pages on per-user basis is defined in `limits.conf`. On per-cgoup basis you can check the amount of unevictable memory using `memory.stat` file.
+   Swap mechanics can be min-maxed using `vm.swappiness`, a sysctl that defines how preferable dropping file pages is to swapping out anonymous pages, and cgroup v2's settings (`memory.swap.*`).
+
+** `mmap`
+   `mmap()` is a function for mapping files or devices into memory.
+
+** Page Faults
+   Generally speaking, a page fault is CPU mechanism for communicating with the Linux Kernel and its memory subsystem. When using `mmap()` a page fault can occur if the target page has not been loaded to Page Cache or there are no connections between the page in the Page Cache and the process’ page table.
+   There are 2 useful for us types of page faults: minor and major. A minor basically means that there will be no disk access in order to fulfill a process’s memory access. And on the other hand, a major page fault means that there will be a disk IO operation.
+   You can monitor page faults with `sar` or `atop`.

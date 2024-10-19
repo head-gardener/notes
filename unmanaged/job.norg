@@ -1,0 +1,77 @@
+* Крайнет
+  {https://rabota.by/vacancy/106077849}
+
+** Компания
+
+** Собес
+*** Python
+    - Django
+    - Flask
+    - requirements.txt: pip, simple but basic
+    - setup.py: old stuff, essentially package manager internals
+    - pyproject.toml: poetry, etc. good
+*** Kotlin
+    - gradle, maven
+    - java interop
+    - multiplatform (android, ios, desktop, web)
+*** Java
+    - spring is cool
+    - gradle - pretty nice, write scripts in kotlin, groovy
+    - maven - `pom.xml` (OOP but for projects), plugins, build phases
+    - jar - precompiled java, `java -jar`
+    - war - built for web, run using e.g. apache tomcat, essentially an arcive with java and all web stuff.
+    - executable jars, fat jars
+*** MySQL
+    - spatial data types, no user defined ones though
+    - various storage engines (backends) - memory, innodb, myisam, federated, etc
+    - various indexes
+    - replication
+    - sharding
+    - generally more performant than postgresql
+    - simpler backup capabilites than postgresql
+    - has community and enterprise versions
+    - needs more tuning
+    - more unique syntax
+*** Firebase
+    - a google service, integrates well with the google stack
+    - nosql doc db
+    - provides ui and sdk
+    - detailed analytics and alert systems
+*** Gradle
+    - uses projects, build scripts, tasks, plugins
+    - configured in kotlin or groovy, so is supports props, conditionals, etc.
+    - has a build cache
+    - works via `gradlew`, gradle wrapper - a script for building projects using gradle dsl
+*** Fastlane
+    - ios and android tasks automation - screenshots, distribution, signing
+    - configured via `Fastfile` or `Fastfile.kts` for kotlin
+    - has a whole bunch of integrations
+    - example of a task: increment version, build with gradle, upload to play store, notify slack
+*** BitBucket pipeline
+    - ci/cd pipeline for bitbucket hosting, similar to gitlab
+*** Jenkins
+    - ci/cd server, i.e. gitlab pipelines but without gitlab
+    - multiagent, configured in grooby or yaml
+    - artifacts, library scripts
+*** BitBucket
+    - repo hosting for git and mercurial, geared towards enterprise
+    - has some cool features
+*** работа с командами разработки и инфраструктуры
+*** глубокое исследование инцидентов/проблем и их причин
+*** жизненного цикла гибкой разработки программного обеспечения
+*** участие в проектах Scrum
+
+** Работа
+   - Минск, проспект Дзержинского, 3Б (45 мин на 53)
+   - гибридный график работы;
+   - стажировка длится 3 месяца и не оплачивается, при успешном прохождении стажировки оформление в штат компании;
+   - обучение за счет компании (наличие ментора);
+   - светлый и уютный офис в современном бизнес-центре;
+   - тимбилдинги и корпоративная культура.
+
+* Anderson
+
+* Тиньков
+  
+
+* Ruby team

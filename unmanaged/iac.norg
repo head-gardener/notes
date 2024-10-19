@@ -1,0 +1,24 @@
+* Infrastructure as Code
+  IaC solutions offer a way to perform deployment through version-controlled code.
+
+** Tools
+   - {:terraform:}
+
+** Relevant topics
+   - {:load-balancers:}
+
+** Configuration management vs Provisioning
+   Chef, Puppet, and Ansible are all configuration management tools, which means they are designed to install and manage software on existing servers. CloudFormation, Heat, Pulumi, and Terraform are provisioning tools, which means they are designed to provision the servers themselves (as well as the rest of your infrastructure, like load balancers, databases, networking configuration, etc), leaving the job of configuring those servers to other tools.
+   Provisioning tools are good when you only need the servers and all of the services are already packed into e.g. containers. If that's not the case using configuration management and provisioning together (e.g. Terraform and Ansible) is a good pick.
+
+** Mutable Infrastructure vs Immutable Infrastructure
+   Configuration management tools can produce _configuration drift_ over time, as the operations work over mutable infrastructure and are not idempotent. Using containers opts-in for immutable environments, safe from such bugs.
+
+** Procedural vs Declarative
+   Chef and Ansible encourage a procedural style where you write code that specifies, step-by-step, how to to achieve some desired end state. Terraform, CloudFormation, Pulumi, Heat, and Puppet all encourage a more declarative style where you write code that specifies your desired end state.
+
+** GPL vs DSL
+   Chef and Pulumi allow you to use a general-purpose programming language (GPL) to manage infrastructure as code: Chef supports Ruby; Pulumi supports a wide variety of GPLs, including JavaScript, TypeScript, Python, Go, C#, Java, and others. Terraform, Puppet, Ansible, CloudFormation, and OpenStack Heat each use a domain-specific language (DSL) to manage infrastructure as code: Terraform uses HCL; Puppet uses Puppet Language; Ansible, CloudFormation, and OpenStack Heat use YAML (CloudFormation also supports JSON).
+
+** Master vs Masterless
+   By default, Chef and Puppet require you to run a master server - similarly to k8s, - which is responsible for updating and maintaining your configuration. Other tools can run masterless or (like Terraform) rely on cloud provider's API.

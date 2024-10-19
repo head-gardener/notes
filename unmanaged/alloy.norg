@@ -1,0 +1,9 @@
+* Alloy
+  {https://github.com/head-gardener/alloy}
+
+** TODO
+   - (x) multiple module receivers
+         Interface: `option = alloy.module.forEach (host: { ... })`.
+   -- (x) initial interface
+   -- (x) prometheus
+

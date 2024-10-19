@@ -1,0 +1,6 @@
+* Neovim
+** TODO
+   - (x) ; leader
+   - ( ) tmux repl
+   -- ( ) yarepl {https://github.com/milanglacier/yarepl.nvim}
+   -- ( ) command palette

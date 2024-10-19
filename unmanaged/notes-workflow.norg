@@ -1,0 +1,8 @@
+* Notes workflow
+  - ( ) neorg file rules
+        spell checks etc
+  - ( ) Width limit
+        Insert new line when width exceeds 80, should be done automatically via neovim.
+  - ( ) Neorg autolink
+        A command, when run in a file autolinks all occurances of file references. E.g. `foo`
+        should be linked to `./foo.norg`. Should be a lua script.

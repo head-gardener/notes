@@ -1,0 +1,16 @@
+* Config
+** TODO
+   - ( ) {:alloy:}
+   - ( ) proxychains
+   -- ( ) test out
+   -- ( ) wrap terraform?
+   - ( ) luks
+   - ( ) rofi
+   - ( ) clipboard manager
+   - ( ) fugitive
+   - ( ) dragon
+   - ( ) check p10k out
+
+** Per-host
+*** Ambrosia
+    - obs 30.0.2 records, obs 30.1.2 doesn't.

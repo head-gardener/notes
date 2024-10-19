@@ -1,0 +1,41 @@
+* SRE Interview Prep
+
+  Good luck!
+
+** TODO
+   - (x) Linux
+   - ( ) CI/CD
+   - ( ) DevOps
+   - (-) IaC
+   -- (-) Terraform
+   -- ( ) Ansible
+   - ( ) Network
+   -- ( ) DNS
+   -- ( ) TCP/IP
+   -- ( ) HTTP/HTTPS
+   - ( ) Clouds
+
+** Topics
+*** Web
+    - {:arp:}
+    - {:dns:}
+    - {:http:}
+    - {:load-balancers:}
+    - {:tcp-ip:}
+    - {:tls:}
+    - {:www:}
+
+*** Linux
+    - {:cgroup:}
+    - {:file-descriptors:}
+    - {:page-cache:}
+    - {:pipes:}
+    - {:process-groups:}
+    - {:terminals:}
+
+*** DevOps
+    - {:deployment:}
+    - {:iac:}
+
+** References
+   - {:questions:} from [https://github.com/mxssl/sre-interview-prep-guide].
