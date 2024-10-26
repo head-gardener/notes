@@ -1,3 +1,7 @@
 * Xmonad
 ** TODO
    - (x) get info about restart location from env
+   - (x) scratchpad via workspaces
+   - (!) minimizing firefox leads to `Prelude.chr: bad argument: (-30)` and a freeze
+         window props most likely to blame
+   - ( ) cpanel doesn't work

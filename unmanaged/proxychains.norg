@@ -1,0 +1,8 @@
+* Proxychains
+  Pretty nice, uses SOCKS or HTTP. Simplest way to use it:
+  @code bash
+  ssh -fN -D 4321 some.example.com
+  PROXYCHAINS_SOCKS5_HOST=127.0.0.1 PROXYCHAINS_SOCKS5_PORT=4321 proxychains4 fish
+  @end
+
+  > Doesn't work with terraform (the whole point)

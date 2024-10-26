@@ -1,13 +1,12 @@
 * Todo
 ** Long-term
    - ( ) {:notes-workflow:}
-   - ( ) {:cicd:}
-   - ( ) {:config:}
-   - ( ) {:vpn:}
-   - (x) {:alloy:}
+   - (=) {:config:}
+   - (-) {:alloy:}
    - (x) {:xmonad:}
-   - ( ) {:neovim:}
+   - (=) {:neovim:}
 
 ** Short-term
+   - ( ) {:vpn:}
    - ( ) {:projectsdl-pr:}
-   - ( ) crac
+   - ( ) {:jenkins:}

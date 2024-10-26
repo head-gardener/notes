@@ -1,0 +1,4 @@
+* Tmux
+** TODO
+   - ( ) seek to prompt (❯)
+         usecases: copy output, copy command

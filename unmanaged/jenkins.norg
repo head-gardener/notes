@@ -1,0 +1,14 @@
+* Jenkins
+  - (x) JCasC via nix?
+  - (=) jcasc schema validator
+  - (x) typo timers.target
+  - ( ) more nodes
+  - ( ) poll for same owner flakes updates and update current flake
+  - (x) check
+  -- (?) `--no-build` doesn't work with ifd required by xmonad
+  -- (x) rpi produces a weird error related to incorrect arch
+  -- (-) `nix flake check` is absurdly heavy, ~13 GiB RAM and doesn't finish in under
+         10 min on blueberry
+  -- ( ) builds shit out like 500 lines of `Added input` for whatever reason
+  - (x) build packages
+  -- (x) pull packages from `nix flake show` and build each?

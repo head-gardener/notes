@@ -1,15 +1,37 @@
 * Config
 ** TODO
-   - ( ) {:alloy:}
-   - ( ) proxychains
-   -- ( ) test out
-   -- ( ) wrap terraform?
-   - ( ) luks
+   - (x) better charge remaining
+   - (x) systemd-run abbr
+   - (x) yaml/json to nix in fish funcs
+   - (!) prometheus on elderberry
+   - ( ) sudo shim
+   - ( ) creds rotation
+   -- ( ) use {:alloy:} to make `service -> host` translation possible on the shell, probably
+          via adding an output that is a text file with all relations written out
+   -- (_) `jenkins-slave-secret.age` via jenkins terraform
+   -- ( ) perform in ci
+   -- ( ) use dsl in rotate.sh to indicate in which order to: update env, upgrade hosts
+   -- ( ) support rollbacks
+   - (-) tf files in config and a simple just script to pull state
+   -- (x) store tf files in tree
+   -- ( ) provision secrets to tf via env on cd
+   -- ( ) generate .envrc with secrets (rotateable)
+   -- ( ) store state on s3
+   - ( ) restucture module imports into a separate flake module
+         it gets modulesPath and imports it into attrsets based on directory structure
    - ( ) rofi
    - ( ) clipboard manager
-   - ( ) fugitive
-   - ( ) dragon
-   - ( ) check p10k out
+   - (=) reapply file by unnixing and copying from `nixos-rebuild build`
+   - (=) dev/undev just commands
+         dev: replace `github:head-gardener` urls in inputs with zoxide output
+         undev: replace inputs back from comments and lock-commit the input update
+   - (?) {:proxychains:}
+   -- (x) test out
+   -- (?) wrap terraform?
+   - (=) luks
+   - (?) fugitive {https://github.com/tpope/vim-fugitive}
+   - (=) dragon
+   - (=) check p10k out
 
 ** Per-host
 *** Ambrosia
