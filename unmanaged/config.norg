@@ -6,6 +6,7 @@
    - (x) {:wireguard:}
    -- (!) prometheus on elderberry
    -- ( ) how the hell does {:resolveconf:} work
+   -- ( ) dns
    - (!) move ssh keys to hosts.json
    - ( ) sudo shim
    - ( ) creds rotation
