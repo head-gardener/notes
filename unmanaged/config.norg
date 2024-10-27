@@ -4,8 +4,9 @@
    - (x) systemd-run abbr
    - (x) yaml/json to nix in fish funcs
    - (x) {:wireguard:}
-   - (!) prometheus on elderberry
-   - ( ) how the hell does {:resolveconf:} work
+   -- (!) prometheus on elderberry
+   -- ( ) how the hell does {:resolveconf:} work
+   - (!) move ssh keys to hosts.json
    - ( ) sudo shim
    - ( ) creds rotation
    -- ( ) use {:alloy:} to make `service -> host` translation possible on the shell, probably
