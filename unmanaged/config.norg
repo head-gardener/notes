@@ -3,7 +3,9 @@
    - (x) better charge remaining
    - (x) systemd-run abbr
    - (x) yaml/json to nix in fish funcs
+   - (x) {:wireguard:}
    - (!) prometheus on elderberry
+   - ( ) how the hell does {:resolveconf:} work
    - ( ) sudo shim
    - ( ) creds rotation
    -- ( ) use {:alloy:} to make `service -> host` translation possible on the shell, probably
