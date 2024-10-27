@@ -1,6 +1,6 @@
 function syncer -d "sync remote periodically with notifications"
   while true
-    nix run nixpkgs#git-sync
+    nix run nixpkgs#git-sync -- -ns
     set time "$(date +"%R %D" )"
     set sleep "$(math 60x 60)"
     if test $status -eq 0
