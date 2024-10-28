@@ -9,13 +9,9 @@
    -- ( ) how the hell does {:resolveconf:} work
    -- ( ) dns
    -- ( ) prometheus on elderberry
-   -- ( ) gpg key rotation
-          shouldn't be done often (since accessing older backups becomes harder)
-          there should be two keys for each host: one to encrypt new backups and one to
-          read old. the later gets rotated out when old backups expire.
    -- ( ) script for accessing backups
    -- ( ) s3 backups on elderberry
-   -- ( ) figure out loki and put it on elderberry
+   -- ( ) figure out loki and put it on elderberry (who is pihole)
    - (=) move ssh keys to hosts.json
    - ( ) creds rotation
    -- ( ) use {:alloy:} to make `service -> host` translation possible on the shell, probably
@@ -23,7 +19,13 @@
    -- (_) `jenkins-slave-secret.age` via jenkins terraform
    -- ( ) perform in ci
    -- ( ) use dsl in rotate.sh to indicate in which order to: update env, upgrade hosts
+    - ( ) use systemd transient timers to run upgrades after a delay
+          `systemd-run --on-active=30 /bin/touch /tmp/foo`
    -- ( ) support rollbacks
+   -- ( ) gpg key rotation
+          shouldn't be done often (since accessing older backups becomes harder)
+          there should be two keys for each host: one to encrypt new backups and one to
+          read old. the later gets rotated out when old backups expire.
    - (-) tf files in config and a simple just script to pull state
    -- (x) store tf files in tree
    -- ( ) provision secrets to tf via env on cd
@@ -46,20 +48,20 @@
    - (=) check p10k out
 
 ** Incidents
-   - *incident:* jenkins build failed after slave couldn't pull scm
-     *date:* Mon Oct 28 02:41:59 AM +03 2024
-     *reason:* after a resolver change (`remove: tailscale`) container didn't restart,
-     and still used the old `resolv.conf`
-     *solution:* restart
-   - (!) *incident:* btrbk-local fails to create root snapshot
+   - (x) *incident:* jenkins build failed after slave couldn't pull scm
+         *date:* Mon Oct 28 02:41:59 AM +03 2024
+         *reason:* after a resolver change (`remove: tailscale`) container didn't restart,
+         and still used the old `resolv.conf`
+         *solution:* restart
+   - (x) *incident:* btrbk-local fails to create root snapshot
          *date:* Mon Oct 28 00:00:00 AM +03 2024
          *reason:* btrbk-s3 already created it
          *solution:* randomize service start times
-   - (!) *incident:* ci melted after 20 minutes while running check
+   - (x) *incident:* ci melted after 20 minutes while building checks.mkDesktop
          {http://blueberry:8080/job/config/22/console}
          *date:* Mon Oct 28 00:03:07 AM +03 2024
-         *reason:* -
-         *solution:* -
+         *reason:* possible overload from another pipeline for the same config
+         *solution:* delete the old pipeline
 
 ** Per-host
 *** Ambrosia
