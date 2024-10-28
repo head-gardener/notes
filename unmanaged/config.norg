@@ -8,10 +8,10 @@
    -- (x) initial setup
    -- (x) how the hell does {:resolveconf:} work
    -- (x) dns
-   -- ( ) prometheus on elderberry
+   -- (x) prometheus on elderberry
+   -- ( ) figure out loki and put it on elderberry (who is pihole)
    -- ( ) script for accessing backups
    -- ( ) s3 backups on elderberry
-   -- ( ) figure out loki and put it on elderberry (who is pihole)
    - (=) move ssh keys to hosts.json
    - ( ) creds rotation
    -- ( ) use {:alloy:} to make `service -> host` translation possible on the shell, probably
