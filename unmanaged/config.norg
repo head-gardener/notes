@@ -7,7 +7,7 @@
    - (-) {:wireguard:}
    -- (x) initial setup
    -- (x) how the hell does {:resolveconf:} work
-   -- ( ) dns
+   -- (x) dns
    -- ( ) prometheus on elderberry
    -- ( ) script for accessing backups
    -- ( ) s3 backups on elderberry
