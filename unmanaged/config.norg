@@ -3,12 +3,20 @@
    - (x) better charge remaining
    - (x) systemd-run abbr
    - (x) yaml/json to nix in fish funcs
-   - (x) {:wireguard:}
-   -- (!) prometheus on elderberry
+   - (x) sudo shim
+   - (-) {:wireguard:}
+   -- (x) initial setup
    -- ( ) how the hell does {:resolveconf:} work
    -- ( ) dns
-   - (!) move ssh keys to hosts.json
-   - ( ) sudo shim
+   -- ( ) prometheus on elderberry
+   -- ( ) gpg key rotation
+          shouldn't be done often (since accessing older backups becomes harder)
+          there should be two keys for each host: one to encrypt new backups and one to
+          read old. the later gets rotated out when old backups expire.
+   -- ( ) script for accessing backups
+   -- ( ) s3 backups on elderberry
+   -- ( ) figure out loki and put it on elderberry
+   - (=) move ssh keys to hosts.json
    - ( ) creds rotation
    -- ( ) use {:alloy:} to make `service -> host` translation possible on the shell, probably
           via adding an output that is a text file with all relations written out
@@ -36,6 +44,22 @@
    - (?) fugitive {https://github.com/tpope/vim-fugitive}
    - (=) dragon
    - (=) check p10k out
+
+** Incidents
+   - *incident:* jenkins build failed after slave couldn't pull scm
+     *date:* Mon Oct 28 02:41:59 AM +03 2024
+     *reason:* after a resolver change (`remove: tailscale`) container didn't restart,
+     and still used the old `resolv.conf`
+     *solution:* restart
+   - (!) *incident:* btrbk-local fails to create root snapshot
+         *date:* Mon Oct 28 00:00:00 AM +03 2024
+         *reason:* btrbk-s3 already created it
+         *solution:* randomize service start times
+   - (!) *incident:* ci melted after 20 minutes while running check
+         {http://blueberry:8080/job/config/22/console}
+         *date:* Mon Oct 28 00:03:07 AM +03 2024
+         *reason:* -
+         *solution:* -
 
 ** Per-host
 *** Ambrosia
