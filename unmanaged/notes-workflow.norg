@@ -2,11 +2,11 @@
   - (x) telescope extension for finding todos
   -- (x) simple grep
   -- (?) actual extension
-  - ( ) agenda (set of todos to complete)
-  - ( ) neorg file rules
+  - (x) neorg file rules
         spell checks etc
-  - ( ) Width limit
+  - (x) Width limit
         Insert new line when width exceeds 80, should be done automatically via neovim.
+  - ( ) agenda (set of todos to complete)
   - ( ) Neorg autolink
-        A command, when run in a file autolinks all occurances of file references. E.g. `foo`
+        A command, when run in a file autolinks all occurrences of file references. E.g. `foo`
         should be linked to `./foo.norg`. Should be a lua script.

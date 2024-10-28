@@ -1,10 +1,10 @@
 * Neovim
 ** TODO
    - (x) ; leader
-   - (!) jenkinsfile filetype indentation etc
-   - (!) telescope git_status and buffers keybinds
-   - (!) treesj {https://github.com/Wansmer/treesj}
-   - (!) remove git conflict
+   - (x) jenkinsfile filetype indentation etc
+   - ( ) telescope git_status and buffers keybinds
+   - ( ) treesj {https://github.com/Wansmer/treesj}
+   - ( ) remove git conflict
    - (=) tmux repl
    -- (=) yarepl {https://github.com/milanglacier/yarepl.nvim}
           only works with vim windows (as expected)
