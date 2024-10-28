@@ -6,7 +6,7 @@
    `wg-quick.conf`. It's essentially reimplemented in NixOS afaik so you decide
    which to chose, `networking.wireguard` or `networking.wg-quick`.
 
-   `DNS=` option as far as I can tell makes resolvconf use wireguard for dns
-   exclusively which serves a clear purpose: disallowing a system from making
+   `DNS=` option makes resolvconf use wireguard for dns exclusively (`resolvconf
+   -x`) which serves a clear purpose: disallowing a system from making
    unencrypted dns requests. That behaviour is not always desireable though,
    e.g. when you only need dns in wireguard to resolve peers' names.

@@ -6,7 +6,7 @@
    - (x) sudo shim
    - (-) {:wireguard:}
    -- (x) initial setup
-   -- ( ) how the hell does {:resolveconf:} work
+   -- (x) how the hell does {:resolveconf:} work
    -- ( ) dns
    -- ( ) prometheus on elderberry
    -- ( ) script for accessing backups
