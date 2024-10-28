@@ -4,14 +4,15 @@
    - (x) systemd-run abbr
    - (x) yaml/json to nix in fish funcs
    - (x) sudo shim
-   - (-) {:wireguard:}
+   - (x) {:wireguard:}
    -- (x) initial setup
    -- (x) how the hell does {:resolveconf:} work
    -- (x) dns
    -- (x) prometheus on elderberry
-   -- ( ) figure out loki and put it on elderberry (who is pihole)
-   -- ( ) script for accessing backups
-   -- ( ) s3 backups on elderberry
+   -- (x) figure out loki and put it on elderberry (who is pihole)
+   -- (x) move services to wireguard
+   - ( ) script for accessing backups
+   - ( ) s3 backups on elderberry
    - (=) move ssh keys to hosts.json
    - ( ) creds rotation
    -- ( ) use {:alloy:} to make `service -> host` translation possible on the shell, probably
@@ -26,6 +27,7 @@
           shouldn't be done often (since accessing older backups becomes harder)
           there should be two keys for each host: one to encrypt new backups and one to
           read old. the later gets rotated out when old backups expire.
+   -- ( ) wg preshared key
    - (-) tf files in config and a simple just script to pull state
    -- (x) store tf files in tree
    -- ( ) provision secrets to tf via env on cd
