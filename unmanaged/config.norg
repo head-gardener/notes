@@ -13,7 +13,9 @@
    -- (x) move services to wireguard
    - (x) script for accessing backups
    - (x) s3 backups on elderberry
-   - ( ) loki don't log info
+   - (x) loki don't log info
+   - (!) dns queries from behind sing-box take absurdly long
+   - ( ) grafana declarative sources
    - (=) move ssh keys to hosts.json
    - ( ) nixos-rebuild in cd
    - ( ) creds rotation
