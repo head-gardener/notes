@@ -15,6 +15,13 @@
    - (x) s3 backups on elderberry
    - (x) loki don't log info
    - (!) dns queries from behind sing-box take absurdly long
+   - (!) elderberry has no firewall
+   - (!) selectively refuses sing-box connections
+   - ( ) togglables - sysd services (sing-box, tailscaled) that can be toggled by non-root
+         (using sudo rules) and have a script for doing that.
+   -- ( ) sudo rules + interface
+   -- ( ) script
+   -- ( ) xmonad integration
    - ( ) grafana declarative sources
    - (=) move ssh keys to hosts.json
    - ( ) nixos-rebuild in cd

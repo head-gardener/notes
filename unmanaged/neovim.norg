@@ -2,6 +2,7 @@
 ** TODO
    - (x) ; leader
    - (x) jenkinsfile filetype indentation etc
+   - ( ) sort keymap
    - ( ) telescope git_status and buffers keybinds
    - ( ) treesj {https://github.com/Wansmer/treesj}
    - ( ) remove git conflict
