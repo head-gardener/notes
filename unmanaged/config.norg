@@ -11,9 +11,11 @@
    -- (x) prometheus on elderberry
    -- (x) figure out loki and put it on elderberry (who is pihole)
    -- (x) move services to wireguard
-   - ( ) script for accessing backups
-   - ( ) s3 backups on elderberry
+   - (x) script for accessing backups
+   - (x) s3 backups on elderberry
+   - ( ) loki don't log info
    - (=) move ssh keys to hosts.json
+   - ( ) nixos-rebuild in cd
    - ( ) creds rotation
    -- ( ) use {:alloy:} to make `service -> host` translation possible on the shell, probably
           via adding an output that is a text file with all relations written out
@@ -37,6 +39,7 @@
          it gets modulesPath and imports it into attrsets based on directory structure
    - ( ) rofi
    - ( ) clipboard manager
+   - ( ) vault?
    - (=) reapply file by unnixing and copying from `nixos-rebuild build`
    - (=) dev/undev just commands
          dev: replace `github:head-gardener` urls in inputs with zoxide output
