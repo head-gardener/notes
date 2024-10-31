@@ -15,7 +15,7 @@
    - (x) script for accessing backups
    - (x) s3 backups on elderberry
    - (x) loki don't log info
-   - (!) grafana actually serve on wg
+   - (x) make grafana to actually serve on wg
    - ( ) move modules into `nixosModules`
    - ( ) pipe `tcpdump -ni wg0` into promtail via `labels = "__path__"`
    - ( ) togglables - sysd services (sing-box, tailscaled) that can be toggled by non-root
