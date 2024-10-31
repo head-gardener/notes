@@ -14,9 +14,7 @@
    - (x) script for accessing backups
    - (x) s3 backups on elderberry
    - (x) loki don't log info
-   - (!) dns queries from behind sing-box take absurdly long
-   - (!) elderberry has no firewall
-   - (!) selectively refuses sing-box connections
+   - ( ) pipe `tcpdump -ni wg0` into promtail via `labels = "__path__"`
    - ( ) togglables - sysd services (sing-box, tailscaled) that can be toggled by non-root
          (using sudo rules) and have a script for doing that.
    -- ( ) sudo rules + interface
@@ -76,6 +74,7 @@
          *date:* Mon Oct 28 00:03:07 AM +03 2024
          *reason:* possible overload from another pipeline for the same config
          *solution:* delete the old pipeline
+   - (!) *incident*: dns queries from behind sing-box take absurdly long
 
 ** Per-host
 *** Ambrosia
