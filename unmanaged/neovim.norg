@@ -2,12 +2,12 @@
 ** TODO
    - (x) ; leader
    - (x) jenkinsfile filetype indentation etc
-   - ( ) foldlevel via set-loc
    - (x) {https://github.com/stevearc/oil.nvim}
-   - ( ) sort keymap
-   - ( ) telescope git_status and buffers keybinds
+   - (x) telescope git_status and buffers keybinds: `fs` and `fr`
+   - (x) remove git conflict
+   - (x) sort keymap
    - ( ) treesj {https://github.com/Wansmer/treesj}
-   - ( ) remove git conflict
+   - (?) foldlevel via set-loc
    - (=) tmux repl
    -- (=) yarepl {https://github.com/milanglacier/yarepl.nvim}
           only works with vim windows (as expected)
