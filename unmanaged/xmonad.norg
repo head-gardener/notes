@@ -2,6 +2,8 @@
 ** TODO
    - (x) get info about restart location from env
    - (x) scratchpad via workspaces
-   - (!) minimizing firefox leads to `Prelude.chr: bad argument: (-30)` and a freeze
+   - (x) minimizing firefox leads to `Prelude.chr: bad argument: (-30)` and a freeze
          window props most likely to blame
    - ( ) cpanel doesn't work
+   - ( ) redo volup/down logic to use either pw api, dbus or whatever for displaying
+         volume level in notifs (or no notifs and volume on bar).
