@@ -2,8 +2,8 @@
 ** TODO
    - (x) ; leader
    - (x) jenkinsfile filetype indentation etc
-   - ( ) folds via set-loc
-   - ( ) {https://github.com/stevearc/oil.nvim}
+   - ( ) foldlevel via set-loc
+   - (x) {https://github.com/stevearc/oil.nvim}
    - ( ) sort keymap
    - ( ) telescope git_status and buffers keybinds
    - ( ) treesj {https://github.com/Wansmer/treesj}
