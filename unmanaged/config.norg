@@ -11,9 +11,12 @@
    -- (x) prometheus on elderberry
    -- (x) figure out loki and put it on elderberry (who is pihole)
    -- (x) move services to wireguard
+   -- ( ) add unmanaged nodes that actually work
    - (x) script for accessing backups
    - (x) s3 backups on elderberry
    - (x) loki don't log info
+   - (!) grafana actually serve on wg
+   - ( ) move modules into `nixosModules`
    - ( ) pipe `tcpdump -ni wg0` into promtail via `labels = "__path__"`
    - ( ) togglables - sysd services (sing-box, tailscaled) that can be toggled by non-root
          (using sudo rules) and have a script for doing that.
