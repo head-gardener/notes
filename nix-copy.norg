@@ -1,5 +1,0 @@
-* General
-  Move store paths around.
-
-* Cookbook
-  - `nixos-rebuild build --flake .#host && nix copy --to ssh://nixos@host $(nix-store -qR result)` - build a configuration locally and send artifacts to the bootstrap machine.

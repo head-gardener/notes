@@ -1,6 +1,0 @@
-# ARP
-
-Uses IP masks to determine whether the address is on the same network or
-not. In the first case an `ARP Request` is sent out into broadcast,
-otherwise the task is delegated to the hub. The hub responds differently
-depending on what type it is.
