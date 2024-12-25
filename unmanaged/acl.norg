@@ -1,0 +1,14 @@
+* ACL
+  Access Control Lists allow more granular permission on files than the standard
+  9 byte system via RBAC (role-based access control).
+  Usecase examples:
+  - granting file read to a user without creating a new group only for that
+
+  ACL is handled on the filesystem level and its availability depends on the
+  specific filesystem and its mount options: normally `acl`/`noacl`. E.g. ACL is
+  on by default on `btrfs`.
+
+** Usage
+   - `ls -l` shows `+` after the first column to indicate non-standard ACL.
+   - `getfacl` prints ACL.
+   - `setfacl` sets ACL.

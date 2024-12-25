@@ -1,7 +1,0 @@
-* TODO
-  - ( ) read {https://github.com/ehllie/ez-configs}[ez-configs].
-  -- see {:../../../ez-configs:}
-  - ( ) read {:../../../dotfiles-updater:}.
-  - (_) {:../../../nix-colors:}?
-  - (-) {:../../../stylix:}?
-  - (x) investigate buider failure on the server.

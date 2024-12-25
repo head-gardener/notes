@@ -1,0 +1,19 @@
+* Vault
+  Hashicorp Vault is an open source kv secrets storage, supporting various backends.
+  {https://developer.hashicorp.com/vault/docs/}
+
+** Design
+   Vault introduces an unsealing operation, that must vbe performed on every restart.
+   Until the vault is unsealed, it can't access any stored secrets. Unsealing uses
+   Shamir's Secret Sharing to split a single root key into multiple shards, of which
+   a threshold number needs to be put in.
+
+   Vault uses tokens to authenticate clients with plenty of authentication backends.
+   Each token get assigned a few policies.
+
+   Vault power comes from secret engines, which have a simple interface and can access an
+   arbitrary backend.
+
+** Philosophy
+   Vault is designed for short-lived secrets. All secrets support TTL, or can be issued on
+   demand.

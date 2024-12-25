@@ -1,34 +1,4 @@
-* Commands
-  - `:new-session -s name -c root`
-  - `:breakp` or `<pref>!` - throws current pane into a new window
-  - `:join-pane` or `:move-pane` - weird magical command for moving panes
-  -- `-b` moves stuff to the left or above, i.e. not the default.
-
-* Features
-** Sessions
-   Sessions are separate groups of windows. Multiple sessions can be used simultaneously on a single server.
-   Sessions can be managed with things like `tmuxinator`.
-   Sessions can share windows, but have their own notion of what window is selected:
-   @code bash
-   tmux new-session -s <name> -t <old_session>
-   @end
-   Keys:
-   - `(`, `)` - prev, next.
-   - `L` - last.
-   - `s` - list select.
-   - `$` - rename.
-
-** Binds
-   Bind keys with `bind`, unbind with `unbind`.
-*** Tables
-    Binds live in *key tables*. Three of them are default:
-    - `prefix` - default ones, must be pressed after `prefix`.
-    - `root` - can be pressed without prefix.
-    - `copy-mode` or `copy-mode-vi` - when in copy mode.
-
-    When using `bind`/`unbind`, specify table with `-T`. `-n` is a shortcut for `-T root`.
-    To switch into a table use `switch-client`: `bind -T root C-n switch-client -T my-table`.
-    Tables can be used for creating bind sequences - e.g. `jj` requires a table under `j`.
-
-* Config quirks
-  Shelld should be set before calling new-session in the config, which makes for a pretty weird nix expression.
+* Tmux
+** TODO
+   - ( ) seek to prompt (❯)
+         usecases: copy output, copy command
