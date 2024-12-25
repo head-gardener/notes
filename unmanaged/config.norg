@@ -1,82 +1,81 @@
-* Config
-** TODO
-   - (x) better charge remaining
-   - (x) systemd-run abbr
-   - (x) yaml/json to nix in fish funcs
-   - (x) sudo shim
-   - (x) {:wireguard:}
-   -- (x) initial setup
-   -- (x) how the hell does {:resolveconf:} work
-   -- (x) dns
-   -- (x) prometheus on elderberry
-   -- (x) figure out loki and put it on elderberry (who is pihole)
-   -- (x) move services to wireguard
-   -- ( ) add unmanaged nodes that actually work
-   - (x) script for accessing backups
-   - (x) s3 backups on elderberry
-   - (x) loki don't log info
-   - (x) make grafana to actually serve on wg
-   - (x) move modules into `nixosModules`
-   - ( ) jenkins actually really wants a domain
-   - (x) just use nixosModules in alloy
-   - ( ) {https://flake.parts/options/pkgs-by-name-for-flake-parts}
-   - (=) {https://flake.parts/options/agenix-rekey}
-   - (x) pipe `tcpdump -ni wg1` into promtail via `labels = "__path__"`
-   - ( ) togglables - sysd services (sing-box, tailscaled) that can be toggled by non-root
-         (using sudo rules) and have a script for doing that.
-   -- ( ) sudo rules + interface
-   -- ( ) script
-   -- ( ) xmonad integration
-   - ( ) grafana declarative sources
-   - ( ) terranix for simplified management
-   - (=) using flake parts prevents `nixosModules` from being checked
-         reason: fp wraps modules in `m: { imports = [ m ]; }`.
-         do we even need to check the modules?
-   - (=) move ssh keys to hosts.json
-   - ( ) vault
-   -- (x) vault
-   -- (x) nats for rebiuld requests (with ref), etc.
-   -- (x) agent: chown
-   -- (x) agent: service restarts
-   -- ( ) PKI engine
-   - (-) tf files in config and a simple just script to pull state
-   -- (x) store tf files in tree
-   -- ( ) provision secrets to tf via env on cd
-   -- ( ) generate .envrc with secrets (rotateable)
-   -- ( ) store state on s3
-   - (x) restucture module imports into a separate flake module
-         it gets modulesPath and imports it into attrsets based on directory structure
-   - ( ) rofi
-   - ( ) clipboard manager
-   - (=) reapply file by unnixing and copying from `nixos-rebuild build`
-   - (=) dev/undev just commands
-         dev: replace `github:head-gardener` urls in inputs with zoxide output
-         undev: replace inputs back from comments and lock-commit the input update
-   - (?) {:proxychains:}
-   -- (x) test out
-   -- (?) wrap terraform?
-   - (=) luks
-   - (?) fugitive {https://github.com/tpope/vim-fugitive}
-   - (=) dragon
-   - (=) check p10k out
+* TODO
+  - (x) better charge remaining
+  - (x) systemd-run abbr
+  - (x) yaml/json to nix in fish funcs
+  - (x) sudo shim
+  - (x) {:wireguard:}
+  -- (x) initial setup
+  -- (x) how the hell does {:resolveconf:} work
+  -- (x) dns
+  -- (x) prometheus on elderberry
+  -- (x) figure out loki and put it on elderberry (who is pihole)
+  -- (x) move services to wireguard
+  -- ( ) add unmanaged nodes that actually work
+  - (x) script for accessing backups
+  - (x) s3 backups on elderberry
+  - (x) loki don't log info
+  - (x) make grafana to actually serve on wg
+  - (x) move modules into `nixosModules`
+  - ( ) jenkins actually really wants a domain
+  - (x) just use nixosModules in alloy
+  - ( ) {https://flake.parts/options/pkgs-by-name-for-flake-parts}
+  - (=) {https://flake.parts/options/agenix-rekey}
+  - (x) pipe `tcpdump -ni wg1` into promtail via `labels = "__path__"`
+  - ( ) togglables - sysd services (sing-box, tailscaled) that can be toggled by non-root
+        (using sudo rules) and have a script for doing that.
+  -- ( ) sudo rules + interface
+  -- ( ) script
+  -- ( ) xmonad integration
+  - ( ) grafana declarative sources
+  - ( ) terranix for simplified management
+  - (=) using flake parts prevents `nixosModules` from being checked
+        reason: fp wraps modules in `m: { imports = [ m ]; }`.
+        do we even need to check the modules?
+  - (=) move ssh keys to hosts.json
+  - ( ) vault
+  -- (x) vault
+  -- (x) nats for rebiuld requests (with ref), etc.
+  -- (x) agent: chown
+  -- (x) agent: service restarts
+  -- ( ) PKI engine
+  - (-) tf files in config and a simple just script to pull state
+  -- (x) store tf files in tree
+  -- ( ) provision secrets to tf via env on cd
+  -- ( ) generate .envrc with secrets (rotateable)
+  -- ( ) store state on s3
+  - (x) restucture module imports into a separate flake module
+        it gets modulesPath and imports it into attrsets based on directory structure
+  - ( ) rofi
+  - ( ) clipboard manager
+  - (=) reapply file by unnixing and copying from `nixos-rebuild build`
+  - (=) dev/undev just commands
+        dev: replace `github:head-gardener` urls in inputs with zoxide output
+        undev: replace inputs back from comments and lock-commit the input update
+  - (?) {:proxychains:}
+  -- (x) test out
+  -- (?) wrap terraform?
+  - (=) luks
+  - (?) fugitive {https://github.com/tpope/vim-fugitive}
+  - (=) dragon
+  - (=) check p10k out
 
-** Incidents
-   - (x) *incident:* jenkins build failed after slave couldn't pull scm
-         *date:* Mon Oct 28 02:41:59 AM +03 2024
-         *reason:* after a resolver change (`remove: tailscale`) container didn't restart,
-         and still used the old `resolv.conf`
-         *solution:* restart
-   - (x) *incident:* btrbk-local fails to create root snapshot
-         *date:* Mon Oct 28 00:00:00 AM +03 2024
-         *reason:* btrbk-s3 already created it
-         *solution:* randomize service start times
-   - (x) *incident:* ci melted after 20 minutes while building checks.mkDesktop
-         {http://blueberry:8080/job/config/22/console}
-         *date:* Mon Oct 28 00:03:07 AM +03 2024
-         *reason:* possible overload from another pipeline for the same config
-         *solution:* delete the old pipeline
-   - (!) *incident*: dns queries from behind sing-box take absurdly long
+* Incidents
+  - (x) *incident:* jenkins build failed after slave couldn't pull scm
+        *date:* Mon Oct 28 02:41:59 AM +03 2024
+        *reason:* after a resolver change (`remove: tailscale`) container didn't restart,
+        and still used the old `resolv.conf`
+        *solution:* restart
+  - (x) *incident:* btrbk-local fails to create root snapshot
+        *date:* Mon Oct 28 00:00:00 AM +03 2024
+        *reason:* btrbk-s3 already created it
+        *solution:* randomize service start times
+  - (x) *incident:* ci melted after 20 minutes while building checks.mkDesktop
+        {http://blueberry:8080/job/config/22/console}
+        *date:* Mon Oct 28 00:03:07 AM +03 2024
+        *reason:* possible overload from another pipeline for the same config
+        *solution:* delete the old pipeline
+  - (!) *incident*: dns queries from behind sing-box take absurdly long
 
-** Per-host
-*** Ambrosia
-    - obs 30.0.2 records, obs 30.1.2 doesn't.
+* Per-host
+** Ambrosia
+   - obs 30.0.2 records, obs 30.1.2 doesn't.

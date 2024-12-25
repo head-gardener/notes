@@ -47,25 +47,30 @@
             justStaticExecutables
           ]);
 
-          blog-render = with pkgs; (stdenvNoCC.mkDerivation {
+          blog-render = with pkgs; (stdenvNoCC.mkDerivation rec {
               pname = "norg-render";
               version = "25122024";
 
               src = ./unmanaged;
 
+              pandocOpts = [
+                "--to=html"
+                ''--css="/static/styles.css"''
+                "--highlight-style=pygments"
+              ];
+
               buildPhase = ''
                 mkdir build
-                echo -e "# Sitemap\n" > index.md
                 find -type f -name '*.norg' | sed 's/.\/\(.*\)\.norg/\1/' | \
                   xargs -I {} sh -c '
                     ${neorg-haskell-parser}/bin/neorg-pandoc -f "./{}.norg" | \
                       ${lib.getExe pkgs.pandoc} \
-                      --from=json --to=html --css="/static/styles.css" \
-                      --metadata title="{}" -s -o "build/{}.html"; \
+                      ${builtins.concatStringsSep " " pandocOpts} \
+                      --toc --from=json --metadata title="{}" -s -o "build/{}.html"; \
                     echo "- [{}](/{}.html)" >> index.md;
                   '
                 ${lib.getExe pkgs.pandoc} \
-                  --from=markdown --to=html --css="/static/styles.css" \
+                  ${builtins.concatStringsSep " " pandocOpts} \
                   --metadata title="Sitemap" -s index.md -o "build/index.html"; \
               '';
 

@@ -1,4 +1,3 @@
-* Mediaserver
-  Check out `ncmpcpp`.
+Check out `ncmpcpp`.
 
-  Mopidy is specifically designed for that, with a bunch of plugins api etc.
+Mopidy is specifically designed for that, with a bunch of plugins api etc.

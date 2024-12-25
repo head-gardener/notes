@@ -1,11 +1,9 @@
-* Dnsmasq
-  DNS, DHCP, TFTP in a simple package.
+DNS, DHCP, TFTP in a simple package.
 
-  DNS configuration gets read from host, namely `/etc/hosts` for hosts and
-  `/etc/resolv/conf` for other stuff. You can overwrite locations of both these
-  files and add more hosts (`addn-hosts`).
+DNS configuration gets read from host, namely `/etc/hosts` for hosts and
+`/etc/resolv/conf` for other stuff. You can overwrite locations of both these files and
+add more hosts (`addn-hosts`).
 
-  For shorter names there are `expand-hosts` and `domain` options, which add a
-  domain to the end of every host (e.g. 'my-computer.lan'). These are
-  complimented by `search <domain>` in `resolvconf`, allowing you to use short
-  names while being precise.
+For shorter names there are `expand-hosts` and `domain` options, which add a domain to the
+end of every host (e.g. 'my-computer.lan'). These are complimented by `search <domain>` in
+`resolvconf`, allowing you to use short names while being precise.

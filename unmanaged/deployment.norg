@@ -1,13 +1,21 @@
-* Deployment
-** Strategies
-   - rolling deployment with replacement: replace instances and redirect user traffic in batches (one or more).
-   - blue-green deployment: deploy all new instances at once and redirect traffic immediately.
-   - canary deployment: deploy a single instance, redirect to it and pause deployment to compare metrics between the new version ("canary") and any old version ("control"). If newer code performs as expected compared to older code resume deployment using any strategy, otherwise abort. A good approach is to hide new features behind toggles and first compare the deployment without them to check for any differences.
+* Strategies
+  - rolling deployment with replacement: replace instances and redirect user traffic in
+    batches (one or more).
+  - blue-green deployment: deploy all new instances at once and redirect traffic
+    immediately.
+  - canary deployment: deploy a single instance, redirect to it and pause deployment to
+    compare metrics between the new version ("canary") and any old version ("control"). If
+    newer code performs as expected compared to older code resume deployment using any
+    strategy, otherwise abort. A good approach is to hide new features behind toggles and
+    first compare the deployment without them to check for any differences.
 
-   Picking a strategy depends on how important it is that all instances run the same code at once. If it's necessary use blue-green, if your code needs and allows gradual testing of the new features use canary, otherwise rolling will suffice.
+  Picking a strategy depends on how important it is that all instances run the same code
+  at once. If it's necessary use blue-green, if your code needs and allows gradual testing
+  of the new features use canary, otherwise rolling will suffice.
 
-** Artifact promotion
-   When deploying an artifact, a common approach is to gradually introduce it into the environments. In such process each step is called an _artifact promotion_:
-   - `dev` environment, where tests are run.
-   - `stage` environment, where artifact is deployed to the testing infrastructure.
-   - `prod` environment, where artifact becomes available to users.
+* Artifact promotion
+  When deploying an artifact, a common approach is to gradually introduce it into the
+  environments. In such process each step is called an _artifact promotion_:
+  - `dev` environment, where tests are run.
+  - `stage` environment, where artifact is deployed to the testing infrastructure.
+  - `prod` environment, where artifact becomes available to users.

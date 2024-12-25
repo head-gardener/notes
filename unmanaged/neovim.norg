@@ -1,30 +1,29 @@
-* Neovim
-** TODO
-   - (x) ; leader
-   - (x) jenkinsfile filetype indentation etc
-   - (x) {https://github.com/stevearc/oil.nvim}
-   - (x) telescope git_status and buffers keybinds: `fs` and `fr`
-   - (x) remove git conflict
-   - (x) sort keymap
-   - ( ) treesj {https://github.com/Wansmer/treesj}
-   - (?) foldlevel via set-loc
-   - (=) tmux repl
-   -- (=) yarepl {https://github.com/milanglacier/yarepl.nvim}
-          only works with vim windows (as expected)
-   -- (=) command palette
+* TODO
+  - (x) ; leader
+  - (x) jenkinsfile filetype indentation etc
+  - (x) {https://github.com/stevearc/oil.nvim}
+  - (x) telescope git_status and buffers keybinds: `fs` and `fr`
+  - (x) remove git conflict
+  - (x) sort keymap
+  - ( ) treesj {https://github.com/Wansmer/treesj}
+  - (?) foldlevel via set-loc
+  - (=) tmux repl
+  -- (=) yarepl {https://github.com/milanglacier/yarepl.nvim}
+         only works with vim windows (as expected)
+  -- (=) command palette
    
-** Questions
-   Q: What are `vim.g`, `vim.o`, etc? When should I use which?
-   A: `vim` is a bridge to Vimscript vars, functions, etc. `vim.g` is a part of
-   vim's global dictionaries, of which there are five:
-   - `g` - global vars
-   - `w` - window-scoped
-   - `b` - buffer-scoped
-   - `t` - tabpage-scoped
-   - `v` - `v:` variables
+* Questions
+  Q: What are `vim.g`, `vim.o`, etc? When should I use which?
+  A: `vim` is a bridge to Vimscript vars, functions, etc. `vim.g` is a part of
+  vim's global dictionaries, of which there are five:
+  - `g` - global vars
+  - `w` - window-scoped
+  - `b` - buffer-scoped
+  - `t` - tabpage-scoped
+  - `v` - `v:` variables
 
-   Scoped dictionaries can be scoped with integers, which represent the target of the
-   scope, e. g. buffer id.
-   `vim.o` accesses vim options, set via the `:set` command. Similarly to the
-   dictionaries, there are `vim.go`, `vim.bo` and `vim.wo` for setting global and scoped
-   options.
+  Scoped dictionaries can be scoped with integers, which represent the target of the
+  scope, e. g. buffer id.
+  `vim.o` accesses vim options, set via the `:set` command. Similarly to the
+  dictionaries, there are `vim.go`, `vim.bo` and `vim.wo` for setting global and scoped
+  options.

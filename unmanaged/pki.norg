@@ -1,97 +1,96 @@
-* PKI
-  Public Key Infrastructure, normally understood as a TLS CA and mechanisms related to
-  issuing, signing, validating new certificates.
+Public Key Infrastructure, normally understood as a TLS CA and mechanisms related to
+issuing, signing, validating new certificates.
 
-  Can be done with {:vault:} using PKI engine mount.
+Can be done with {:vault:} using PKI engine mount.
 
-** Composition
-   Main components include:
-   - Self-signed root certificate (root CA)
-   - Intermidiate CA (optional)
-   - Issuing/revocation mechanisms
+* Composition
+  Main components include:
+  - Self-signed root certificate (root CA)
+  - Intermidiate CA (optional)
+  - Issuing/revocation mechanisms
 
-** Certificate
-   A certificate consists of:
-   - A name
-   - A list of allowed domains
-   - Encryption spec
-   - Signature
+* Certificate
+  A certificate consists of:
+  - A name
+  - A list of allowed domains
+  - Encryption spec
+  - Signature
 
-   For example, with Vault and intermidiate CA configured, Terraform code for requesting a
-   certificate would look like this:
-   @code terraform
-   resource "vault_pki_secret_backend_cert" "example-dot-com" {
-     issuer_ref  = vault_pki_secret_backend_issuer.intermediate.issuer_ref
-     backend     = vault_pki_secret_backend_role.intermediate_role.backend
-     name        = vault_pki_secret_backend_role.intermediate_role.name
-     common_name = "test.example.com"
-     ttl         = 3600
-     revoke      = true
-   }
+  For example, with Vault and intermidiate CA configured, Terraform code for requesting a
+  certificate would look like this:
+  @code terraform
+  resource "vault_pki_secret_backend_cert" "example-dot-com" {
+    issuer_ref  = vault_pki_secret_backend_issuer.intermediate.issuer_ref
+    backend     = vault_pki_secret_backend_role.intermediate_role.backend
+    name        = vault_pki_secret_backend_role.intermediate_role.name
+    common_name = "test.example.com"
+    ttl         = 3600
+    revoke      = true
+  }
+  @end
+
+  A certificate is created after a Certificate Signing Request (CSR) is fulfilled. CSR
+  are submitted as `.csr` files.
+
+* Imperative tooling for local CA
+  Apart from Vault, you can use `easy-rsa` or `openssl` for more imperative approaches.
+  Steps and comparison:
+
+** Init
+   `easyrsa`:
+   @code bash
+   # dir init
+   easyrsa init-pki
+   # config
+   cat << END > vars
+   set_var EASYRSA_REQ_COUNTRY "US"
+   set_var EASYRSA_REQ_PROVINCE "State"
+   set_var EASYRSA_REQ_CITY "City"
+   set_var EASYRSA_REQ_ORG "Your Organization"
+   set_var EASYRSA_REQ_EMAIL "admin@example.com"
+   set_var EASYRSA_REQ_OU "Your Organizational Unit"
+   set_var EASYRSA_ALGO "ec"
+   set_var EASYRSA_DIGEST "sha512"
+   END
+   # gen CA
+   easyrsa build-ca
    @end
 
-   A certificate is created after a Certificate Signing Request (CSR) is fulfilled. CSR
-   are submitted as `.csr` files.
+   `openssl:`
+   @code bash
+   # gen key
+   openssl genrsa -aes256 -out CA.key 2048
+   # gen CA from key
+   openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1024 -out myCA.crt
+   @end
 
-** Imperative tooling for local CA
-   Apart from Vault, you can use `easy-rsa` or `openssl` for more imperative approaches.
-   Steps and comparison:
+** Generate certificate
+   `easyrsa`:
+   @code bash
+   # gen CSR
+   easyrsa gen-req server nopass
+   # sign CSR
+   easyrsa sign-req server server
+   @end
 
-*** Init
-    `easyrsa`:
-    @code bash
-    # dir init
-    easyrsa init-pki
-    # config
-    cat << END > vars
-    set_var EASYRSA_REQ_COUNTRY "US"
-    set_var EASYRSA_REQ_PROVINCE "State"
-    set_var EASYRSA_REQ_CITY "City"
-    set_var EASYRSA_REQ_ORG "Your Organization"
-    set_var EASYRSA_REQ_EMAIL "admin@example.com"
-    set_var EASYRSA_REQ_OU "Your Organizational Unit"
-    set_var EASYRSA_ALGO "ec"
-    set_var EASYRSA_DIGEST "sha512"
-    END
-    # gen CA
-    easyrsa build-ca
-    @end
+   `openssl`:
+   @code bash
+   # gen key
+   openssl genrsa -out my-server.key 2048
+   # gen CSR
+   openssl req -new -key my-server.key -out my-server.csr
+   # gen CNF
+   echo "subjectAltName = DNS:yourdomain.local" > extfile.cnf
+   # sign CSR
+   openssl x509 -req -in my-server.csr -CA myCA.crt -CAkey myCA.key -CAcreateserial \
+   -out my-server.crt -days 365 -extfile extfile.cnf
+   @end
 
-    `openssl:`
-    @code bash
-    # gen key
-    openssl genrsa -aes256 -out CA.key 2048
-    # gen CA from key
-    openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1024 -out myCA.crt
-    @end
-
-*** Generate certificate
-    `easyrsa`:
-    @code bash
-    # gen CSR
-    easyrsa gen-req server nopass
-    # sign CSR
-    easyrsa sign-req server server
-    @end
-
-    `openssl`:
-    @code bash
-    # gen key
-    openssl genrsa -out my-server.key 2048
-    # gen CSR
-    openssl req -new -key my-server.key -out my-server.csr
-    # gen CNF
-    echo "subjectAltName = DNS:yourdomain.local" > extfile.cnf
-    # sign CSR
-    openssl x509 -req -in my-server.csr -CA myCA.crt -CAkey myCA.key -CAcreateserial \
-      -out my-server.crt -days 365 -extfile extfile.cnf
-    @end
-
-*** Inspect, verify certificate
-    `openssl`:
-    @code bash
-    # inspect cert
-    openssl x509 -in my-server.crt -text -noout
-    # verify against CA
-    openssl verify -CAfile myCA.crt my-server.crt
-    @end
+** Inspect, verify certificate
+   `openssl`:
+   @code bash
+   # inspect cert
+   openssl x509 -in my-server.crt -text -noout
+   # verify against CA
+   openssl verify -CAfile myCA.crt my-server.crt
+   @end

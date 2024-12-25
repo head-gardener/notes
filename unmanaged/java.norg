@@ -1,69 +1,57 @@
-* Java
+* Approaches
   - Twelve-factor app
 
-** JDKs
-   *JDK* is a development environment (compiler, jvm, debugger)
-   *JRE* is just executable runtime (java command)
+* JDKs
+  *JDK* is a development environment (compiler, jvm, debugger) *JRE* is just executable
+  runtime (java command)
 
-   There are many JDK distributions
+  There are many JDK distributions
 
-** Versions
-   - Before: no language features
-   - 8: *F*
-   - 11: *D*
-   - 17: *C*
-   - 19:
-   - 21:
-   - 23: *S* good performance
+* Versions
+  - Before: no language features
+  - 8: *F*
+  - 11: *D*
+  - 17: *C*
+  - 19:
+  - 21:
+  - 23: *S* good performance
 
-** Gradle
-   - Groovy/Kotlin DSL
+* Gradle
+  - Groovy/Kotlin DSL
 
-** Migrations
-   Can be run as jobs from ci or a ceprate service, on application start
-   Can run as mvn or gradle plugins
-   Use liquibas
+* Migrations
+  Can be run as jobs from ci or a ceprate service, on application start Can run as mvn or
+  gradle plugins Use liquibas
 
-** Maven
-   - XML
-   - too hard practically
+* Maven
+  - XML
+  - too hard practically
 
-** Spring
-   - Spring-boot is preconfigured
-   - supports dependency injection
+* Spring
+  - Spring-boot is preconfigured
+  - supports dependency injection
 
-** Spring Configuration Server
-   HTTP API
-   Sources: git, Vault
-*** Git source
-    repo: properties
-*** Alternative
-    - bash scripts to push config/state from repo to a database
-    - cron pulling config/state from database
+* Spring Configuration Server
+  HTTP API Sources: git, Vault ** Git source repo: properties ** Alternative
+  - bash scripts to push config/state from repo to a database
+  - cron pulling config/state from database
 
-** Distribution
-   - *JAR*: Just classes
-   - *Fat JAR*: Main classes + static deps + meta
-   - *WAR*: Fat JAR + static content /(outdated)/
+* Distribution
+  - *JAR*: Just classes
+  - *Fat JAR*: Main classes + static deps + meta
+  - *WAR*: Fat JAR + static content /(outdated)/
 
-** Docker
-   Java needs to be configured to run in containers to properly utilize memory
+* Docker
+  Java needs to be configured to run in containers to properly utilize memory
 
-** JVM Options
-   - `-Xms` min heap
-   - `-Xmx` max heap (often equal to `-Xms`, at least 4-8 Gb)
-     example `-Xms4g -Xmx4g`
+* JVM Options
+  - `-Xms` min heap
+  - `-Xmx` max heap (often equal to `-Xms`, at least 4-8 Gb) example `-Xms4g -Xmx4g`
 
-** Deployment
-   - build -> release -> run
-*** Build
-    JAR
-    - pre-commit hooks
-    - `gradle build`
-    - `mvn build`
-*** Release
-    Configuration
-    - `docker build`
-    - ...
-*** Build
-    `jar -jar my-app.jar`
+* Deployment
+  - build -> release -> run ** Build JAR
+  - pre-commit hooks
+  - `gradle build`
+  - `mvn build` ** Release Configuration
+  - `docker build`
+  - ... ** Build `jar -jar my-app.jar`

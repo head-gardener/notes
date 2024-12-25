@@ -1,49 +1,48 @@
-* Alloy
-  {https://github.com/head-gardener/alloy}
+{https://github.com/head-gardener/alloy}
 
-** TODO
-   - (x) multiple module receivers
-   -- (x) initial interface
-   -- (x) prometheus
-   - ( ) middleware
-         preprocessors for hosts (and modules?) attrsets, useful for creating a
-         user-defined structures, e.g. regions, namespaces, etc. have two arguments,
-         host (function called with literals substituted for modules) and mods
-         (mods themselves).
-   -- ( ) alt `hosts` syntax
-   -- ( ) middleware
-   -- ( ) `mkMiddleware`
-   - ( ) remote extend
-         some services might require related configuration on a separate machine:
-         e.g. node-exporter (prometheus scrape config), web-services (nginx).
+* TODO
+  - (x) multiple module receivers
+  - (x) initial interface
+  - (x) prometheus
+  - ( ) middleware
+        preprocessors for hosts (and modules?) attrsets, useful for creating a
+        user-defined structures, e.g. regions, namespaces, etc. have two arguments,
+        host (function called with literals substituted for modules) and mods
+        (mods themselves).
+  - ( ) alt `hosts` syntax
+  - ( ) middleware
+  - ( ) `mkMiddleware`
+  - ( ) remote extend
+        some services might require related configuration on a separate machine:
+        e.g. node-exporter (prometheus scrape config), web-services (nginx).
 
-** Interface notes
-*** `forEach`
-    `option = alloy.module.forEach (host: { ... })`
-*** Remote extend
-    @code nix
-    { config, ... }: {
-      alloy.extend.nginx = [{ me /* <- contains resolved address of this machine */ }: {
-        services.nginx.virtualHosts =
-        [{ proxyPass = "${me}:${toString config.wev-server.port}"; }];
-      }];
-      web-server.enable = true;
-    }
-    @end
-*** Middleware
-    @code nix
-    {
-      middleware = alloy-utils.mkMiddleware { ... };
+* Interface notes
+** `forEach`
+   `option = alloy.module.forEach (host: { ... })`
+** Remote extend
+   @code nix
+   { config, ... }: {
+     alloy.extend.nginx = [{ me /* <- contains resolved address of this machine */ }: {
+       services.nginx.virtualHosts =
+       [{ proxyPass = "${me}:${toString config.wev-server.port}"; }];
+     }];
+     web-server.enable = true;
+   }
+   @end
+** Middleware
+   @code nix
+   {
+     middleware = alloy-utils.mkMiddleware { ... };
 
-      hosts = mods: {
-        pc = {
-          modules = [];
-          region = "home";
-        };
-        laptop = {
-          modules = [];
-          region = "roaming";
-        };
-      };
-    }
-    @end
+     hosts = mods: {
+       pc = {
+         modules = [];
+         region = "home";
+       };
+       laptop = {
+         modules = [];
+         region = "roaming";
+       };
+     };
+   }
+   @end
