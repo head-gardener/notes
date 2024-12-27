@@ -1,0 +1,32 @@
+* Project structure
+  Ansible project primarily consists of
+  - *playbooks*: i.e. scripts in yaml format
+  - *inventory*: host groups
+  - *roles*: collections of playbooks
+
+* Modules
+  Main component of playbooks. Least degree of separation of actions. Get compiled into
+  python code and ran on remote. Offer alternatives to many common commands.
+
+* Roles and collections
+  Use ansible-galaxy to install or package them. Can be organized in collections. Many
+  vendors like Grafana and Prometheus provide official collections for their products.
+
+* Inventory
+  Multiple hosts organized by groups. Has the following syntax:
+  @code toml
+  [my_group]
+  1.2.3.5
+  1.2.3.4 ansible_user=root ansible_port=2201
+  @end
+
+  Alongside host defenitions inventory contains host and group variables, stored in
+  `host_vars` and `group_vars` dirs in yaml files with names corresponding to hosts or
+  groups. These vars will be expanded in modules, templates and roles.
+
+* Caveats
+** Root access
+   Most acions require root access. Easiest way to achieve this is to login as root using
+   public keys. Alternatively you can `become` with predefined password. Passwords can be
+   stored in `ansible-vault` or provided at runtime with `--ask-pass` for `ssh` and
+   `--ask-become-pass` for `become`.
