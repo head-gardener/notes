@@ -4,6 +4,29 @@
   - WM, SM, compositors, etc
   - Daily best-practices, basics of working with servers
 
+* Intro
+  Main Linux components include:
+  - Boot system
+  - Kernel
+  - Init system
+  - Package manager
+  - Graphical interface
+
+** Boot system
+   Grub or `systemd-boot`, loads kernel and starts `init`.
+
+** Kernel
+   Interacts with the hardware, some low-level processes (e.g. wireguard).
+
+** Init system
+   Primarily `systemd` (alternatives include `runit`, etc). Starts long-running tasks.
+
+** Package manager
+   System responsible for securily installing applications into the environemnt.
+
+** Graphical interface
+   Session managers, window managers, graphical applications, etc.
+
 * FHS
   > {https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html}[Official documentation.]
 
@@ -57,4 +80,58 @@
    WantedBy=basic.target
    @end
 
-   
+** `systemd-nswpawn`
+   Gives you some interesting controls, integrates with the systemd ecosystem
+   (targets, timers, etc.). Otherwise not much better than any other container
+   runtime.
+
+** Logging
+   All systemd services log stdout/stderr (configurable) to `joutnalctl`, which also
+   includes logs from systemd itself.
+
+** Utils
+   `systemd-run` can launch a binary in an environment controlled by systemd.
+
+* Graphical environment
+  Xorg and Wayland are methods of displaying objects to screen. Xorg is a single server
+  and wayland is a protocol, which requires any wayland server. Session managers handle
+  login, run specific window managers from a specific user. Window managers handle
+  displaying windows. Graphical environment (Gnome, KDE, etc.) do all of that.
+
+** Xorg and Wayland
+   - Xorg is older and generally more stable.
+   - Wayland is newer, more lightweight and less stable.
+
+   When building graphical environemnt you should choose between Xorg and Wayland, unless
+   you use a GE which handles that for you.
+
+** Session managers
+   Just use `sddm`.
+
+** Window managers
+   Can be tiling, do window placement, run on Xorg or Wayland.
+
+   Tiling on Xorg:
+   - `i3` and forks
+   - `bspmw`
+   - `Xmonad`
+
+   Tiling on Wayland:
+   - `sway` and forks
+   - `hyperland`
+   - `awesomewm`
+
+** Terminals
+   Can run on Wayland or Xorg, provide various features depending on how much you want.
+   Important features include tabs, GPU rendering, ligatures.
+
+   Examples:
+   - `kitty`
+   - `alacritty`
+   - `st`
+
+** Graphical environment
+   KDE and Gnome are primary examples. Run on Wayland, but that's configurable. Chose
+   whichever looks better to you.
+
+* Best practices
