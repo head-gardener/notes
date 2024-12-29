@@ -122,16 +122,64 @@
    - `awesomewm`
 
 ** Terminals
+   Main function of a terminal is translating keystrokes into `tty` actions and displaying
+   its output.
+
    Can run on Wayland or Xorg, provide various features depending on how much you want.
    Important features include tabs, GPU rendering, ligatures.
 
    Examples:
-   - `kitty`
+   - `kitty` - also supports images.
    - `alacritty`
    - `st`
 
-** Graphical environment
-   KDE and Gnome are primary examples. Run on Wayland, but that's configurable. Chose
-   whichever looks better to you.
+** Desktop environments
+   KDE, Gnome and Xfce are primary examples. Run on Wayland, but that's configurable.
+   Chose whichever looks better to you.
+
+** Other components
+   - Sound: handled by sound servers like `pulseaudio` and `pipewire`.
+   - Pop-up notifications: handled by a notification deamon like `dunst`.
+   - Visual flare: includes transparent windows, blur, etc. On Xorg rendered by
+     compositors like `picom`.
+   - Bars: self-explanatory.
+
+   In graphical environments main avenue of IPC is D-Bus. It allows applications to
+   trigger code execution in other applications, get structured information from them.
+   Example of D-Bus usage is reading currently playing song from a web-browser. KDE, GNOME
+   and other DE's utilize it heavily for communication between different components or
+   for providing interface to lower-level components like power management.
+
+* Servers
+  Servers work generally the same apart from not having graphical environment. Newer
+  approach to servers sees them as fully temporary - services should be independent of
+  their environment, servers themselves should be declarative as much as possible.
+  Popularized by cloud computing, this approach makes for simpler deployment, scaling,
+  etc.
+
+** Declarative approach
+   Under a declarative approach deployment of a service doesn't require any actions apart
+   from realising saved configuration. Examples of fully declarative tools include
+   Terraform and NixOS.
+
+** Impermanence
+   A concept, meaning that almost the entire FS tree is treated as temporary files. Under
+   this concept, any necessary state is declared ahead of time and stored separately.
+   Containers are impermanent, and this concept can be applied to physical servers too.
 
 * Best practices
+  - Only use package managers for installing software. If something isn't available then
+    package it.
+
+** Tooling
+   Key tools in running a Linux installation include:
+   - shell
+   - `find`/`fd`
+   - `grep`/`ripgrep`
+   - `sed`
+
+   Consider `vim` and `tmux`.
+
+** Backups
+   If storage allows, use backup software like `btrbk`, `restic` or `burp`. Encrypt
+   backups if needed.
