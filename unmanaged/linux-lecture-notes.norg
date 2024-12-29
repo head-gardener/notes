@@ -3,3 +3,20 @@
   - `systemd-nspawn`, `systemctl`
   - WM, SM, compositors, etc
   - Daily best-practices, basics of working with servers
+
+* FHS
+  > {https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html}[docs]
+  > text
+
+  ** Common locations
+     - `/bin`  - user binaries.
+     - `/sbin` - system binaries.
+     - `/lib` - `.so` files, internal binaries, kernel modules.
+     - `/etc` - configuration files.
+     - `/tmp` - temporary files, cleared on boot.
+     - `/var` - runtime files.
+     - `/opt` - locally installed applications.
+     - `/boot` - kernels, `.efi` and such.
+     - `/dev` - pseudo. all peripherals and block devices.
+     - `/run` - 
+     - `/proc` - pesudo. process tree.
