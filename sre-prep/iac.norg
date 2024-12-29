@@ -2,10 +2,10 @@
   IaC solutions offer a way to perform deployment through version-controlled code.
 
 ** Tools
-   - {:terraform:}
+   - {./terraform.html}[terraform]
 
 ** Relevant topics
-   - {:load-balancers:}
+   - {./load-balancers.html}[load-balancers]
 
 ** Configuration management vs Provisioning
    Chef, Puppet, and Ansible are all configuration management tools, which means they are designed to install and manage software on existing servers. CloudFormation, Heat, Pulumi, and Terraform are provisioning tools, which means they are designed to provision the servers themselves (as well as the rest of your infrastructure, like load balancers, databases, networking configuration, etc), leaving the job of configuring those servers to other tools.

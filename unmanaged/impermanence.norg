@@ -13,6 +13,6 @@
   - `/var/lib` - probably? Though what's the point then.
 
 * References
-  - {:nix:}
-  - {:btrfs:}
-  - {:btrfs-on-nixos:}
+  - {./nix.html}[nix]
+  - {./btrfs.html}[btrfs]
+  - {./btrfs-on-nixos.html}[btrfs-on-nixos]

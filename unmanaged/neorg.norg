@@ -8,7 +8,7 @@
 
 * TODO
   - ( ) set spell, lbr, column and sum else on .norg filetype.
-  - ( ) {:pandoc:} converter
+  - ( ) {./pandoc.html}[pandoc] converter
   - (-) it would be nicer to run neorg in a separate tab or smth.
   - (x) folding works really weirdly.
   - (_) keymap for index maybe. See {**  keybinds}
@@ -26,7 +26,7 @@
    - (=) Export this shit to html.
 
 * Tools
-  {:neorg-utils:}
+  {./neorg-utils.html}[neorg-utils]
 
 * Modules
 ** Dirman
@@ -50,7 +50,7 @@
    - More types are in the `help neorg-tasks`.
    - To reveal what actual character corresponds to a state, toggle concealer with `Neorg toggle-concealer.`
    - nested TODO lists will propagate their changes to children.
-   - see {:nu:** Parse neorg TODO's} for getting the goods.
+   - see {./nu.html}[nu] for getting the goods.
 ** concealer
    Toggle with 'toggle-concealer'.
    Can be configured, e.g. change icons for TODO statuses. But *don't* touch performance settings lol. There are some nice icon sets there, might wanna look.
@@ -64,4 +64,4 @@
    - (?) how the hell do you fold links?
    - (x) rewrite anchors to links!
    - ( ) anchors?
-   - {:neorg:# readup} - links in files.
+   - {./neorg.html}[neorg] - links in files.

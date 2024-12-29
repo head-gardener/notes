@@ -11,7 +11,7 @@
 ** mc
    Works.
 
-** {:awscli:}
+** {./awscli.html}[awscli]
    {https://github.com/nitisht/cookbook/blob/master/docs/aws-cli-with-minio.md}[ref].
    Configuration:
    @code bash
@@ -20,6 +20,6 @@
    aws --endpoint-url http://<host>:9000 s3 ls --profile minio-cli
    @end
 
-* {:s3fs:}
+* {./s3fs.html}[s3fs]
   - {https://github.com/nitisht/cookbook/blob/master/docs/s3fs-fuse-with-minio.md}[doc].
   The important part is `s3fs <bucket> <mount_point> -o passwd_file=/etc/s3cred,use_path_request_style,url=http://minio-server:9000`.

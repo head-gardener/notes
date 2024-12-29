@@ -17,25 +17,25 @@
 
 ** Topics
 *** Web
-    - {:arp:}
-    - {:dns:}
-    - {:http:}
-    - {:load-balancers:}
-    - {:tcp-ip:}
-    - {:tls:}
-    - {:www:}
+    - {./arp.html}[arp]
+    - {./dns.html}[dns]
+    - {./http.html}[http]
+    - {./load-balancers.html}[load-balancers]
+    - {./tcp-ip.html}[tcp-ip]
+    - {./tls.html}[tls]
+    - {./www.html}[www]
 
 *** Linux
-    - {:cgroup:}
-    - {:file-descriptors:}
-    - {:page-cache:}
-    - {:pipes:}
-    - {:process-groups:}
-    - {:terminals:}
+    - {./cgroup.html}[cgroup]
+    - {./file-descriptors.html}[file-descriptors]
+    - {./page-cache.html}[page-cache]
+    - {./pipes.html}[pipes]
+    - {./process-groups.html}[process-groups]
+    - {./terminals.html}[terminals]
 
 *** DevOps
-    - {:deployment:}
-    - {:iac:}
+    - {./deployment.html}[deployment]
+    - {./iac.html}[iac]
 
 ** References
-   - {:questions:} from [https://github.com/mxssl/sre-interview-prep-guide].
+   - {./questions.html}[questions] from [https://github.com/mxssl/sre-interview-prep-guide].

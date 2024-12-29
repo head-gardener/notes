@@ -122,6 +122,8 @@
    - `awesomewm`
 
 ** Terminals
+   > See {./terminals.html}[terminals] for `tty` internals.
+
    Main function of a terminal is translating keystrokes into `tty` actions and displaying
    its output.
 

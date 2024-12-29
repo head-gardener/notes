@@ -1,6 +1,6 @@
 * Tools
-  - {:awcli:}
-  - {:s3fs:}
+  - {./awcli.html}[awcli]
+  - {./s3fs.html}[s3fs]
 
 * References
-  - {:minio:}
+  - {./minio.html}[minio]

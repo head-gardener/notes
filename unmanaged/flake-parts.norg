@@ -16,6 +16,6 @@
 
 * Modules
 ** ( ) {https://flake.parts/options/flake-parts-easyoverlay}[easyOverlay]
-** ( ) {:ez-configs:}
+** ( ) {./ez-configs.html}[ez-configs]
 ** ( ) {https://flake.parts/options/hercules-ci-effects}[hercules-ci-effects]
-   See {:hercules-ci:# effects}.
+   See {./hercules-ci.html}[hercules-ci].

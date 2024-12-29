@@ -1,7 +1,7 @@
 * Configuration
   `services.ssh-agent` for hm, `programs.ssh.startAgent` for nixos.
   Both have some other fun stuff in `programs.ssh` that I haven't really figured out yet.
-  Also the config is complete bullshit, more on that in {:hm-vs-nixos:}.
+  Also the config is complete bullshit, more on that in {./hm-vs-nixos.html}[hm-vs-nixos].
 
 * Usage
 ** ssh-add

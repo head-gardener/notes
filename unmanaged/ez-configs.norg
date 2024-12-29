@@ -21,4 +21,4 @@
   -- used for `nixosConfigurations` and `darwinConfigurations`.
 
 * References
-  - {:flake-parts:}
+  - {./flake-parts.html}[flake-parts]

@@ -1,7 +1,7 @@
 * Preface
   Idea is to pull the repo every once in a while, update some inputs and push back again. This will allow using notes in the flake, for example exporting scripts or hosting them on the blog.
   Works pretty well! See {https://github.com/head-gardener/config/blob/feature/autoupdate/modules/share/flake-autoupdate/default.nix}[source] for details.
-  Also implements {:config-staging:} strategy.
+  Also implements {./config-staging.html}[config-staging] strategy.
 
 * Details
   - (x) service needs deploy keys to have acess to a single repo.
@@ -10,10 +10,10 @@
   - (x) dynamic user names based on the repo in question
 
 * Alternatives
-  - {:hercules-ci:}
-  - {:git-syncing:# options}
+  - {./hercules-ci.html}[hercules-ci]
+  - {./git-syncing.html}[git-syncing]
 
 * References
-  - {:git-over-systemd:}
-  - {:ssh-over-systemd:}
-  - {:config:}
+  - {./git-over-systemd.html}[git-over-systemd]
+  - {./ssh-over-systemd.html}[ssh-over-systemd]
+  - {./config.html}[config]

@@ -1,10 +1,10 @@
 * References
-  - {:git:}
-  - {:ssh-over-systemd:}
-  - {:nix:# services}
+  - {./git.html}[git]
+  - {./ssh-over-systemd.html}[ssh-over-systemd]
+  - {./nix.html}[nix]
 
 * What do you need
-  - `GIT_SSH_COMMAND` - working ssh wrap, see {:ssh-over-systemd:}
+  - `GIT_SSH_COMMAND` - working ssh wrap, see {./ssh-over-systemd.html}[ssh-over-systemd]
   - to have remote configured to accept your identity, pass it to ssh.
   - `HOME` - idk if actually needed.
   - `GIT_AUTHOR_NAME`, `GIT_COMMITTER_NAME` one of this, or both idk.

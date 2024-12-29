@@ -3,4 +3,4 @@
   - ( ) that one 'why gpg sucks' blog post, can't find it.
 
 * Integration
-  - {:sops:}
+  - {./sops.html}[sops]

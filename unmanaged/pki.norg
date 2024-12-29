@@ -1,7 +1,7 @@
 Public Key Infrastructure, normally understood as a TLS CA and mechanisms related to
 issuing, signing, validating new certificates.
 
-Can be done with {:vault:} using PKI engine mount.
+Can be done with {./vault.html}[vault] using PKI engine mount.
 
 * Composition
   Main components include:

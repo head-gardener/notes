@@ -3,9 +3,9 @@
   - (x) systemd-run abbr
   - (x) yaml/json to nix in fish funcs
   - (x) sudo shim
-  - (x) {:wireguard:}
+  - (x) {./wireguard.html}[wireguard]
   -- (x) initial setup
-  -- (x) how the hell does {:resolveconf:} work
+  -- (x) how the hell does {./resolveconf.html}[resolveconf] work
   -- (x) dns
   -- (x) prometheus on elderberry
   -- (x) figure out loki and put it on elderberry (who is pihole)
@@ -51,7 +51,7 @@
   - (=) dev/undev just commands
         dev: replace `github:head-gardener` urls in inputs with zoxide output
         undev: replace inputs back from comments and lock-commit the input update
-  - (?) {:proxychains:}
+  - (?) {./proxychains.html}[proxychains]
   -- (x) test out
   -- (?) wrap terraform?
   - (=) luks

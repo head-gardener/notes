@@ -78,7 +78,7 @@
    Works in weird ways idk.
 ** (x) langmapper
    {https://github.com/Wansmer/langmapper.nvim}[Repo].
-   Doesn't like being run alongside {:nvim:# which-key} - later needs some configuration to support that.
+   Doesn't like being run alongside {./nvim.html}[nvim] - later needs some configuration to support that.
    - ( ) more configuration.
 ** ( ) nvim-lint
    {https://github.com/mfussenegger/nvim-lint}[Repo].
@@ -95,7 +95,7 @@
    I need this. But again where are all my languages?
    {https://github.com/lfilho/cosco.vim}[Repo].
    Got a lua rewrite in {https://github.com/jumas-cola/cosco.nvim}[here].
-   Example of a {:lazy-nvim:}[lazy] load in my configuration.
+   Example of a {./lazy-nvim.html}[lazy-nvim][lazy] load in my configuration.
    - (x) Try it out!
    - (=) Gotta make some PRs for my languages.
    - (_) Apparently there is another plugin called `tree-setter`. Can't find it though. Too unpopular.
@@ -117,6 +117,6 @@
    Supports marks, registers, spelling (`z=`), etc.
    Works kinda good. Hope to improve my workflow with this thing lol.
    Pretty extensible: {https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration}[repo]
-** {:neorg:}
-** {:lazy-nvim:}
-** {:treesitter:}
+** {./neorg.html}[neorg]
+** {./lazy-nvim.html}[lazy-nvim]
+** {./treesitter.html}[treesitter]

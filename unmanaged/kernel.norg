@@ -1,5 +1,5 @@
 * TODO
-  - ( ) Figure out a metrics script (in nu), run for all kernels mentioned. More in {:profiling:}. 
+  - ( ) Figure out a metrics script (in nu), run for all kernels mentioned. More in {./profiling.html}[profiling]. 
 
 * NixOS
   More on the {https://nixos.org/manual/nixos/unstable/index.html#sec-kernel-config}[wiki].

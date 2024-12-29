@@ -11,7 +11,7 @@
   - *OTF* by Microsoft.
   Other formats include:
   - TeX may use own font formats.
-  - {:fontforge:} can use *SDF*.
+  - {./fontforge.html}[fontforge] can use *SDF*.
   - *SVG* can be used to describe fonts.
 
 * Nix
@@ -21,7 +21,7 @@
 ** fontconfig
    - `fc-list` shows available fonts, `fc-list : family` shows available families.
    - `fc-query` get info about a font.
-** {:fontforge:}
+** {./fontforge.html}[fontforge]
 ** Font Manager
    Pretty nice.
 

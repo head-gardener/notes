@@ -1,7 +1,7 @@
 * Plugins
-  - {:done-fish:}
-  - {:gitnow:}
-  - {:forgit:}
+  - {./done-fish.html}[done-fish]
+  - {./gitnow.html}[gitnow]
+  - {./forgit.html}[forgit]
   - ( ) `async-prompt`
 
 * Integrations

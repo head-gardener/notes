@@ -20,5 +20,5 @@
    Hard to do on a running? probably easier on a cold drive and straigt-forward when installing. The easies approach here is to backup your state, i.e. `/`, than do a full reinstall and lift out-of-nix state from the backup.
 
 * References
-  - {:btrfs:}
-  - {:impermanence:}
+  - {./btrfs.html}[btrfs]
+  - {./impermanence.html}[impermanence]

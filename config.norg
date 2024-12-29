@@ -1,37 +1,37 @@
 * TODO
   - ( ) merge in intalics.
-  - ( ) {:opensmtp:}
-  - ( ) {:neorg:} Script export.
-  - ( ) {:neorg:} host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
-  - (=) Look into {:hercules-ci:}
+  - ( ) {./opensmtp.html}[opensmtp]
+  - ( ) {./neorg.html}[neorg] Script export.
+  - ( ) {./neorg.html}[neorg] host {https://github.com/nvim-neorg/library-of-norgxandria/tree/main/programming}[library of norgxandria]
+  - (=) Look into {./hercules-ci.html}[hercules-ci]
   - ( ) Linux 6.7.5
   -- Backported to 23.11 recently. Might wanna check out!
-  -- More in {:kernel:}.
+  -- More in {./kernel.html}[kernel].
   - (?) substitute-* backport?
   -- Cool feature. Might be backported, might be in 24.05. Time will show.
   -- (=) Once it drops, grep all usages and replace stdenv to normal from unstable.
   - (x) Colorscheme rework
-  -- (x) see {:stylix:}
-  -- (_) see {:nix-colors:}
+  -- (x) see {./stylix.html}[stylix]
+  -- (_) see {./nix-colors.html}[nix-colors]
   -- (x) Kitty colors
   -- ( ) Nvim colors
   -- (x) Fish colors
   -- (x) Nu colors
   -- ( ) GTK theming
   - (x) Rewrite with flake parts
-  -- See {:flake-parts:}.
+  -- See {./flake-parts.html}[flake-parts].
   - (x) Need an auto-updater
   - (x) figure out the done thing
-  -- See {:done-fish:}. Still wonder why this isn't an issue with non-tmux windows, huh.
-  - (x) {:config-staging:}
+  -- See {./done-fish.html}[done-fish]. Still wonder why this isn't an issue with non-tmux windows, huh.
+  - (x) {./config-staging.html}[config-staging]
   - (x) Better layout switch (like ralt)
 
 * References
-  - {:btrfs:}
-  - {:fish:}
-  - {:minio:}
-  - {:nix:}
-  - {:nvim:}
-  - {:refresher:}
-  - {:stylix:}
-  - {:xmonad:}
+  - {./btrfs.html}[btrfs]
+  - {./fish.html}[fish]
+  - {./minio.html}[minio]
+  - {./nix.html}[nix]
+  - {./nvim.html}[nvim]
+  - {./refresher.html}[refresher]
+  - {./stylix.html}[stylix]
+  - {./xmonad.html}[xmonad]

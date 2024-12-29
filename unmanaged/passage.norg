@@ -46,7 +46,7 @@
   In-memory key storage can be organised 
 
 * Language
-  {:go:}
+  {./go.html}[go]
   - fairly low-level
   - decent syntax
   - garbage collected

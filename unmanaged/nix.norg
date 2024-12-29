@@ -1,5 +1,5 @@
 * Command
-** {:nix-copy:}
+** {./nix-copy.html}[nix-copy]
 ** Tips
    - `nix flake lock --update-input <input> --commit-lock-file` updates single input.
    -- (=) was replaced with `nix flake update --update-input` in 2.19
@@ -8,19 +8,19 @@
     - (x) {https://nixos.org/manual/nix/stable/release-notes/rl-2.19}[notes].
     - `repl-flake` now a part of `flake`.
     - `flake#.attr` - preceding dot means not to look for attribute in default locations like `packages`.
-    - `{:nix/builtins:# convertHash}
-    - `fetch-tree` experimental feature in {:nix/builtins:}.
+    - `{./nix/builtins.html}[nix/builtins]
+    - `fetch-tree` experimental feature in {./nix/builtins.html}[nix/builtins].
     - `nix flake update` supports `--update-input` but without flags, taking on the role of `nix flake lock`. Example: `nix flake update nixpkgs --flake /etc/flake`.
     -- `--update-input` consequently was removed.
     - `nix store add` - add file or dir to store and print its path.
 
 * Functions
-  - {:mkShell:}
+  - {./mkShell.html}[mkShell]
 * Configuration
- See {:config:}
+ See {./config.html}[config]
 ** Colors
-   {:stylix:}
-   {:nix-colors:}
+   {./stylix.html}[stylix]
+   {./nix-colors.html}[nix-colors]
 ** Services
    {https://search.nixos.org/options?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=systemd.services.%3Cname%3E}[Options].
    Most important options:
@@ -83,7 +83,7 @@
      - `systemctl list-timers` - list active timers and their current state,
      - `systemctl start hello-world` - manually run a service once for testing purposes.
 ** Examples
-   - {:dotfiles-updater:}.
+   - {./dotfiles-updater.html}[dotfiles-updater].
 
 * Installers
   There are a couple installers and you can build your own.
@@ -113,9 +113,9 @@
   Flash resulting iso with `dd if=result/iso/nixos-smth.iso of=/dev/disk/by-id/usb-ID status=progress && sync`.
 
 * Rerences
-  - {:btrfs-on-nixos:}
-  - {:flake-parts:}
-  - {:nix/merging-patches:}
-  - {:nixops:}
-  - {:refresher:}
-  - {:stylix:}
+  - {./btrfs-on-nixos.html}[btrfs-on-nixos]
+  - {./flake-parts.html}[flake-parts]
+  - {./nix/merging-patches.html}[nix/merging-patches]
+  - {./nixops.html}[nixops]
+  - {./refresher.html}[refresher]
+  - {./stylix.html}[stylix]

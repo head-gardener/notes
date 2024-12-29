@@ -2,4 +2,4 @@
   A tool for managing btrfs backups - creating, maintaining, receiving.
 
 * ( ) S3
-  ATM requires {:s3fs:}.
+  ATM requires {./s3fs.html}[s3fs].

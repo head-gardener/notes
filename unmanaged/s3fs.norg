@@ -2,4 +2,4 @@
   - {https://github.com/s3fs-fuse/s3fs-fuse}[Repo].
 
 * Minio
-  - {:minio:* {:s3fs:}}[Notes].
+  - {./minio.html}[minio]}[Notes].

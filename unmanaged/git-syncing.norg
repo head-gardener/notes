@@ -31,7 +31,7 @@
     end
     @end
 ** Remote Login
-   A good way of login is {:ssh-agent:}.
+   A good way of login is {./ssh-agent.html}[ssh-agent].
    You can even have fine grained SSH identities on github for repos read/write access!
 
 * git-sync

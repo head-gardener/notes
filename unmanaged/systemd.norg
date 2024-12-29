@@ -1,5 +1,5 @@
 * Services
-  See {:nix:# services}.
+  See {./nix.html}[nix].
 ** Commands
    - `systemd-analyze service` - analyze service's security.
 ** References

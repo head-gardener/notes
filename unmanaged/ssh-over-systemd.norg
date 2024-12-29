@@ -1,6 +1,6 @@
 * References
-  - {:nix:# services}
-  - {:ssh:# client}
+  - {./nix.html}[nix]
+  - {./ssh.html}[ssh]
 
 * What do you need
   - identity

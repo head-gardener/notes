@@ -1,10 +1,10 @@
 IaC solutions offer a way to perform deployment through version-controlled code.
 
 * Tools
-  - {:terraform:}
+  - {./terraform.html}[terraform]
 
 * Relevant topics
-  - {:load-balancers:}
+  - {./load-balancers.html}[load-balancers]
 
 * Configuration management vs Provisioning
   Chef, Puppet, and Ansible are all configuration management tools, which means they are

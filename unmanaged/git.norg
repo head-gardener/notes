@@ -27,7 +27,7 @@
   - `GIT_AUTHOR_NAME` `GIT_AUTHOR_EMAIL` - exactly what it says.
 
 * Tools
-** {:git-syncing:}
+** {./git-syncing.html}[git-syncing]
 **  gitk
     Weird ass GUI for git. Has visualisation, diffs and all the cool stuff cool kids use. Available in `nix shell nixpkgs#gitFull`.
 **  ( ) LFS
