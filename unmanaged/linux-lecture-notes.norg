@@ -1,12 +1,11 @@
-* Q
+* Questions
   - FS: FHS
   - `systemd-nspawn`, `systemctl`
   - WM, SM, compositors, etc
   - Daily best-practices, basics of working with servers
 
 * FHS
-  > {https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html}[docs]
-  > text
+  > {https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html}[Official documentation.]
 
   ** Common locations
      - `/bin`  - user binaries.
@@ -20,3 +19,42 @@
      - `/dev` - pseudo. all peripherals and block devices.
      - `/run` - 
      - `/proc` - pesudo. process tree.
+
+* Systemd
+** Units
+   Describes various components operated on by `systemd`. Uses 
+
+   > `systemdctl -t help` to see all types, `systemctl list-units` to see all units
+      available on the machine.
+
+   Common types:
+   - service: executable tasks.
+   - mount: `fstab` but systemd.
+   - target: group of services.
+   - timer: timetable to run services.
+   - slice: group of services belonging to a single user.
+
+   Common targets:
+   - `poweroff.target`: shutdown.
+   - `rescue.target`: rescue shell.
+   - `multi-user.taget`: nongraphical multiuser.
+   - `graphical.target`: graphical multiuser.
+   - `reboot.target`: reboot.
+
+   Unit example:
+   @code conf
+   [Unit]
+   ConditionSecurity=audit
+   Description=Kernel Auditing
+
+   [Service]
+   ExecStart=@audit-disable audit-start
+   ExecStop=@audit-stop audit-stop
+   RemainAfterExit=true
+   Type=oneshot
+
+   [Install]
+   WantedBy=basic.target
+   @end
+
+   
