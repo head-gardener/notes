@@ -42,7 +42,7 @@
 
           neorg-haskell-parser = let
             base = pkgs.haskellPackages.callPackage
-              (import static/neorg-haskell-parser.nix) { };
+              (import static/neorg-haskell-parser.nix) {};
           in lib.pipe base (with pkgs.haskell.lib; [
             doJailbreak
             dontCheck
@@ -63,6 +63,9 @@
                 "--highlight-style=pygments"
               ];
 
+              LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+              LANG = "en_US.UTF-8";
+
               buildInputs = [
                 neorg-haskell-parser
                 pandoc
@@ -72,14 +75,14 @@
                 mkdir build
                 find -type f -name '*.norg' | sed 's/.\/\(.*\)\.norg/\1/' | \
                   xargs -I {} sh -c '
-                    sed "s/{:\([^:]*\):[^}]*}/{\.\/\1.html}[\1]/" -i "./{}.norg"; \
+                    sed "s/{:\([^:]*\):[^}]*}/{\.\/\1.html}[\1]/" -i "./{}.norg";
                     neorg-pandoc -f "./{}.norg" | \
                       pandoc ${builtins.concatStringsSep " " pandocOpts} \
-                      --toc --from=json --metadata title="{}" -s -o "build/{}.html"; \
+                      --toc --from=json --metadata title="{}" -s -o "build/{}.html";
                     echo "- [{}](/{}.html)" >> index.md;
                   '
                 pandoc ${builtins.concatStringsSep " " pandocOpts} \
-                  --metadata title="Sitemap" -s index.md -o "build/index.html"; \
+                  --metadata title="Sitemap" -s index.md -o "build/index.html";
               '';
 
               installPhase = ''
@@ -87,23 +90,23 @@
               '';
             });
 
-            blog = pkgs.stdenvNoCC.mkDerivation {
-              pname = "blog";
-              version = "25122024";
+          blog = pkgs.stdenvNoCC.mkDerivation {
+            pname = "blog";
+            version = "25122024";
 
-              src = ./unmanaged;
+            src = ./unmanaged;
 
-              buildPhase = "";
+            buildPhase = "";
 
-              installPhase = ''
-                mkdir $out
-                cp ${blog-render}/* $out/ -rv
-                cp ${favicon_ico} $out/favicon.ico -v
-                cp ${robots_txt} $out/robots.txt -v
-                mkdir $out/static
-                cp ${styles_css} $out/static/styles.css -v
-              '';
-            };
+            installPhase = ''
+              mkdir $out
+              cp ${blog-render}/* $out/ -rv
+              cp ${favicon_ico} $out/favicon.ico -v
+              cp ${robots_txt} $out/robots.txt -v
+              mkdir $out/static
+              cp ${styles_css} $out/static/styles.css -v
+            '';
+          };
         };
       };
       flake = { };

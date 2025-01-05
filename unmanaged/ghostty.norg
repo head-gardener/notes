@@ -1,0 +1,23 @@
+* Overview
+  Has nice feature and is pretty fast. Might even be able to replace tmux.
+
+* Kitty
+  > {./kitty.html}[kitty]
+
+  Large file printing:
+
+  > Tmux is a bottle neck. Both terminals print a large file equally fast when running it.
+
+  - Ghostty took 46 seconds, kitty took 29.
+  - Ghostty consumed up to 250% CPU, kitty consumed up to 60%.
+  - Ghostty used around 10 watts, kitty used around 11.
+
+  Other:
+  - Scrolling in neovim feels choppier somehow.
+
+* Rollout
+  - (x) [https://github.com/ghostty-org/ghostty/pull/3857]{X11 fix}
+  - (x) [https://github.com/NixOS/nixpkgs/pull/369046]{backport 24.11 pr}
+  - (x) [https://github.com/nix-community/home-manager/pull/6235/files]{hm pr}
+  - (x) [https://github.com/danth/stylix/pull/703]{stylix pr}
+  - (=) hm backportt

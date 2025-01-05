@@ -11,7 +11,7 @@
   - `[1]`, `url`, `dir` - plugin source.
   - `lazy` - don't load until required.
   - `dependencies` - deps.
-  - `opts` - passed to `config` ↩️
+  - `opts` - passed to `config`
   - `config` - a function (heuristically determined by default if value set here is `true`) to be executed when plugin loads.
   - `init` - always run during startup.
   - `build` - command to be run after installing when plugin is loaded.

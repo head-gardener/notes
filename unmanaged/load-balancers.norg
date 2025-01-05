@@ -20,7 +20,7 @@ listener rule and target groups.
     traffic. Can scale up and down in response to load faster than the ALB (the NLB is
     designed to scale to tens of millions of requests per second). Operates at the
     transport layer (Layer 4) of the OSI model.
-  - Classic Load Balancer (CLB). This is the “legacy” load balancer that predates both
+  - Classic Load Balancer (CLB). This is the "legacy" load balancer that predates both
     the ALB and NLB. It can handle HTTP, HTTPS, TCP, and TLS traffic but with far fewer
     features than either the ALB or NLB. Operates at both the application layer (L7) and
     transport layer (L4) of the OSI model.

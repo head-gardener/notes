@@ -1,9 +1,0 @@
-* DNS
-** DNS Cache
-   Exists for caching DNS requests, normally stored by the client (e.g. a browser).
-   In Chrome can be accessed via [chrome://net-internals/#dns].
-
-** DNS Resolution
-   Performed via `gethostbyname` function call, which varies by OS.
-   The function first checks the `hosts` file (on Linux it's `/etc/hosts`).
-   When absent in the file and cache, a host is checked against a nearest DNS, which is normally a local router.

@@ -1,30 +1,24 @@
 * Terminals and pseudoterminals
   These files in `/dev` represent different types of terminals:
-  - `/dev/tty*` – physical consoles;
-  - `/dev/ttyS*` – serial connections;
-  - `/dev/pts/*` – pseudoterminals. 
+  - `/dev/tty*` - physical consoles;
+  - `/dev/ttyS*` - serial connections;
+  - `/dev/pts/*` - pseudoterminals. 
 
-** Pseudoterminals Pseudoterminals allow to build terminal emulators and use them instead
-   of a real terminal, where an application expects a terminal device. Pseudoterminal
-   consists of 2 parts:
-   - A `ptmx` part which is a leader for the pseudoterminal. This end is used to emulate
-     the user input and read back the program output.
-   - A `pts` is a secondary end. This part is given to an application that needs a
-     terminal.
+** Pseudoterminals
+   Pseudoterminals allow to build terminal emulators and use them instead of a real terminal, where an application expects a terminal device.
+   Pseudoterminal consists of 2 parts:
+   - A `ptmx` part which is a leader for the pseudoterminal. This end is used to emulate the user input and read back the program output.
+   - A `pts` is a secondary end. This part is given to an application that needs a terminal.
 
    Notable programs using pseudoterminals:
-   - `ssh`/`sshd` - pairs two pseudoterminals and transfers data between them over the
-     net.
+   - `ssh`/`sshd` - pairs two pseudoterminals and transfers data between them over the net.
    - `screen`/`tmux` - use a pseudoterminal for every client.
    - `expect` - allows user to script input into an interactive program.
    - `script` - records terminal sessions
 
 ** Terminal signals
-   - `SIGTTIN` – a background process tried to read from a terminal.
-   - `SIGTTOU` – a background process tries to write to a terminal when the `tostop` flag
-     is set or a background process asks to send it to the foreground.
-   - `SIGTSTP` – a default response to a `C-Z` pressed combination.
+   - `SIGTTIN` - a background process tried to read from a terminal.
+   - `SIGTTOU` - a background process tries to write to a terminal when the `tostop` flag is set or a background process asks to send it to the foreground.
+   - `SIGTSTP` - a default response to a `C-Z` pressed combination.
 
-   The noncanonical programs such as vi, emacs and less, need to handle all the above
-   signals in order to reset terminal settings back and forth, redraw a terminal content
-   and place the cursor in the right place.
+   The noncanonical programs such as vi, emacs and less, need to handle all the above signals in order to reset terminal settings back and forth, redraw a terminal content and place the cursor in the right place.
