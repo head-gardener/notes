@@ -16,8 +16,8 @@
   - Scrolling in neovim feels choppier somehow.
 
 * Rollout
-  - (x) [https://github.com/ghostty-org/ghostty/pull/3857]{X11 fix}
-  - (x) [https://github.com/NixOS/nixpkgs/pull/369046]{backport 24.11 pr}
-  - (x) [https://github.com/nix-community/home-manager/pull/6235/files]{hm pr}
-  - (x) [https://github.com/danth/stylix/pull/703]{stylix pr}
+  - (x) {https://github.com/ghostty-org/ghostty/pull/3857}[X11 fix]
+  - (x) {https://github.com/NixOS/nixpkgs/pull/369046}[backport 24.11 pr]
+  - (x) {https://github.com/nix-community/home-manager/pull/6235/files}[hm pr]
+  - (x) {https://github.com/danth/stylix/pull/703}[stylix pr]
   - (=) hm backportt
