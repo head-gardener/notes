@@ -19,14 +19,17 @@
 * Interface notes
 ** `forEach`
    `option = alloy.module.forEach (host: { ... })`
+** Self
+   `alloy` arg has a special `self` field that contains this host expanded.
 ** Remote extend
    @code nix
    { config, ... }: {
-     alloy.extend.nginx = [{ me /* <- contains resolved address of this machine */ }: {
-       services.nginx.virtualHosts =
-       [{ proxyPass = "${me}:${toString config.wev-server.port}"; }];
-     }];
-     web-server.enable = true;
+     alloy.extend.nginx = [({ alloy, ... }: {
+       services.nginx.virtualHosts.web-server = {
+         proxyPass = "${alloy.self.address}:${toString config.services.web-server.port}";
+       };
+     })];
+     services.web-server.enable = true;
    }
    @end
 ** Middleware
