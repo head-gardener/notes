@@ -5,17 +5,16 @@
   - (x) initial interface
   - (x) prometheus
   - (x) self special host
+  - (x) remote extend
+        some services might require related configuration on a separate machine:
+        e.g. node-exporter (prometheus scrape config), web-services (nginx).
   - ( ) middleware
         preprocessors for hosts (and modules?) attrsets, useful for creating a
         user-defined structures, e.g. regions, namespaces, etc. have two arguments,
         host (function called with literals substituted for modules) and mods
         (mods themselves).
-  - ( ) alt `hosts` syntax
   - ( ) middleware
   - ( ) `mkMiddleware`
-  - ( ) remote extend
-        some services might require related configuration on a separate machine:
-        e.g. node-exporter (prometheus scrape config), web-services (nginx).
 
 * Interface notes
 ** `forEach`
