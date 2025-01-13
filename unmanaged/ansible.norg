@@ -30,3 +30,6 @@
    public keys. Alternatively you can `become` with predefined password. Passwords can be
    stored in `ansible-vault` or provided at runtime with `--ask-pass` for `ssh` and
    `--ask-become-pass` for `become`.
+
+* Tips
+  - `--check` for dry runs
