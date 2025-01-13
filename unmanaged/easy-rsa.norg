@@ -1,0 +1,18 @@
+* General
+  > {https://github.com/OpenVPN/easy-rsa}[repo]
+
+  PKI tooling developed by openvpn.
+
+  Holds all data in a directory.
+
+** Files
+   - `ca.crt` - CA cert
+   - `vars` - easyrsa and org configurations
+   - `index.txt` - cert index
+
+** Subdirs
+   - `private` - private keys
+   - `reqs` - sertificate requests
+   - `revoked` - revoked certs
+   - `inline` - inline files for certs
+   - `issued` - issued certs

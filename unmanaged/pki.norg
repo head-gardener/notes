@@ -32,8 +32,16 @@ Can be done with {./vault.html}[vault] using PKI engine mount.
   A certificate is created after a Certificate Signing Request (CSR) is fulfilled. CSR
   are submitted as `.csr` files.
 
+* Filetypes
+  - `.key` - private keys for certs
+  - `.crt` - certificates
+  - `.req` - signing requests
+  - `.inline` - contain full certificate chain and can be easily distributed
+  - `.pem` - *Privacy Enchanced Mail*, more broad file extensions used for storing, among
+    other things, certificates
+
 * Imperative tooling for local CA
-  Apart from Vault, you can use `easy-rsa` or `openssl` for more imperative approaches.
+  Apart from Vault, you can use {:easy-rsa:} or `openssl` for more imperative approaches.
   Steps and comparison:
 
 ** Init
@@ -93,4 +101,15 @@ Can be done with {./vault.html}[vault] using PKI engine mount.
    openssl x509 -in my-server.crt -text -noout
    # verify against CA
    openssl verify -CAfile myCA.crt my-server.crt
+   @end
+
+** Test certificates with `nats`
+   Don't forget to specify `IP:127.0.0.1` SAN when creating server certificate.
+   @code bash
+   nats-server --tls --tlscert pki/issued/server.crt --tlskey pki/private/server.key \
+     --tlsverify --tlscacert pki/ca.crt &
+   nats server check connection --tlscert=pki/issued/client.crt \
+     --tlskey=pki/private/client.key --tlsca=pki/ca.crt
+   nats pub hello world --tlscert=pki/issued/client.crt \
+     --tlskey=pki/private/client.key --tlsca=pki/ca.crt
    @end
