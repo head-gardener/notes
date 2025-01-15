@@ -33,3 +33,11 @@
 
 * Tips
   - `--check` for dry runs
+
+** Test environment
+   To test a playbook on a docker container you can use the following command:
+   @code bash
+   docker run --rm -it \
+     --mount type=bind,src=$HOME/.ssh/id_ed25519.pub,dst=/root/.ssh/authorized_keys \
+     hlabs/ssh-python sh -c "/usr/sbin/sshd -o StrictModes=no; exec bash"
+   @end
