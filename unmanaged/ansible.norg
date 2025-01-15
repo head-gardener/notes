@@ -32,12 +32,32 @@
    `--ask-become-pass` for `become`.
 
 * Tips
-  - `--check` for dry runs
+  - `--check --diff` for dry runs
+  - use `ansible-playbook --list-tasks` to enumerate tasks for `--start-at-task`
+  - use static role imports (`import_role`) if you want to be able to use
+    `--start-at-task` on tasks inside a role
 
 ** Test environment
    To test a playbook on a docker container you can use the following command:
+
    @code bash
    docker run --rm -it \
+     -l "ansible_playground" \
      --mount type=bind,src=$HOME/.ssh/id_ed25519.pub,dst=/root/.ssh/authorized_keys \
-     hlabs/ssh-python sh -c "/usr/sbin/sshd -o StrictModes=no; exec bash"
+     hlabs/ssh-python \
+     sh -c "/usr/sbin/sshd -o StrictModes=no; exec bash"
    @end
+
+   With this inventory file (you need `community.docker` playbook):
+
+   @code yaml
+   plugin: community.docker.docker_containers
+   docker_host: unix:///var/run/docker.sock
+
+   filters:
+     - include: >-
+         "ansible_playground" in docker_config.Labels
+     - exclude: true
+   @end
+
+   (Or just use container's IP address in a normal inventory)
