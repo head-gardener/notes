@@ -41,7 +41,7 @@ Can be done with {./vault.html}[vault] using PKI engine mount.
     other things, certificates
 
 * Imperative tooling for local CA
-  Apart from Vault, you can use {:easy-rsa:} or `openssl` for more imperative approaches.
+  Apart from Vault, you can use {./easy-rsa.html}[easy-rsa] or `openssl` for more imperative approaches.
   Steps and comparison:
 
 ** Init

@@ -1,0 +1,49 @@
+* Overview
+  Keycloak servers as an OpenID Connect provider, facilitating user authentication for
+  client applications. In simpler terms, keycloak administers users and provides them
+  with JWTs containing various claims, that can be used by applications downstream.
+  Alternatively keycloak supports OAuth2 and SAML.
+  Keycloak is needed when multiple microservices require a single source of truth
+  regarding user authentication.
+  Keycloak supports centralized and distributed creation of users and groups,
+  role/permission assignment and much more.
+
+* Key Concepts
+** Realms
+   Essentially namespaces - isolated environments.
+
+** Clients
+   Applications or services that require authentication from keycloak. Each one should
+   be configured in accordance with the OpenID Connect (redirect URIs, etc).
+
+** Users
+   Individual accounts that can authenticate with keycloak. Can be organized into
+   groups.
+
+** Groups
+   Used for bulk role/permission assignments.
+
+** Permissions
+   Free-form permissions through roles and attributes assigned to users and groups.
+
+** Roles
+   Roles are free-form permissions (e.g. `admin`, `post`, `comment`).
+   Can be divided into three categories:
+   - Realm roles: relevant to a whole realm, e.g. `admin`, `user`.
+   - Client roles: relevant to a single client service, e.g. `post`, `comment`.
+   - Composite roles: collections of realm or client roles, e.g. `admin` includes `user`
+     and `manager.`
+
+   Roles can be "mapped" to users/groups. Otherwise a user is limited to default roles
+   (assigned at creation) and service account roles (jobs).
+
+* Management
+  Users grouped in realms can be created from the admin API or using terraform.
+
+* Usage
+  Common workflow includes user being redirected to keycloak for login, and client
+  services using claims provided by keycloak for user authentication and
+  secure communication between each other.
+
+  Otherwise keycloak can be used for granting access to jobs in some large
+  deployment, i.e. where you can plug OpenID.
