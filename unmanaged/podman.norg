@@ -1,0 +1,6 @@
+* Overview
+  Containers by RedHat.
+
+* Features
+  - systemd in containers, which are impossible in docker as far as I can see since
+    cgroups v2

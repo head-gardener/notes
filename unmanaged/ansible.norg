@@ -20,6 +20,16 @@
   1.2.3.4 ansible_user=root ansible_port=2201
   @end
 
+  Or a `yaml` version:
+  @code yaml
+  all:
+    hosts:
+      1.2.3.5:
+      1.2.3.4:
+        ansible_user: root
+        ansible_port: 2201
+  @end
+
   Alongside host defenitions inventory contains host and group variables, stored in
   `host_vars` and `group_vars` dirs in yaml files with names corresponding to hosts or
   groups. These vars will be expanded in modules, templates and roles.
@@ -39,6 +49,8 @@
 
 ** Test environment
    To test a playbook on a docker container you can use the following command:
+
+   > See below for a systemd enabled version!
 
    @code bash
    docker run --rm -it \
@@ -61,3 +73,25 @@
    @end
 
    (Or just use container's IP address in a normal inventory)
+
+**** With systemd
+     Most ansible roles rely on systemd for starting stuff, so for a complete test you
+     most often would need it working.
+     Since docker doesn't play nice with cgroups v2 (or so I've heard), simplest (or only)
+     solution is to switch to podman (which runs systemd by default). Notice
+     `/usr/sbin/init` being PID 1, this is required.
+
+     @code bash
+     podman run --rm -it \
+       -l "ansible_playground" \
+       -v $HOME/.ssh/id_ed25519.pub:/root/.ssh/authorized_keys:ro \
+       -p 2022:22 \
+       --name ansible_playground \
+       hlabs/ssh-python \
+       /usr/sbin/init
+     @end
+
+     With something similar to this in your inventory:
+     @code toml
+     localhost ansible_user=root ansible_port=2022
+     @end

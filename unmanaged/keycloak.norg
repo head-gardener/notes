@@ -47,3 +47,7 @@
 
   Otherwise keycloak can be used for granting access to jobs in some large
   deployment, i.e. where you can plug OpenID.
+
+* Versions
+  - Quarkus engine (version >= 20.0.0) is more recent and uses newer java runtime.
+  - Legacy uses older java runtime.
