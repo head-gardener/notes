@@ -1,0 +1,141 @@
+* Overview
+  Spring is a platform that provides infrastructure support for developing robust Java
+  applications. Can be used for any Java application, but primarily targets web
+  applications for Java EE.
+
+  Spring features:
+  - *DI* (dependency injection), as a flavor of *IoC* (inversion of control)
+  - *POJO*-based (plain old Java object, as in an object that is only constrained by
+    Java specs, no exptra interfaces and such - as opposed to SJO, special Java
+    object)
+  - *AOP* (aspect oriented programming, created to help handle spanning tasks that are
+    separate from the main application logic like logging, caching, etc)
+  - Modular
+  - Testable
+  - MVC
+  - Centralized exceptions
+  - Transaction management
+
+  Main components:
+  - Core container
+  -- Core, including IoC and DI
+  -- Bean
+  -- Context
+  -- *SpEL* (Spring expression language) - querying and manipulation of the objects at 
+     runtime used as I understand in configurations, i.e. where Java can't be used.
+  - Data Access/Integration
+  -- *JDBC* (Java database connectivity) - standardized API for database access
+  -- *ORM* - integration layer for popular ORMs like JPA, JDO, Hibernate and iBatis.
+  -- *OXM* - XML thing
+  -- *JMS* (Java messaging service)
+  -- Transaction - programmatic and declarative transaction management.
+  - Web
+  -- Web - core
+  -- Web-MVC
+  -- Web-Socket
+  -- Web-Portlet - portlet, like servlet?
+  - Misc
+  -- AOP
+  -- Aspects - Ascpectj integrations
+  -- Test
+
+  DI in Spring context means that if class A depends on class B, B will be injected into A
+  by IoC. It's the main concept that Spring is centered around.
+
+* Properties
+  /Externalised configuration/, funcitonally object fields field out externally from
+  `conf` or `yaml` files.
+  Can be overwritten from a whole bunch of places, including Spring Configuration
+  Controller server, Environment, API, CLI args.
+  Another feature is profiles, which splits configuration into multiple files, one of
+  which can be selected (e.g. prod and dev profiles).
+
+  A nice feature is *Spring Cloud*, that externalizes configuration to a remote backend
+  pulled in runtime. Examples for configuration sources include HashiCorp Vault, S3,
+  Mongo, Redis, Git, etc.
+
+  > Spring Cloud param ref - {https://github.com/spring-cloud/spring-cloud-config/tree/main/spring-cloud-config-server/src/main/java/org/springframework/cloud/config/server/environment}
+
+* Beans
+  Objects that are instantiated, assembled and managed by the Spring IoC container.
+  Functionally beans are just objects in the application, but created (etc) by
+  Spring. POJOs are conmbined with configuration (provided from XML or special
+  annotations) to produce the application.
+
+* Spring Boot
+  Spring extension, simplifying development. Configures beans automatically, includes
+  starter dependencies. Described as best for microservices and stand-alone REST APIs.
+
+  Starter deps are in the `org.sprinfgramework.boot` group and include
+  `spring-boot-starters-web`, `spring-boot-starters-security` or
+  `spring-boot-starters-validation`.
+
+* Integrations
+** Hashi Vault
+   Spring Cloud Vault (e.g. `spring-cloud-starter-vault-config`) sources vault values to
+   properties with a configuration similar to this:
+   @code ini
+   spring.application.name=vault-demo
+   spring.cloud.vault.token=root
+   spring.cloud.vault.uri=http://localhost:8200
+   spring.cloud.vault.kv.enabled=true
+   spring.config.import=vault://
+   @end
+
+* Snippets
+** Increase log level
+   In spring log level can be set for each classpath separately. E.g. if you want to
+   see debug messages from `hibernate`, set `LOG_LEVEL_ORG_HIBERNATE=DEBUG`. Or
+   `org.springframework.vault` messages can be configured with
+   `LOG_LEVEL_ORG_SPRINGFRAMEWORK_VAULT`.
+
+   To set log level for all classes use `LOG_LEVEL_ROOT`.
+
+   In properties syntax is `log.level.<path> = DEBUG`.
+
+** Print out a property
+   @code java
+   import org.springframework.beans.factory.annotation.Value;
+   import org.springframework.boot.CommandLineRunner;
+   import org.springframework.stereotype.Component;
+
+   @Component
+   public class Props implements CommandLineRunner {
+     @Value("${spring.datasource.username}")
+     private String username;
+
+     @Value("${spring.datasource.password}")
+     private String password;
+
+     @Override
+     public void run(String... args) throws Exception {
+       System.out.println("Username: " + username);
+       System.out.println("Password: " + password);
+     }
+   }
+   @end
+
+** Check datasource connection
+   @code java
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.boot.CommandLineRunner;
+   import org.springframework.jdbc.core.JdbcTemplate;
+   import org.springframework.stereotype.Component;
+
+   @Component
+   class DataSourceTest implements CommandLineRunner {
+
+     @Autowired
+     private JdbcTemplate jdbcTemplate;
+
+     @Override
+     public void run(String... args) throws Exception {
+       try {
+         Integer result = jdbcTemplate.queryForObject("SELECT 1", Integer.class);
+         System.out.println("DataSource is working! Query result: " + result);
+       } catch (Exception e) {
+         System.err.println("DataSource is NOT working: " + e.getMessage());
+       }
+     }
+   }
+   @end

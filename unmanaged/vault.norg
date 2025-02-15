@@ -16,3 +16,28 @@ Hashicorp Vault is an open source kv secrets storage, supporting various backend
 * Philosophy
   Vault is designed for short-lived secrets. All secrets support TTL, or can be issued on
   demand.
+
+* Engines
+  - *Database* - dynamic db roles and credentials fully controlled by vault.
+  - *PKI* - createion, management of certificates.
+  - *KV* - arbitrary data not meant for rotating.
+  - *SSH* - signed ssh certs.
+  - *Transform* - encryption in transit by vault.
+  - *Proprietary* - generation of short-lived k8s, nomad, cloud provider's tokens, etc.
+
+* Auth methods
+  All auth methods lead to generation of a short-lived token once login is complete. This
+  token is then used in request headers to authorize with vault.
+
+  - *Tokens* - simplest, links roles directly to short-lived tokens.
+  - *AppTole* - pair of uuid's - one long-lived and one short-lived.
+  - *OIDC/JWT* - via Google, Gitlab, keycloak, etc.
+  - *mTLS* - pair of certs verifying each other against common CA.
+  - *Username/Password* - arbitrary pairs of strings, not preferrable if any other
+    identity provider is already configured since it will trigger duplicate defenitions of
+    passwords and usernames.
+  - *LDAP* - old authentication protocol requiring a self-hosted provider.
+  - *Proprietery* - cloud providers, GitHub, k8s, etc.
+
+* Integrations
+  - `Spring` via Spring Cloud - sourcing of secrets as properties

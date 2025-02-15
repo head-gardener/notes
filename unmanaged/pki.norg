@@ -41,8 +41,8 @@ Can be done with {./vault.html}[vault] using PKI engine mount.
     other things, certificates
 
 * Imperative tooling for local CA
-  Apart from Vault, you can use {./easy-rsa.html}[easy-rsa] or `openssl` for more imperative approaches.
-  Steps and comparison:
+  On cli level, you can use {./easy-rsa.html}[easy-rsa] or `openssl` for more imperative
+  approaches. Steps and comparison:
 
 ** Init
    `easyrsa`:
@@ -113,3 +113,24 @@ Can be done with {./vault.html}[vault] using PKI engine mount.
    nats pub hello world --tlscert=pki/issued/client.crt \
      --tlskey=pki/private/client.key --tlsca=pki/ca.crt
    @end
+
+* Ansible
+  You can automate certificate generations with ansible's
+  `community.crypto.x509_certificate`.
+
+  @code yaml
+  - name: Generate a Self Signed OpenSSL certificate
+    community.crypto.x509_certificate:
+      path: /etc/ssl/crt/ansible.com.crt
+      privatekey_path: /etc/ssl/private/ansible.com.pem
+      csr_path: /etc/ssl/csr/ansible.com.csr
+      provider: selfsigned
+
+  - name: Generate an OpenSSL certificate signed with your own CA certificate
+    community.crypto.x509_certificate:
+      path: /etc/ssl/crt/ansible.com.crt
+      csr_path: /etc/ssl/csr/ansible.com.csr
+      ownca_path: /etc/ssl/crt/ansible_CA.crt
+      ownca_privatekey_path: /etc/ssl/private/ansible_CA.pem
+      provider: ownca
+  @end

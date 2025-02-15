@@ -34,6 +34,38 @@
   `host_vars` and `group_vars` dirs in yaml files with names corresponding to hosts or
   groups. These vars will be expanded in modules, templates and roles.
 
+* Vault
+  A builtin solution for keeping and distributing secrets. In the simplest mode of
+  operation functions just like `git-crypt` encrypted with a password. Has a whole ton of
+  configurations. Example setup:
+
+  @code bash
+  ansible-vault create secrets.yml
+  echo "pass" > ./.vault-pass
+  @end
+
+  After that add `vault_password_file=.vault_pass` to `defaults` in your config.
+
+* Facts
+  > {https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_vars_facts.html}[docs]
+
+  Variables related to remote systems are called *facts*, while variables related to
+  ansible itself are called *magic variables*. You can access facts in the
+  `ansible_facts` var and some in top-level `ansible_` variables.
+
+  Default facts include info about:
+  - networks
+  - hardware
+  - date, time
+  - OS
+  - env
+  - python
+  - virtualization
+
+* Templating
+  Ansible uses `jinja2` for templating, you can read about it (in the context of flask)
+  {https://jinja.palletsprojects.com/en/stable/templates}[here].
+
 * Caveats
 ** Root access
    Most acions require root access. Easiest way to achieve this is to login as root using
