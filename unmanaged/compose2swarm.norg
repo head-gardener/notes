@@ -1,0 +1,10 @@
+* Overview
+  Migration from compose to single-node swarm gives you access to raft run by
+  docker, which enables you to store secrets and configs on the daemon - without
+  consul or vault. Early swarm adoption also enables you to migrate to multiple
+  nodes futher down the line.
+
+* Caveats
+** `docker compose run`
+** `docker compose exec`
+** secret/config immutability

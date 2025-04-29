@@ -1,0 +1,121 @@
+* Overview
+  This Document provides sectioned list of higher-level tools and concept used
+  in deploying and managing software (i.e. ops).
+
+* Glossary
+  *Terminal farm* - infrastructure designed to provide centralized managed
+  environment for developers and engineers, control access to restricted network
+  segments.
+
+* Container Orchestration
+** Kubernetes
+*** Kind
+*** Rancher
+*** K3s
+
+** Nomad
+   > {https://developer.hashicorp.com/nomad}[docs]
+
+** Docker
+*** Compose
+    Focused on development, test environments.
+
+*** Swarm
+    Like compose but with etcd, secrets and configs. Easy to migrate to from
+    compose.
+
+** Mesos
+
+** Borg
+
+* Kubernetes tooling
+** operators
+   Resources managed by Kubernetes and acting on the cluster. E.g.
+   `cassandra-operator` via `k8ssandra`. Frequently used to manage more
+   complicated deployments and allow to build custom management logic over what
+   Kubernetes has to offer.
+
+** cert-manager
+
+* Distributed storage
+** NFS
+** Gluster
+   > {https://docs.gluster.org/en/latest/}[docs]
+
+** Ceph
+   > {https://docs.ceph.com/en/reef/}[docs]
+
+** For Kubernetes
+*** Rook Ceph
+*** Longhorn
+*** OpenEBS
+
+* Networking
+** Service Discovery
+*** Consul
+    > {https://developer.hashicorp.com/consul}[docs]
+
+* IaC
+** Terraform
+   > {https://developer.hashicorp.com/terraform}[docs]
+   {:terraform:}
+
+   CRUDL of resources with API/FS/etc requests based on difference between
+   desired and existing states.
+
+** Ansible
+   > {:ansible:}
+
+   Python wrappers above shell commands.
+
+** Pupet
+** Chef
+** Salt
+
+* Security
+** Consul
+   > {https://developer.hashicorp.com/consul}[docs]
+
+** Vault
+   > {https://developer.hashicorp.com/vault/docs}[docs]
+
+** Kubernetes Secrets
+
+* Distributed KV
+** Etcd
+** Consul
+   > {https://developer.hashicorp.com/consul}[docs]
+
+* Observability
+** Tooling
+*** Grafana
+
+** Metrics
+   Arbitrary key-value pairs representing the state of something.
+
+** Logs
+*** Syslog
+
+** Traces
+   IDs assigned to operations between multiple logs. Allow tracing of operations
+   between multiple components/services.
+
+** Storage
+*** Loki
+*** VictoriaMetrics
+
+* Virtualisation
+** Hypervisors
+*** KVM
+*** libvirt
+*** VirtualBox
+** Orchestrators
+*** Vagrant
+    > {https://developer.hashicorp.com/vagrant}[docs]
+    > {:vagrant:}
+
+    Centered on creating dev environments, i.e. docker compose.
+*** OpenShift
+    > {:openshift:}
+
+    Enterprise-grade VM orchestration.

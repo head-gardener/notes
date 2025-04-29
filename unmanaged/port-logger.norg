@@ -1,0 +1,58 @@
+* Overview
+  Custom nginx image purpose-built to log all requests to a specific port and
+  run as a sidecar.
+  Log everything via Lua things, configure from env (e.g. template config as a
+  pre-start)
+
+* Materials
+  Example nginx configuration:
+  @code nginx
+  log_format full_trace '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" "$http_user_agent" '
+                        'req_headers: "$req_header" resp_headers: "$resp_header" '
+                        '<"$request_body" >"$resp_body"';
+
+  server {
+    listen 18080;
+
+    lua_need_request_body on;
+
+    set $resp_body "";
+    body_filter_by_lua '
+      local resp_body = string.sub(ngx.arg[1], 1, 1000)
+      ngx.ctx.buffered = (ngx.ctx.buffered or "") .. resp_body
+      if ngx.arg[2] then
+        ngx.var.resp_body = ngx.ctx.buffered
+      end
+    ';
+
+    set $req_header "";
+    set $resp_header "";
+    header_filter_by_lua_block{
+      local function join_values(val)
+        if type(val) == "table" then
+            return table.concat(val, ", ")
+        end
+        return val
+      end
+
+      local h = ngx.req.get_headers();
+      for k, v in pairs(h) do
+        ngx.var.req_header = ngx.var.req_header .. k.."="..join_values(v).." ";
+      end
+        local rh = ngx.resp.get_headers();
+      for k, v in pairs(rh) do
+        ngx.var.resp_header = ngx.var.resp_header .. k.."="..join_values(v).." ";
+      end
+    }
+
+    error_log /dev/stdout info;
+    access_log /var/log/nginx/access.log full_trace;
+    location / {
+      proxy_pass http://localhost:8080;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+  @end

@@ -59,6 +59,14 @@
   - (=) dragon
   - (=) check p10k out
 
+** Terminal farm
+   Simple VM on NixOS outside of VPN, with LDAP auth, allowing undocumented self
+   rebuils.
+
+** Config render
+   Render config in a derivation from a minimal VM (start, launch home-manager
+   for neovim etc), copy to an output and serve with nginx.
+
 * Incidents
   - (x) *incident:* jenkins build failed after slave couldn't pull scm
         *date:* Mon Oct 28 02:41:59 AM +03 2024

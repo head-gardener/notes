@@ -1,4 +1,5 @@
-Terraform is an open-source client-only declarative IaC tool.
+* Terraform
+  Terraform is an open-source client-only declarative IaC tool.
 
 * Design
   Working with Terraform in many things feels similar to kubernetes. Terraform uses a DSL

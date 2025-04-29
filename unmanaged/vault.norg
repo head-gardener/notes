@@ -1,5 +1,6 @@
-Hashicorp Vault is an open source kv secrets storage, supporting various backends.
-{https://developer.hashicorp.com/vault/docs/}
+* Overview
+  Hashicorp Vault is an open source kv secrets storage, supporting various backends.
+  {https://developer.hashicorp.com/vault/docs/}
 
 * Design
   Vault introduces an unsealing operation, that must vbe performed on every restart. Until

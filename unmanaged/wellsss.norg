@@ -1,0 +1,9 @@
+* Concept
+  User-oriented S3FS mounts management. Calls S3FS implementations to mount
+  directories, orchestrates them, notifies user if anything happens - i.e. NFS
+  but simple.
+
+* Features
+  - ( ) engine selection (`garage`, `garage-native`, `s3fs`).
+  - ( ) UNIX socket for server-client communication.
+  - ( ) desktop notifications.

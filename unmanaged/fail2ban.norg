@@ -1,0 +1,10 @@
+* Overview
+  Tool that implements IP lockout or temporary bans for services that don't do
+  that themselves.
+
+  Failed logins are interpreted from logs. Once a single IP fails authentication
+  more than `maxretry` times during `findtime` period (e.g. 5 attempts in an
+  hour) `fail2ban` uses firewall to ban it for `bantime` (e.g. 1h). `jail2ban`
+  supports jailing arbitrary programs using `jails` configuration stanza,
+  dynamic bantime via `bantime-increments`, sending reports after bans to
+  admins.

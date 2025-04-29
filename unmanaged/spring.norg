@@ -82,14 +82,21 @@
    spring.config.import=vault://
    @end
 
+* Actuactors
+  Special endpoints used for debugging and similar tasks. Boot provides a
+  collection of default ones under `spring-boot-starter-actuator`, including:
+  - `health` for readiness, liveliness and arbitrary other checks
+  - `env` for inspecting environment, properties, cli args and final
+    configuration
+
 * Snippets
 ** Increase log level
    In spring log level can be set for each classpath separately. E.g. if you want to
-   see debug messages from `hibernate`, set `LOG_LEVEL_ORG_HIBERNATE=DEBUG`. Or
+   see debug messages from `hibernate`, set `LOGGING_LEVEL_ORG_HIBERNATE=DEBUG`. Or
    `org.springframework.vault` messages can be configured with
-   `LOG_LEVEL_ORG_SPRINGFRAMEWORK_VAULT`.
+   `LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_VAULT`.
 
-   To set log level for all classes use `LOG_LEVEL_ROOT`.
+   To set log level for all classes use `LOGGING_LEVEL_ROOT`.
 
    In properties syntax is `log.level.<path> = DEBUG`.
 

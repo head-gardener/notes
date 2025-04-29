@@ -1,0 +1,18 @@
+* Overview
+  Virtual machines for various providers written with ruby. Providers include
+  but not limited to:
+  - docker
+  - libvirt
+  - vmware
+  - virtualbox
+  - qemu
+  - cloud providers (aws, do, google, etc)
+
+  Idea here is to define a box in a single place that can be generalised to
+  running on various virtualisation platforms - deployed to the cloud as is,
+  tested locally on Linux, MacOS, Windows, even BSD.
+
+  Plenty of distributions including even gentoo provide semi-official boxes.
+
+* NixOS
+  Nix community provides an official box at the {https://github.com/nix-community/nixbox.git}[nix box repo].

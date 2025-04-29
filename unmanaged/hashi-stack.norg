@@ -1,0 +1,15 @@
+* Overview
+  HashiCorp offers a bunch of tools for doing DevOps, design with interop in
+  mind - forming somewhat of an ecosystem. Most of the tooling is provided in a
+  SaaS format via HashiCorp Cloud Platform, HCP for short.
+
+* Tooling
+  - {:terraform:} - IaC tool, configures *everything* else.
+  - {:vault:} - secret storage and encryption provider.
+  - {:nomad:} - orchestration tool (think k8s or swarm).
+  - {:vagrant:} - vm tooling, imagine wrappers around virtualbox or qemu - or
+    docker with vms.
+  - {:consul:} - service discovery, communication encryption, networking
+    automation, ingress/egress centralization, distributed kv storage -
+    alternative to stuff included in k8s.
+  - {:packer:} - like docker build but with terraform.
