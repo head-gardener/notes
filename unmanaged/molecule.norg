@@ -1,0 +1,103 @@
+* Overview
+  Tool for setting testing ansible roles, replacement for manually creating test
+  instances with vagrant/scripts.
+
+  Tasks:
+  - Creation and configuration of environments.
+    That includes spinning up vagrant/docker/podman/aws machines with
+    preconfigured environment, building inventory, etc.
+  - Running your role and testing it for idempotence.
+  - Instance cleanup - descrtuction of containers/virtual machines, etc.
+
+  Reasons to use:
+  - It can create environments with any number of machines from a large list of
+    providers.
+
+* Example
+  Testing a role that configures a VPN, e.g. Wireguard. This role sets up
+  Wireguard on multiple targets and configures a connection between them.
+
+  First, in your role's direcory create a new scenario with `molecule init
+  scenario -d docker default`. Notice `-d docker` to set docker as driver.
+
+  Then, in `molecule/default/molecule.yaml` configure your instances:
+  @code yaml
+  ---
+  driver:
+    name: docker
+
+  platforms:
+    - name: instance1
+      image: travisci/ubuntu-systemd:22.04
+      privileged: True
+      volume_mounts:
+        - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+      command: "/lib/systemd/systemd"
+      networks:
+        - name: my-role-molecule
+      groups:
+        - wireguard
+
+    - name: instance2
+      image: travisci/ubuntu-systemd:22.04
+      privileged: True
+      volume_mounts:
+        - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+      command: "/lib/systemd/systemd"
+      networks:
+        - name: my-role-molecule
+      groups:
+        - wireguard
+
+  provisioner:
+    name: ansible
+    inventory:
+      group_vars:
+        wireguard:
+          wireguard_extra_config: |
+            some_extra_config
+      host_vars:
+        instance1:
+          wireguard_my_addr: 10.100.99.1/24
+        instance2:
+          wireguard_my_addr: 10.100.99.2/24
+  @end
+  Important parts:
+  - configure docker images with systemd.
+  - add both hosts to a network `my-role-molecule` (this doesn't happen by
+    default).
+  - add any extra `group_vars` or `host_vars` to inventory configuration.
+
+  Next, `molecule/default/converge.yml` is the playbook that gets executed to
+  test your role. Most of the time you'll only need to add this:
+  @code yaml
+  gather_facts: true
+  roles:
+    - my-role
+  @end
+
+  Finally, run your converge playbook with `molecule test`, which will setup
+  your targets, run your role and then destroy the targets. As written above,
+  molecule is an environment manager:
+  - to just create your environment and test if it's correct by hand run
+    `molecule create` and `molecule login [--host <host>]` to login (or login by
+    hand with `docker exec`, etc).
+  - run `molecule converge` to run the converge playbook.
+  - `molecule list` lists your instances, `molecule destroy` destroys them.
+
+* Notes
+  I'm either bad at googling or documentation is really sparce. I've been mostly
+  trying random things until it works.
+
+  Molecule packaging in nix is kind of weird, simplest way to do it is including
+  this in your shell's packages:
+  @code nix
+  [
+    ansible
+    (python3.withPackages (ps: [
+      ps.molecule
+      ps.molecule-plugins
+      ps.docker
+    ]))
+  ]
+  @end

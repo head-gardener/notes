@@ -1,0 +1,54 @@
+* Intro
+  This is how I built a DIY cloud from scratch with NixOS and libvirt. Keep in
+  mind that this is just an experiment and I have no idea how right or close to
+  the /industry-standard/ what I'm describing here is.
+
+* Relevant software
+  I've used *libvirt* with *QEMU* to run actual VMs, which is a mix between
+  being low-level and convenient.
+
+  *Cloud-init* is used to perform some initial configurations. Depending on your
+  requirements it can setup SSH access and some other services, or call to any
+  other automation tool like *Ansible* for more involved setups.
+
+  *NixOS* is used to declaratively configure libvirt, build VM/cloud-init
+  images. NixOS modules in particular serve as a really nice way to declare VMs
+  with a set of configurable parameters.
+
+  *NixVirt* is a thin abstraction layer between Nix language and libvirt's XML
+  definitions.
+
+* Design
+  Solution I've went for is defining a set of NixOS options, through which a VM
+  is described. With this I can achieve a certain level of automation -
+  committing changes to my main repo will eventually lead to a rebuild that
+  auto-magically brings up requested VMs.
+
+* Problems and observations
+** Cloud images
+   This endeavour was the first time I've interacted with what I understand to
+   be cloud images - images built to run without the whole install process, with
+   cloud-init support.
+
+   I've settled with the following qcow2-image to VM pipeline:
+   - Use Nix to download cloud image, with hash validation, Nix store support
+     and things like that.
+   - Init a disk in libvirt's pool with `virsh vol-upload` from initial
+     qcow2-image. Think of this as `openstack image create` and `openstack image
+     import`.
+   - Use Nix to build a seed iso from cloud-init configuration, add it as
+     a `cdrom` to a VM.
+   - Run the VM.
+
+** Port-forwarding
+   NixOS's `networking.nat` is too restrictive for my needs, so we are back to
+   the `iptable` hooks. Thankfully libvirt automatically handles NAT-ing
+   internet requests from the VM, but allowing outside networks to connect to
+   VM's ports requires some extra work. Scripts I've used for that can be found
+   in libvirt docs.
+
+* Afterthoughts
+  Setting this whole thing up actually broke my other VM's network connectivity,
+  particularly the one I used as a Jenkins runner. It was configured via NixOS's
+  `networking.nat` section which shows you how much you can trust NixOS's
+  firewall options.

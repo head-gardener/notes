@@ -1,0 +1,33 @@
+* Overview
+  Common integrity preservation concept. Briefly it means that database
+  changes should be committed only after they are logged - i.e. WAL records
+  describing the change where flushed to some permanent storage. In case of
+  some failure during commit data can be reconstructed (rolled-forward) from
+  WAL records.
+  For most implementations WAL allows on-line backups and point-in-time
+  recovery. WAL also reduces number of disk writes, since a database can store
+  data in memory longer before eventually flushing.
+
+* Applications
+** Postgres
+   See {:wal-g:} and {https://www.postgresql.org/docs/current/continuous-archiving.html}[the docs].
+   Maintained in `pg_wal/` dir.
+   `pg_dump` can't be used for continuous archiving since they don't contain
+   file-system-level information. WAL records are segmented into 16MB files
+   (configurable with `initdb`).
+   WAL is enabled with:
+   -  `wal_level` - `replica` is default and produces enough data to support
+      WAL-archiving and replication. `minimal` tunes amount of WAL information
+      down, `logical` adds extra logical-level information. `archive` and
+      `host_standby` are outdated and mapped to `replica`.
+   - `archive_mode` - `on` or `always`. Later enables WAL archival during
+     archive recovery or standby mode. `off` disables archiving.
+   - `archive_command` or `archive_library` - sets WAL segment archival method.
+     Command runs a shell command, for example:
+     `test ! -f /mnt/server/archivedir/%f && cp %p /mnt/server/archivedir/%f`
+     Where `%f` if segment file name and `%p` is segment file path. Once the
+     command provided exits with 0, a segment that command was called for gets
+     recycled - otherwise postgres will periodically try again.
+     If library is set, it should point to a shared library that implements
+     postgres archival spec. Described library calls will be made in order until
+     the module indicates archival success.

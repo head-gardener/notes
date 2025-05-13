@@ -1,0 +1,11 @@
+* Overview
+
+* PG backups
+  - `pg_dump`/`pg_restore`
+  - `wal`
+    Write-ahead-log, {https://www.postgresql.org/docs/current/wal-intro.html}[docs].
+    See {:wal:}.
+  - `wal-e`
+  - `wal-g`
+
+* Benefits compared to WAL-G

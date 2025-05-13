@@ -40,12 +40,13 @@
      - `/opt` - locally installed applications.
      - `/boot` - kernels, `.efi` and such.
      - `/dev` - pseudo. all peripherals and block devices.
-     - `/run` - 
+     - `/run` - normally tmpfs, used for runtime data like secrets that
+       shouldn't be written to disk.
      - `/proc` - pesudo. process tree.
 
 * Systemd
 ** Units
-   Describes various components operated on by `systemd`. Uses 
+   Describes various components operated on by `systemd`. Uses
 
    > `systemdctl -t help` to see all types, `systemctl list-units` to see all units
       available on the machine.

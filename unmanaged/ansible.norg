@@ -80,6 +80,10 @@
     `--start-at-task` on tasks inside a role
 
 ** Test environment
+   Realisticly you should use {:vagrant:} with ansible provisioner or
+   {:molecule:}, since they configure everything for you. But what they do is
+   mostly equivalent to this.
+
    To test a playbook on a docker container you can use the following command:
 
    > See below for a systemd enabled version!
@@ -87,9 +91,8 @@
    @code bash
    docker run --rm -it \
      -l "ansible_playground" \
-     --mount type=bind,src=$HOME/.ssh/id_ed25519.pub,dst=/root/.ssh/authorized_keys \
-     hlabs/ssh-python \
-     sh -c "/usr/sbin/sshd -o StrictModes=no; exec bash"
+     ubuntu:jammy \
+     sh -c "while true; do sleep 999; done"
    @end
 
    With this inventory file (you need `community.docker` playbook):
@@ -104,7 +107,7 @@
      - exclude: true
    @end
 
-   (Or just use container's IP address in a normal inventory)
+   (Or just use container's name and `ansible_connection=docker`)
 
 **** With systemd
      Most ansible roles rely on systemd for starting stuff, so for a complete test you
@@ -112,18 +115,21 @@
      Since docker doesn't play nice with cgroups v2 (or so I've heard), simplest (or only)
      solution is to switch to podman (which runs systemd by default). Notice
      `/usr/sbin/init` being PID 1, this is required.
+     Docker can run systemd, but needs some tweaks and specific images to do
+     this.
 
      @code bash
      podman run --rm -it \
        -l "ansible_playground" \
-       -v $HOME/.ssh/id_ed25519.pub:/root/.ssh/authorized_keys:ro \
-       -p 2022:22 \
        --name ansible_playground \
        hlabs/ssh-python \
        /usr/sbin/init
      @end
 
+     If `/usr/sbin/init` doesn't exist, try `/lib/systemd/systemd`. If that
+     doesn't exist either, you need to install `systemd` first.
+
      With something similar to this in your inventory:
      @code toml
-     localhost ansible_user=root ansible_port=2022
+     localhost ansible_user=root ansible_port=2022 ansible_connection=podman
      @end

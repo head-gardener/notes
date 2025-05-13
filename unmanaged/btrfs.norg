@@ -4,6 +4,257 @@
   - {https://computingforgeeks.com/working-with-btrfs-filesystem-in-linux/}[Blog post on working with btrfs by Josphat Mutai with many examples].
   - {https://btrfs.readthedocs.io/en/latest/index.html}[btrfs rtd].
   - {https://nixos.wiki/wiki/Btrfs}[NixOS wiki entry on using btrfs with NixOS].
+
+* The ugly
+** No space left
+   Btrfs can fail to *create* new files despite seemingly still having space.
+   This happened to me after about a year on two machines simultaneously, so
+   that is something to watch for. The reasons is something about metadata
+   chunking and block allocation, I'm not enough of a nerd to understand this.
+
+   The issue: `touch /fs/file` fails with no free space left, `df` shows plenty
+   of space available. Signs that the cause is btrfs chunks are this:
+
+   - `btrfs fi df /fs` shows metadata used being close to total (less than ~1GB)
+     and/or data used being small compared to total.
+     `btrfs fi df` is described as a /debugging helper/, so numbers shown should
+     be interpreted first. `total` is space reserved for allocations, used is
+     actually allocated - so them being really close means that btrfs can't
+     allocate any more space or that chunks are allocated inefficiently. But
+     these are my guesses, I'm don't understand this stuff good enough to know
+     for sure.
+   - `btrfs fi show /fs` shows used *equal* to total.
+   - `btrfs fi usage /fs` shows allocated being equal to devise size.
+     `fi usage` is described as a replacement for `fi df`. It does show much
+     more information. I assume that the closer allocated is to used the better,
+     since that means that data is distributed across chunks more efficiently.
+     Specifically for me full balancing grew data and metadata usage vs
+     allocated from 50-60 all the way up to 99 for data and 70 for metadata,
+     which sounds like it became much more efficient with space usage.
+
+   > Alternatively you could be running out of inodes (`df -i` to check), but
+   > `btrfs` specifically doesn't work like that.
+
+   Steps to fixing this are:
+   - To delete (or wipe with `echo > /file`) some files to free up metadata.
+     Not totally sure whether this is important though but seems reasonable. As
+     you delete files you'll see some metadata freeing up.
+   - Rebalance data and metadata. For me it was data first, then metadata - I
+     assume this is because shaking down and freeing up data chunks allows more
+     space for metadata chunks. I've read that you need ~2GB of free metadata
+     space to start balancing it down, and that's around what worked for me.
+     Exact commands are `btrfs balance start /fs` with `-dlimit=<x>` first to
+     shake data chunks down until you see some free metadata space, then you can
+     run `-mlimit=<x>` to shake down metadata. The larger `x` is the more free
+     space you need - try gradually increasing it from ~10, freeing up chunks as
+     you go.
+
+   Tips:
+   - Keep `watch btrfs fi df /fs` and `watch btrfs fi show /fs` in a separate
+     window to watch how rebalancing affects used space in real time.
+   - `limit=` filter in a balance command simply processes only a given number
+     of chunks.
+   - Balance is non-destructive, cancellable and constantly keeps fs in a
+     consistent state, so it should be fully safe to run as much as you want. Be
+     prepared for some IO load during execution though.
+
+
+   This is how it went for me. I ran recommended steps on two hosts. Keep in
+   mind that I did that once actual `no space left` errors stopped coming not as
+   a rescue but more as a maintenance operation.
+
+   *Host 1*:
+   State before balancing:
+   @code sh
+   ❯ sudo btrfs filesystem df /
+   Data, single: total=223.92GiB, used=172.65GiB
+   System, DUP: total=32.00MiB, used=48.00KiB
+   Metadata, DUP: total=7.00GiB, used=6.43GiB
+   GlobalReserve, single: total=406.55MiB, used=0.00B
+
+   ❯ sudo btrfs fi show /
+   Label: 'ROOT'  uuid: db5cab8c-391d-4fa6-aa1a-c5b9e0c4a892
+          Total devices 1 FS bytes used 179.08GiB
+          devid    1 size 237.99GiB used 237.98GiB path /dev/nvme0n1p2
+   @end
+
+   Data balancing:
+   @code sh
+   ❯ sudo btrfs balance start / -dlimit=10
+   Done, had to relocate 0 out of 236 chunks
+
+   took 49s
+   ❯ sudo btrfs balance start / -dlimit=20
+   Done, had to relocate 8 out of 236 chunks
+
+   ❯ sudo btrfs balance start / -dlimit=30
+   Done, had to relocate 16 out of 232 chunks
+
+   ❯ sudo btrfs balance start / -dlimit=40
+   Done, had to relocate 22 out of 216 chunks
+
+   took 4m12s
+   ❯ sudo btrfs fi show /
+   Label: 'ROOT'  uuid: db5cab8c-391d-4fa6-aa1a-c5b9e0c4a892
+           Total devices 1 FS bytes used 179.08GiB
+           devid    1 size 237.99GiB used 205.91GiB path /dev/nvme0n1p2
+
+   ❯ sudo btrfs fi df /
+   Data, single: total=188.01GiB, used=172.66GiB
+   System, DUP: total=32.00MiB, used=48.00KiB
+   Metadata, DUP: total=8.92GiB, used=6.42GiB
+   GlobalReserve, single: total=391.67MiB, used=0.00B
+   @end
+
+   Metadata balancing:
+   @code sh
+   ❯ sudo btrfs balance start / -mlimit=10
+   Done, had to relocate 10 out of 201 chunks
+
+   took 6m49s
+   ❯ sudo btrfs balance start / -mlimit=199
+   Done, had to relocate 0 out of 199 chunks
+
+   # I don't know why he found two more chunks to rebalance after supposedly
+   # checking all of them with limit=199. Running with higher usage kinda took two
+   # long.
+   ❯ sudo btrfs balance start / -musage=40
+   Done, had to relocate 2 out of 199 chunks
+
+   ❯ sudo btrfs fi df /
+   Data, single: total=188.01GiB, used=172.66GiB
+   System, DUP: total=32.00MiB, used=48.00KiB
+   Metadata, DUP: total=8.00GiB, used=6.41GiB
+   GlobalReserve, single: total=385.98MiB, used=0.00B
+
+   ❯ sudo btrfs fi show /
+   Label: 'ROOT'  uuid: db5cab8c-391d-4fa6-aa1a-c5b9e0c4a892
+           Total devices 1 FS bytes used 179.07GiB
+           devid    1 size 237.99GiB used 204.07GiB path /dev/nvme0n1p2
+   @end
+   As you can see metadata rebalance didn't free up that much space (2GB
+   reported by `show`, 10MB metadata reported by df).
+
+   Full rebalance:
+   @code sh
+   ❯ sudo btrfs balance start /
+   WARNING:
+
+           Full balance without filters requested. This operation is very
+           intense and takes potentially very long. It is recommended to
+           use the balance filters to narrow down the scope of balance.
+           Use 'btrfs balance start --full-balance' option to skip this
+           warning. The operation will start in 10 seconds.
+           Use Ctrl-C to stop it.
+   10 9 8 7 6 5 4 3 2 1
+   Starting balance without any filters.
+   Done, had to relocate 148 out of 198 chunks
+
+   ❯ sudo btrfs fi show /
+   Label: 'ROOT'  uuid: db5cab8c-391d-4fa6-aa1a-c5b9e0c4a892
+           Total devices 1 FS bytes used 178.98GiB
+           devid    1 size 237.99GiB used 192.06GiB path /dev/nvme0n1p2
+
+   ❯ sudo btrfs fi df /
+   Data, single: total=174.00GiB, used=172.61GiB
+   System, DUP: total=32.00MiB, used=48.00KiB
+   Metadata, DUP: total=9.00GiB, used=6.37GiB
+   GlobalReserve, single: total=347.31MiB, used=0.00B
+   @end
+
+   *Host 2:*
+   State before balancing:
+   @code sh
+   > sudo btrfs fi show /
+   Label: 'NIXOS'  uuid: 4c012b90-4a7f-4044-b8ed-12e4d6af067a
+          Total devices 1 FS bytes used 96.29GiB
+          devid    1 size 180.00GiB used 180.00GiB path /dev/sdc2
+
+   > sudo btrfs fi df /
+   Data, single: total=172.72GiB, used=93.86GiB
+   System, DUP: total=32.00MiB, used=48.00KiB
+   Metadata, DUP: total=3.61GiB, used=2.43GiB
+   GlobalReserve, single: total=214.72MiB, used=0.00B
+   @end
+   This one is really bad as you can see.
+
+   Data balancing:
+   @code sh
+   > sudo btrfs balance start / -dlimit=10
+   Done, had to relocate 10 out of 184 chunks
+
+   > sudo btrfs balance start / -dlimit=20
+   Done, had to relocate 20 out of 176 chunks
+
+   > sudo btrfs balance start / -dlimit=30
+   Done, had to relocate 30 out of 167 chunks
+
+   > sudo btrfs balance start / -dlimit=40
+   Done, had to relocate 40 out of 157 chunks
+
+   > sudo btrfs fi show /
+   Label: 'NIXOS'  uuid: 4c012b90-4a7f-4044-b8ed-12e4d6af067a
+          Total devices 1 FS bytes used 96.54GiB
+          devid    1 size 180.00GiB used 152.29GiB path /dev/sdc2
+
+   > sudo btrfs fi df /
+   Data, single: total=145.01GiB, used=94.12GiB
+   System, DUP: total=32.00MiB, used=48.00KiB
+   Metadata, DUP: total=3.61GiB, used=2.42GiB
+   GlobalReserve, single: total=239.33MiB, used=0.00B
+   @end
+   As you can see compared to host 1 here we btrfs had to move every chunk it
+   checked.
+
+   Full rebalance:
+   @code sh
+   > sudo btrfs balance start /
+   WARNING:
+
+           Full balance without filters requested. This operation is very
+           intense and takes potentially very long. It is recommended to
+           use the balance filters to narrow down the scope of balance.
+           Use 'btrfs balance start --full-balance' option to skip this
+           warning. The operation will start in 10 seconds.
+           Use Ctrl-C to stop it.
+   10 9 8 7 6 5 4 3 2 1
+   Starting balance without any filters.
+   Done, had to relocate 158 out of 158 chunks
+
+   > sudo btrfs fi show /
+   Label: 'NIXOS'  uuid: 4c012b90-4a7f-4044-b8ed-12e4d6af067a
+           Total devices 1 FS bytes used 95.24GiB
+           devid    1 size 180.00GiB used 104.06GiB path /dev/sdc2
+
+   > sudo btrfs fi df /
+   Data, single: total=96.00GiB, used=92.84GiB
+   System, DUP: total=32.00MiB, used=16.00KiB
+   Metadata, DUP: total=4.00GiB, used=2.40GiB
+   GlobalReserve, single: total=219.78MiB, used=0.00B
+   @end
+   Here btrfs had to rebalance every single chunk, cutting allocated space in
+   two. Real usage of allocated space went from 54% to 98%, much more efficient.
+   Allocated space on disk went from 100% (which as the reason for no space left
+   errors, I assume) to 57%.
+
+   What this taught me? You should really read about filesystem you use *before*
+   they fail on you at the worst possible time. Another observation is that this
+   operation didn't free up any `df` space - on host 1 I eneded up with ~5GB
+   less, - it was just a btrfs maintenance.
+
+   *Bonus section*. If you have `node_exporter`, you can monitor these stats
+   with the following `promql` queries:
+   @code go
+   // allocated space usage rate - used vs allocated
+   node_btrfs_used_bytes{block_group_type="data"} /
+     node_btrfs_size_bytes{block_group_type="data"}
+
+   // fs percentage allocated - i.e. how much is seen as used by btrfs
+   1 - (node_btrfs_device_unused_bytes  / on(device) max by(device)
+     (label_replace(node_filesystem_size_bytes{fstype="btrfs"}, "device", "$1",
+       "device", ".*/(.*)")))
+   @end
+
 * General
   good.
 ** COW
