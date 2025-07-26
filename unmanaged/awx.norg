@@ -1,0 +1,10 @@
+* Overview
+  Like Tower?
+  I think it would be nice as a control panel and a runner.
+
+* Installation
+  Needs a postgres. Normally distributed as an operator, which seems weird for a
+  single-container application - I need to look into it. Alternatives include a
+  container image and a chart. Interestingly enough, on github it's never
+  mentioned in any nix projects - probably because there is no binary, it's just
+  a django-style `manage.py` project.

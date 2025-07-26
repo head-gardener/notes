@@ -1,0 +1,17 @@
+* Overview
+  A collection of systemd units that attempt to fix any issues with running
+  services. Example pipeline:
+  - timer
+  - healthcheck service
+  - `OnFailure=` attempting to fix the issue
+
+  Usability of this approach (compared to fully hand-made healthcheck
+  orchestrator) depends on how flexible systemd is.
+
+  Workflow for adding checks is looking for simple fixes to easily observable
+  issues after doing them by hand and adding them in.
+
+  Example checks/heals include:
+  - btrfs rebalance when chunk utilization is too low
+  - specific service restarts. but only specific issues, not secret expiration,
+    etc - that should be handled elsewhere

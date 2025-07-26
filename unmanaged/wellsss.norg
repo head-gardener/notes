@@ -5,5 +5,6 @@
 
 * Features
   - ( ) engine selection (`garage`, `garage-native`, `s3fs`).
+  - ( ) orchestrator selection: (`systemd`, `native`).
   - ( ) UNIX socket for server-client communication.
   - ( ) desktop notifications.

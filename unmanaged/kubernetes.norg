@@ -1,9 +1,35 @@
 * Tools
 ** KinD
    Playground for testing out clusters.
+** Kustomize
+   Little templating. Couple nice features but is completely superseded by
+   helm.
+** Helm
+   Go templating engine with k8s integration. De-facto deployment tool.
 
 * Backends
 ** k8s
    The thing.
 ** k3s
-   Simpler and more light-weight solution, contained in a single binary. Looks preferable for personal workloads.
+   Simpler and more light-weight solution, contained in a single binary. Looks
+   preferable for personal workloads.
+
+* Notes
+  K8s sets up some elaborate system for inter-container communication. In some
+  cases, e.g. multi-cloud deployment, it won't work out the box - if that
+  happens to you be ready to set up your own network, e.g. {:wireguard:}.
+
+* Examples
+** Commands
+   To get all images for all deployments in a namespace you can do something
+   like this:
+   @code sh
+   kubectl -n namespace get deployments.apps -o json \
+    | jq -r '.items.[] | .spec.template.spec.containers.[] | .image'
+   @end
+   For helm templates it's slightly different:
+   @code sh
+   helm template -n namespace chart ./chart -f ./values.yml \
+    | yq -r 'select(.kind == "Deployment") | .spec.template.spec.containers.[] | .image'
+   @end
+   Which is pretty neat.

@@ -1,0 +1,11 @@
+* Tooling
+** Firewalls
+
+* Concepts
+** NAT
+   Network Address Translation, managed by firewalls primarely and allows
+   e.g. containers to interact with remote networks or to forward connections to
+   ports on kernel-level.
+
+** Namespaces
+   Separate sets of network interfaces. Used by containers a bunch.

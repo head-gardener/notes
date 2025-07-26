@@ -33,7 +33,7 @@
      which sounds like it became much more efficient with space usage.
 
    > Alternatively you could be running out of inodes (`df -i` to check), but
-   > `btrfs` specifically doesn't work like that.
+     `btrfs` specifically doesn't work like that.
 
    Steps to fixing this are:
    - To delete (or wipe with `echo > /file`) some files to free up metadata.

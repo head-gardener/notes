@@ -1,3 +1,73 @@
+* Scipt
+  Access Groovy script console via `/script` endpoint (could be accessible
+  somewhere else, e.g. CLI).
+
+  Some useful scripts are listed below. `job_name` is the name of your
+  workflow/job. You can use something like this to iterate over all jobs.
+
+  @code groovy
+  for(job_name in Hudson.instance.items) {
+    // ...
+  }
+  @end
+
+** Cancel all builds
+   Lifted straight from stack overflow. Useful for when jenkins starts acting up
+   and spamming builds.
+
+   @code groovy
+   import java.util.ArrayList
+   import hudson.model.*;
+   import jenkins.model.Jenkins
+
+   // Remove everything which is currently queued
+   def q = Jenkins.instance.queue
+   for (queued in Jenkins.instance.queue.items) {
+     q.cancel(queued.task)
+   }
+
+   // stop all the currently running jobs
+   for (job in Jenkins.instance.items) {
+     stopJobs(job)
+   }
+
+   def stopJobs(job) {
+     if (job in com.cloudbees.hudson.plugins.folder.Folder) {
+       for (child in job.items) {
+         stopJobs(child)
+       }
+     } else if (job in org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject) {
+       for (child in job.items) {
+         stopJobs(child)
+       }
+     } else if (job in org.jenkinsci.plugins.workflow.job.WorkflowJob) {
+
+       if (job.isBuilding()) {
+         for (build in job.builds) {
+           build.doKill()
+         }
+       }
+     }
+   }
+   @end
+
+** Delete all aborted builds
+   Useful after a mass build abortion.
+
+   @code groovy
+   def job = Jenkins.instance.getItem(job_name)
+   job.getBuilds().findAll { it.result.name.equals("ABORTED") }.each { it.delete() }
+   @end
+
+** Delete all builds without checkouts
+   Useful when e.g. runner didn't have internet connection and couldn't checkout
+   source code - only useful for jobs that are supposed to checkout something.
+
+   @code groovy
+   def job = Jenkins.instance.getItem(job_name)
+   job.getBuilds().findAll { it.checkouts.isEmpty() }.each { it.delete() }
+   @end
+
 * TODO
   - (x) JCasC via nix?
   - (=) jcasc schema validator

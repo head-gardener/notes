@@ -1,0 +1,14 @@
+* nixos-rebuild
+  Use `repl` subcommand to open a convenient repl. That's mostly equivalent to
+  running `:lf ...`, `config = nixosConfigurations.<sys>.config`, etc.
+
+  `build-vm` can build nice qemu vms. You can pass extra qemu args to the
+  script, e.g.:
+  - `-vnc 0.0.0.0:0` for VNC.
+  - `-spice port=5900,disable-ticketing=on` for SPICE and better performance
+    then VNC.
+  - `-m 8192` for more memory (8GiB here)
+  - `-smp 4` for more cpu (4 here)
+
+  You can use that to test your configurations on remote servers, by using e.g.
+  `remina` to connect to VNC/SPICE.

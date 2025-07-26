@@ -8,6 +8,10 @@
   Main component of playbooks. Least degree of separation of actions. Get compiled into
   python code and ran on remote. Offer alternatives to many common commands.
 
+* Tools
+  - {:awx:} - gui and automation platform.
+  - {:molecule:} - role tests.
+
 * Roles and collections
   Use ansible-galaxy to install or package them. Can be organized in collections. Many
   vendors like Grafana and Prometheus provide official collections for their products.
