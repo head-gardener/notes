@@ -1,0 +1,32 @@
+* Tips
+  This isn't fine tuning, just simple beginner things I've figured out.
+
+** Request rating
+   Rates request by lines read per second without indexes since startup - i.e.
+   damage rating. If your server is hogging CPU use this to figure out what
+   indexes you need.
+
+   @code sql
+   SET @uptime := (SELECT VARIABLE_VALUE
+                FROM performance_schema.global_status
+                WHERE VARIABLE_NAME = 'Uptime');
+   SELECT
+           digest_text,
+           count_star,
+           avg_timer_wait,
+           sum_rows_examined,
+           sum_no_index_used,
+           100 - (100*(sum_no_index_used/count_star)) as no_index_percent,
+           count_star/@uptime as requests_per_second,
+           sum_rows_examined/@uptime as reads_per_second,
+           sum_rows_examined/count_star as read_per_query
+   FROM (
+           select * from
+           performance_schema.events_statements_summary_by_digest
+           order by count_star
+           desc limit 50
+   ) as top_qs
+   WHERE sum_no_index_used < count_star
+   ORDER BY (sum_rows_examined/@uptime)
+   DESC LIMIT 10\G
+   @end

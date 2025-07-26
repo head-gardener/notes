@@ -1,3 +1,16 @@
+* Tips
+** Reading secrets
+   To read a secret value to an env var without writing it to disk explicitly,
+   use:
+   @code sh
+   read -sx SECRET
+   @end
+
+   Don't forget to erase once you are done!
+   @code sh
+   read -e SECRET
+   @end
+
 * Plugins
   - {./done-fish.html}[done-fish]
   - {./gitnow.html}[gitnow]

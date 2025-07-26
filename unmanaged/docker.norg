@@ -1,0 +1,27 @@
+* Tips
+** Cleanup
+   Docker absolutely loves hogging drive space.
+
+   1. Remove dangling (i.e. unattached) volumes
+     @code sh
+     docker volume ls -qf dangling=true | xargs -n1 docker volume rm
+     @end
+
+   2. Remove n largest images
+     @code sh
+     # to check
+     docker image list | awk '{print $8 " " $1 " " $2 " " $3}' | sort -hr | head
+     # to remove
+     docker image list | awk '{print $8 " " $1 " " $2 " " $3}' | sort -h | head | cut -d' ' -f5 | xargs docker rmi
+     @end
+     This is generally safe, since docker won't allow you to remove images it
+     needs without -f.
+
+   2. Prune system
+     @code sh
+     docker system prune --volumes
+     @end
+     This does a lot of stuff - if you are using btrfs and your docker subvolumes
+     dir is absurdly bloated, it will help clean it up. Main things cleaned are
+     build stages cache, networks, other stuff - it prints them with a
+     confirmation.

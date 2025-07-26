@@ -1,0 +1,24 @@
+* Tips
+** src/dst mnemonic
+   *files* to *a dir*.
+
+   Rsync uses the same notion that most other GNU utils commands use - list of
+   files and a target dir. So for copying dir from one place to the other
+   remember:
+
+   1. `src` is a list of files - so when you want to copy dir's contents, use
+   `/src/dir/**/*` glob's shorthand - `/src/dir/` (alongside `-az`)
+   2. `dst` is a single target dir, so write it the same way you would with
+   move: `/dst/dir` - assuming `/dst/dir` already exists and you want to sync
+   contents.
+
+   Which gives us `rsync /src/dir/ /dst/dir -az`.
+
+   For copying an entire folder to a remote:
+
+   1. `src` is a single /file/ (dir) - so just `/src/dir`.
+   2. `dst` is where your dir should be created - so `/dst/` ot `/dst`
+
+   Which gives us `rsync /src/dir /dst/ -az`.
+
+   Don't mix these two up!

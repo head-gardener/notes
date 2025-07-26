@@ -1,3 +1,21 @@
+* Tips
+** Comparing and editing objects with `vim -d`
+   Comparing:
+   @code sh
+   vim -d \
+     <(kubectl get pods thingB -o yaml) \
+     <(kubectl get pods thingA -o yaml)
+   @end
+
+   Editing, with diff (for when you need to copy configuration from object to
+   another):
+   @code sh
+   EDITOR="vim -c 'read ! kubectl get -o yaml pods thingB' -d buff" \
+     kubectl edit pods thingA
+   @end
+   I bet there is a nicer way to do this, but my vim magic isn't quite there
+   yet.
+
 * Tools
 ** KinD
    Playground for testing out clusters.

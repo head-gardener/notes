@@ -11,4 +11,4 @@
   - `-smp 4` for more cpu (4 here)
 
   You can use that to test your configurations on remote servers, by using e.g.
-  `remina` to connect to VNC/SPICE.
+  `remmina` to connect to VNC/SPICE.

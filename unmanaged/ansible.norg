@@ -38,6 +38,53 @@
   `host_vars` and `group_vars` dirs in yaml files with names corresponding to hosts or
   groups. These vars will be expanded in modules, templates and roles.
 
+  Alternatively inventory can be dynamically generated - via a
+  python/shell/shebanged script or an executable, returning a json object.
+  Format of that object is similar to what `ansible-inventory --list` spits out.
+
+*** What is an inventory
+
+    Essentially inventory is a collection of contexts to run a playbook for,
+    with ssh connection build in - though nothing is stopping you from not using
+    that ssh connection with `connection: local` and passing whatever as the
+    inventory.
+
+    In fact ansible inventory isn't limited to hosts, you can put arbitrary data
+    there and benefit from filtering, `sequence`, `run_once`, facts and other
+    ansible features for parallel processing of data.
+
+    For example, this inventory contains a list of kubernetes objects with each
+    one's associated facts:
+
+    @code yaml
+    observer:
+      hosts:
+        availability-orchestration:
+          type: deployment
+
+    market:
+      hosts:
+        cart:
+          type: statefulset
+        cart-orchestration:
+          type: deployment
+    @end
+
+    You can use a playbook like this to run batch operations on it quite easily
+    (of course you should use kubernetes module in this particular example but I'm
+    too lazy to look it up):
+
+    @code yaml
+    - name: Rollout market
+      gather_facts: false
+      connection: local
+
+      hosts: market
+      serial: 4
+      tasks:
+        - cmd: "kubectl rollout restart {{ type }}/{{ ansible_host }}"
+    @end
+
 * Vault
   A builtin solution for keeping and distributing secrets. In the simplest mode of
   operation functions just like `git-crypt` encrypted with a password. Has a whole ton of
