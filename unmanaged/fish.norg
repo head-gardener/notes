@@ -11,14 +11,6 @@
    read -e SECRET
    @end
 
-* Plugins
-  - {./done-fish.html}[done-fish]
-  - {./gitnow.html}[gitnow]
-  - {./forgit.html}[forgit]
-  - ( ) `async-prompt`
-
 * Integrations
 ** carapace
    Works, but built-in completions are way better.
-
-* Scripts
