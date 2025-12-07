@@ -5,101 +5,155 @@
     neorg-haskell-parser.url = "github:head-gardener/neorg-haskell-parser";
   };
 
-  outputs = inputs@{ flake-parts, ... }:
+  outputs =
+    inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
 
       ];
-      systems =
-        [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-      perSystem = { pkgs, inputs', ... }: {
-        packages = rec {
-          favicon_ico = pkgs.stdenvNoCC.mkDerivation {
-            pname = "favicon-ico";
-            version = "01072024";
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      perSystem =
+        {
+          pkgs,
+          lib,
+          inputs',
+          ...
+        }:
+        {
+          legacyPackages = lib.mapAttrs' (
+            n: v:
+            let
+              name = lib.removeSuffix ".norg" n;
+              fontsConf = pkgs.makeFontsConf {
+                fontDirectories = [
+                  "${pkgs.nerd-fonts.fira-code}/share/fonts/truetype/NerdFonts/FiraCode/"
+                ];
+              };
+            in
+            lib.nameValuePair (name + "-pdf") (
+              pkgs.stdenvNoCC.mkDerivation rec {
+                pname = "${name}.pdf";
+                version = "07122025";
 
-            src = ./static/favicon.png;
+                src = ./unmanaged;
 
-            dontUnpack = true;
+                pandocOpts = [
+                  "--to=pdf"
+                  "--highlight-style=pygments"
+                  "--pdf-engine=xelatex"
+                  "--variable monofont=\"FiraCode Nerd Font\""
+                ];
 
-            buildPhase = ''
-              ${pkgs.imagemagick}/bin/convert -resize 16x16 $src ./16x16.png
-              ${pkgs.imagemagick}/bin/convert -resize 32x32 $src ./32x32.png
-              ${pkgs.imagemagick}/bin/convert -resize 48x48 $src ./48x48.png
-              ${pkgs.imagemagick}/bin/convert 16x16.png 32x32.png 48x48.png favicon.ico
+                FONTCONFIG_FILE = fontsConf;
+                LANG = "en_US.UTF-8";
+                LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+
+                buildInputs = [
+                  inputs'.neorg-haskell-parser.packages.neorg-haskell-parser
+                  pkgs.pandoc
+                  pkgs.texliveSmall
+                ];
+
+                buildPhase = ''
+                  neorg-pandoc -f "./${n}" | \
+                    pandoc ${builtins.concatStringsSep " " pandocOpts} \
+                    --toc --from=json --metadata title="${name}" -s -o "$out";
+                '';
+              }
+            )
+          ) (lib.filterAttrs (n: _: lib.hasSuffix ".norg" n) (builtins.readDir ./unmanaged));
+
+          packages = rec {
+            favicon_ico = pkgs.stdenvNoCC.mkDerivation {
+              pname = "favicon-ico";
+              version = "01072024";
+
+              src = ./static/favicon.png;
+
+              dontUnpack = true;
+
+              buildPhase = ''
+                ${pkgs.imagemagick}/bin/convert -resize 16x16 $src ./16x16.png
+                ${pkgs.imagemagick}/bin/convert -resize 32x32 $src ./32x32.png
+                ${pkgs.imagemagick}/bin/convert -resize 48x48 $src ./48x48.png
+                ${pkgs.imagemagick}/bin/convert 16x16.png 32x32.png 48x48.png favicon.ico
+              '';
+
+              installPhase = ''
+                cp favicon.ico $out
+              '';
+            };
+
+            robots_txt = pkgs.writeText "robots.txt" ''
+              User-agent: *
+              Disallow:
             '';
 
-            installPhase = ''
-              cp favicon.ico $out
-            '';
-          };
+            blog-render =
+              with pkgs;
+              (stdenvNoCC.mkDerivation rec {
+                pname = "norg-render";
+                version = "25122024";
 
-          robots_txt = pkgs.writeText "robots.txt" ''
-            User-agent: *
-            Disallow:
-          '';
+                src = ./unmanaged;
 
-          styles_css = ./static/styles.css;
+                pandocOpts = [
+                  "--to=html"
+                  ''--css="/static/styles.css"''
+                  "--highlight-style=pygments"
+                ];
 
-          blog-render = with pkgs;
-            (stdenvNoCC.mkDerivation rec {
-              pname = "norg-render";
+                LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+                LANG = "en_US.UTF-8";
+
+                buildInputs = [
+                  inputs'.neorg-haskell-parser.packages.neorg-haskell-parser
+                  pandoc
+                ];
+
+                buildPhase = ''
+                  mkdir build
+                  find -type f -name '*.norg' | sed 's/.\/\(.*\)\.norg/\1/' | \
+                    xargs -I {} sh -c '
+                      sed "s/{:\([^:]*\):[^}]*}/{\.\/\1.html}[\1]/" -i "./{}.norg";
+                      neorg-pandoc -f "./{}.norg" | \
+                        pandoc ${builtins.concatStringsSep " " pandocOpts} \
+                        --toc --from=json --metadata title="{}" -s -o "build/{}.html";
+                      echo "- [{}](/{}.html)" >> index.md;
+                    '
+                  pandoc ${builtins.concatStringsSep " " pandocOpts} \
+                    --metadata title="Sitemap" -s index.md -o "build/index.html";
+                '';
+
+                installPhase = ''
+                  cp build $out -rv
+                '';
+              });
+
+            blog = pkgs.stdenvNoCC.mkDerivation {
+              pname = "blog";
               version = "25122024";
 
               src = ./unmanaged;
 
-              pandocOpts = [
-                "--to=html"
-                ''--css="/static/styles.css"''
-                "--highlight-style=pygments"
-              ];
-
-              LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-              LANG = "en_US.UTF-8";
-
-              buildInputs = [
-                inputs'.neorg-haskell-parser.packages.neorg-haskell-parser
-                pandoc
-              ];
-
-              buildPhase = ''
-                mkdir build
-                find -type f -name '*.norg' | sed 's/.\/\(.*\)\.norg/\1/' | \
-                  xargs -I {} sh -c '
-                    sed "s/{:\([^:]*\):[^}]*}/{\.\/\1.html}[\1]/" -i "./{}.norg";
-                    neorg-pandoc -f "./{}.norg" | \
-                      pandoc ${builtins.concatStringsSep " " pandocOpts} \
-                      --toc --from=json --metadata title="{}" -s -o "build/{}.html";
-                    echo "- [{}](/{}.html)" >> index.md;
-                  '
-                pandoc ${builtins.concatStringsSep " " pandocOpts} \
-                  --metadata title="Sitemap" -s index.md -o "build/index.html";
-              '';
+              buildPhase = "";
 
               installPhase = ''
-                cp build $out -rv
+                mkdir $out
+                cp ${blog-render}/* $out/ -rv
+                cp ${favicon_ico} $out/favicon.ico -v
+                cp ${robots_txt} $out/robots.txt -v
+                mkdir $out/static
+                cp ${./static/styles.css} $out/static/styles.css -v
               '';
-            });
-
-          blog = pkgs.stdenvNoCC.mkDerivation {
-            pname = "blog";
-            version = "25122024";
-
-            src = ./unmanaged;
-
-            buildPhase = "";
-
-            installPhase = ''
-              mkdir $out
-              cp ${blog-render}/* $out/ -rv
-              cp ${favicon_ico} $out/favicon.ico -v
-              cp ${robots_txt} $out/robots.txt -v
-              mkdir $out/static
-              cp ${styles_css} $out/static/styles.css -v
-            '';
+            };
           };
         };
-      };
       flake = { };
     };
 }
