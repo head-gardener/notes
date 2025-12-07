@@ -5,6 +5,29 @@
   - {https://btrfs.readthedocs.io/en/latest/index.html}[btrfs rtd].
   - {https://nixos.wiki/wiki/Btrfs}[NixOS wiki entry on using btrfs with NixOS].
 
+* Precaution
+  Before using your newly installed btrfs system create a rescue loop device, it
+  *will* save you once you eventually run out of space and can't rebalance:
+  @code sh
+  sudo fallocate -l 3G /rescue.img
+  @end
+  Alternatively you can do the same once the FS breaks on a thumb drive, a
+  network device or wherever else - but keeping one on the disk can be a
+  lifesaver. You can even add a loop device on tmpfs if there are no other
+  options, but a poweroff in the process would destroy data. Alternatively you
+  can shrink swapfile, which if functionally the same tradeoff.
+  3-5G would be enough, just keep it divisible by btrfs allocation block size -
+  normally 1G.
+  Once a need arises you use the rescue image for a rebalance like this:
+  @code sh
+  sudo losetup -fP /rescue.img # creates /dev/loop0
+  sudo btrfs device add /dev/loop0 /fsmountpoint
+  sudo btrfs balance start /fsmountpoint -dusage=20
+  sudo btrfs device remove /dev/loop0 /fsmountpoint
+  @end
+  Better yet, setup a timer to run `balance` with `-dusage=10` every so often
+  and keep track of unallocated space as shown below.
+
 * The ugly
 ** No space left
    Btrfs can fail to *create* new files despite seemingly still having space.

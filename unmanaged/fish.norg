@@ -1,9 +1,16 @@
 * Tips
+** shift
+   @code fish
+   set argv $argv[2..]
+   @end
+
 ** Reading secrets
    To read a secret value to an env var without writing it to disk explicitly,
    use:
    @code sh
    read -sx SECRET
+   # or, more straight forward
+   xclip -sel c -o | read -sx SECRET
    @end
 
    Don't forget to erase once you are done!

@@ -1,6 +1,6 @@
 * Scipt
-  Access Groovy script console via `/script` endpoint (could be accessible
-  somewhere else, e.g. CLI).
+  Access Groovy script console via `/script` endpoint or via jenkins-cli
+  (`groovy` and `groovysh` commands).
 
   Some useful scripts are listed below. `job_name` is the name of your
   workflow/job. You can use something like this to iterate over all jobs.

@@ -1,0 +1,59 @@
+* Intro
+  This post is a reflection on my homelabbing experience so far. Everything I've
+  done and am planning to do is for the love of the sport, so what others might
+  call unnecessary complexities I would see as a learning experience or an
+  interesting problem to solve.
+  Obviously, the "right" homelabbing solution is to just run a single rented
+  Debian box with whatever you need set up there, but that's not what I'm
+  looking for. My goal would be to create a devops playground on mostly local
+  servers, that would allow me to try different approaches to management and be
+  instrumental in completing real world tasks.
+  On of the main goals in my homelab restructuring is minimizing chores,
+  achieving a more ephemeral digital infrastructure, improving resilience and
+  increasing my lab's underlying complexity without it becoming unmaintainable.
+
+* Ingress
+  My previous approach was setting up my residential router as an ingress, with
+  a static IP from my internet provider. I wouldn't recommend doing that
+  because:
+  - You reveal your personal IP address, which can be used to estimate your
+    location, track your internet usage and otherwise invade your privacy.
+  - Residential network providers may have limited features. E.g. reverse DNS
+    lookup is often unavailable, making running a private email server
+    unfeasible.
+  - Your ingress configuration is limited to what your router's software and
+    hardware can do. Though, you can mitigate the later issue with installing
+    different operating system (e.g. openwrt) on your home router or dedicating
+    a purpose-built machine to routing your traffic.
+
+  What I'm looking for trying out is dedicating a rented server to the purposes
+  of running some of my networking components:
+  - An outgoing proxy;
+  - An ingress;
+  - A WireGuard server.
+
+  With this setup I can hide my residential IP address, improve configurability
+  ans scalability, run a proper K8S ingress node. Doing this requires careful
+  planning and a little bit of terraform.
+
+  Some possible issues include:
+  - No API control from my DNS provider, which results in a chore of manually
+    changing DNS target on every ingress rollover.
+    Solution to this could be using DNS provider as a proxy and configuring all my
+    DNS somewhere else.
+  - Connectivity issues due to government lock downs.
+    Modern hosting platforms offer excellent uptime, but I did experience
+    externally caused connectivity issues more than once. Rolling over the server
+    quickly and often could be the solution, but the server's role in the
+    network makes downtime extremely unpleasant.
+
+
+* High Availability Cluster
+
+
+* Networking automation
+  programmable networking wherever possible
+
+* Bare metal server and worker node separation
+  bare metal management separated from data plane configuration (e.g. nixos vs k8s over smth)
+  other tips on setting up the data plane
