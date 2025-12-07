@@ -2,6 +2,7 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    neorg-haskell-parser.url = "github:head-gardener/neorg-haskell-parser";
   };
 
   outputs = inputs@{ flake-parts, ... }:
@@ -11,7 +12,7 @@
       ];
       systems =
         [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-      perSystem = { pkgs, lib, ... }: {
+      perSystem = { pkgs, inputs', ... }: {
         packages = rec {
           favicon_ico = pkgs.stdenvNoCC.mkDerivation {
             pname = "favicon-ico";
@@ -40,16 +41,6 @@
 
           styles_css = ./static/styles.css;
 
-          neorg-haskell-parser = let
-            base = pkgs.haskellPackages.callPackage
-              (import static/neorg-haskell-parser.nix) {};
-          in lib.pipe base (with pkgs.haskell.lib; [
-            doJailbreak
-            dontCheck
-            dontHaddock
-            justStaticExecutables
-          ]);
-
           blog-render = with pkgs;
             (stdenvNoCC.mkDerivation rec {
               pname = "norg-render";
@@ -67,7 +58,7 @@
               LANG = "en_US.UTF-8";
 
               buildInputs = [
-                neorg-haskell-parser
+                inputs'.neorg-haskell-parser.packages.neorg-haskell-parser
                 pandoc
               ];
 
