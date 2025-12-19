@@ -1,0 +1,40 @@
+* Syscalls
+  For reference, down below is an overview of some of the syscalls that can be
+  relevant to the topic of the article. You can play around with any of them by
+  `h2ph`-ing some c headers  and using `perl`'s `syscall` subroutine:
+  @code bash
+  # get glibc headers for syscall.h
+  $ cd /usr/include/x86_64-linux-gnu; h2ph -r *; cd -
+  # get linux headers for fcntl.h
+  $ cd /usr/include/linux; h2ph -r *; cd -
+  $ perl -E 'require "syscall.ph"; syscall &SYS_exit;'
+  $ sudo perl -E ' \
+      require "syscall.ph"; \
+      require "fcntl.ph"; \
+      say syscall(&SYS_open, $ARGV[0], &O_RDONLY | &O_EXCL), " - ", $!;' \
+      /dev/sda1
+  -1 - Device or resource busy
+  @end
+
+** `pivot_root`
+** `chroot`
+** `kexec`
+** `open`
+   Used to open files, can be supplied with multiple flags, one of which is
+   particularly interesting:
+   > In general, the behavior of O_EXCL is undefined if it is
+     used without O_CREAT.  There is one exception: on Linux 2.6
+     and later, O_EXCL can be used without O_CREAT if path
+     refers to a block device.  If the block device is in use by
+     the system (e.g., mounted), open() fails with the error
+     EBUSY.
+
+* The Process
+  - `mount --make-private` on both sides of the pivot
+  - e2fsck reports a device busy when `open("<dev>", O_RDONLY|O_EXCL)`
+    errors with `EBUSY`
+  - use `fuser -m /dev/vda1` to list pids using a mount
+  - you will need to kill basically everything that was started from binaries on
+    the root, including ssh/cloud-init/whatever else is used for this and init.
+    > fuser outputs in a really weird way where everything but pids is sent to
+      stderr - so it's enough to do this: `fuser .. 2>/dev/null | xargs cmd`.
