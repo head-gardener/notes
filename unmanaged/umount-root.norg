@@ -1,40 +1,178 @@
-* Syscalls
-  For reference, down below is an overview of some of the syscalls that can be
-  relevant to the topic of the article. You can play around with any of them by
-  `h2ph`-ing some c headers  and using `perl`'s `syscall` subroutine:
-  @code bash
-  # get glibc headers for syscall.h
-  $ cd /usr/include/x86_64-linux-gnu; h2ph -r *; cd -
-  # get linux headers for fcntl.h
-  $ cd /usr/include/linux; h2ph -r *; cd -
-  $ perl -E 'require "syscall.ph"; syscall &SYS_exit;'
-  $ sudo perl -E ' \
-      require "syscall.ph"; \
-      require "fcntl.ph"; \
-      say syscall(&SYS_open, $ARGV[0], &O_RDONLY | &O_EXCL), " - ", $!;' \
-      /dev/sda1
-  -1 - Device or resource busy
-  @end
+* Preface
+** Goals
+   My goals with this post is to research a way to perform maintenance on a root
+   filesystem efficiently, with minimal CPU and RAM requirements.
 
-** `pivot_root`
-** `chroot`
-** `kexec`
-** `open`
-   Used to open files, can be supplied with multiple flags, one of which is
-   particularly interesting:
-   > In general, the behavior of O_EXCL is undefined if it is
-     used without O_CREAT.  There is one exception: on Linux 2.6
-     and later, O_EXCL can be used without O_CREAT if path
-     refers to a block device.  If the block device is in use by
-     the system (e.g., mounted), open() fails with the error
-     EBUSY.
+   Results of this post are contained in a script, that allows automating btrfs
+   conversion of Digitalocean VPS-es - Cloud Ubuntu variants in particular.
+   Obviously, to a degree it can be adapted to perform different operations,
+   work on different distributions and cloud providers. You can find it
+   {https://github.com/head-gardener/digitalocean-ext4-to-btrfs}[here].
+
+** Syscalls
+   For reference, down below is an overview of some of the syscalls that can be
+   relevant to the topic of the article. You can play around with any of them by
+   `h2ph`-ing some c headers  and using `perl`'s `syscall` subroutine:
+
+   @code bash
+   # get glibc headers for syscall.h
+   $ cd /usr/include/x86_64-linux-gnu; h2ph -r *; cd -
+   # get linux headers for fcntl.h
+   $ cd /usr/include/linux; h2ph -r *; cd -
+   $ perl -E 'require "syscall.ph"; syscall &SYS_exit;'
+   $ sudo perl -E '
+       require "syscall.ph";
+       require "fcntl.ph";
+       say syscall(&SYS_open, $ARGV[0], &O_RDONLY | &O_EXCL), " - ", $!;' \
+       /dev/sda1
+   -1 - Device or resource busy
+   @end
+
+*** `chroot`
+    Changes how `/` is interpreted by the current process and the current
+    process only.
+
+    Notice that, unlike the syscall, `chroot` program requires you to pass
+    another executable to it, for which root will be set. Interestingly enough,
+    `chroot /` in a script actually preserves PID despite restarting the shell.
+
+*** `pivot_root`
+    Switches root (`/`) mount with some other one, allowing you to `umount -l`
+    your root. Wrapped in a `pivot_root` cli command.
+
+    @code bash
+    $ sudo unshare -m
+    $ mount -t tmpfs tmpfs /mnt
+    $ mkdir /mnt/{old,dev,proc,bin,sys}
+    $ mount -t devtmpfs dev /mnt/dev/
+    $ mount -t proc proc /mnt/proc/
+    $ mount -t sysfs sys /mnt/sys
+    $ busybox --install /mnt/bin
+    $ pivot_root /mnt /mnt/old/
+    $ cd /
+    $ ls
+    bin/ dev/ old/ proc/ sys/
+    $ mount
+    # ...
+    /dev/sda1 on /old # ...
+    $ umount -l /old
+    @end
+
+*** `kexec`
+
+    Loads and executes a new kernel without a full hardware reboot. Particularly
+    interesting due to the fact that `kexec` can enter `initramfs`, a state in
+    which all disks are unmounted and the root is entirely in memory. By
+    updating your initramfs with the init script and reassembling your kernel you
+    can instruct your system to perform online disk maintenance. See e.g.
+    {github.com/nix-community/nixos-anywhere}[`nixos-anywhere`], which uses
+    NixOS's dedicated
+    {https://github.com/nix-community/nixos-images/tree/main/nix/kexec-installer}[`kexec` installer]
+    to run {https://github.com/nix-community/disko}[`disko`] - Nix-based disk
+    confifuration tool.
+
+*** `open`
+    Used to open files, can be supplied with multiple flags, one of which is
+    particularly interesting in our case:
+    > In general, the behavior of O_EXCL is undefined if it is
+      used without O_CREAT.  There is one exception: on Linux 2.6
+      and later, O_EXCL can be used without O_CREAT if path
+      refers to a block device.  If the block device is in use by
+      the system (e.g., mounted), open() fails with the error
+      EBUSY.
+
+** Injecting syscalls
+   You can inject syscalls with `ptrace`, or execute `libc` wrappers via `gdb`:
+   @code sh
+   $ bash -c "sleep inf" &
+   $ echo \
+       'call (int) execve(\
+         ((char *) "/run/current-system/sw/bin/echo"),\
+         ((char *[2]) {"/run/current-system/sw/bin/echo", "hi"}), 0)'  \
+       | sudo gdb -p "$last_pid"
+   # ...
+   hi
+   [Inferior 1 (process 1023444) exited normally]
+   # ...
+   fish: Job 1, 'bash -c "sleep inf" &' has ended
+   @end
+
+   This can be useful when, for example, force `chroot`-ing processes or for
+   general tomfoolery.
+
+** Test system
+   For testing purposes you can run a cloud image with QEMU. For an Ubuntu image
+   visit {https://cloud-images.ubuntu.com}. See
+   {https://documentation.ubuntu.com/public-images/public-images-how-to/use-local-cloud-init-ds/}[Cloud
+   Ubuntu docs] for an example setup.
 
 * The Process
-  - `mount --make-private` on both sides of the pivot
-  - e2fsck reports a device busy when `open("<dev>", O_RDONLY|O_EXCL)`
-    errors with `EBUSY`
-  - use `fuser -m /dev/vda1` to list pids using a mount
-  - you will need to kill basically everything that was started from binaries on
-    the root, including ssh/cloud-init/whatever else is used for this and init.
-    > fuser outputs in a really weird way where everything but pids is sent to
-      stderr - so it's enough to do this: `fuser .. 2>/dev/null | xargs cmd`.
+** The problem
+   There are multiple possible approaches to freeing up your root filesystem.
+   Main issue is the fact that you can't operate on a filesystem until there are
+   open files on the old filesystem. This means that you'll have to somehow clear
+   *all* file descriptors of *all* processes:
+   - Any open files;
+   - PWD;
+   - Executable from which a process was started;
+   - Libraries linked to a process;
+   - Root dir and CWD.
+
+   For most processes you can simply stop them, but for some it gets a bit more
+   involved: init (i.e. `systemd`) is mostly unkillable by design while the
+   system is running. `cloud-init`, `ssh`, `ansible` or any other automation tool
+   that starts the unmounting should be able to restart and continue operation
+   after maintenance is performed and root is mounted back (or simply a reboot).
+   The filesystem maintenance itself is performed solely by the "init" in our
+   `tmpfs` and doesn't need to be accounted for in terms of file descriptors.
+
+   > Theoretically you could /evict/ a process, by replacing inode
+     numbers of its binaries during a `SIGSTOP` - however I'm not aware of a way to
+     do that.
+
+** Possible solutions
+   Probably the most obvious way is to:
+   1. Stop the init along with all of the services;
+   1. Mount `tmpfs` and manually assemble a new minimized root there;
+   1. `pivot_root` & `chroot` into your new root, starting a purpose-built
+   "init" script that performs your filesystem maintenance;
+   1. Reassemble your system and continue/restart/replace your init, or simply reboot.
+
+   You can `kexec` into a purpose built `initrd` as described above. `kexec` is
+   comparable to a reboot in that regard, just quicker. By `kexec`-ing (or
+   rebooting) you sidestep the whole process described in the previous solution,
+   instead leaving the kernel to deal with that. The problem with this approach
+   is the fact that I don't want to bother with `initrd`, and the fact that it
+   takes much more time and computational power - assebling `initrd`, rebooting,
+   storing a much larger file tree in `tmpfs`. Case and point, `nixos-anywhere`
+   officially requires you to have 2 Gigabytes of RAM on your VPS, which if far
+   beyond what the manual approach requires.
+
+   A simple approach I've taken is to replace `systemd` via `systemctl
+   daemon-reexec` (or `kill -term 1`), which calls `execve` on
+   `/usr/lib/systemd/systemd`. By symlinking a script there and pivoting you can
+   easily kill all other processes and unmount root cleanly. After that you can
+   even exec back into `systemd` if you so desire - for example if you want a
+   quicker reboot via `kexec` (by sending `SIGRTMIN+6` to `systemd`) or attempt
+   to return to `default.target` as if nothing ever happened.
+
+** Tips
+   Before pivoting, try `cat /proc/self/mountinfo | grep shared`. Both the old
+   and the new roots shouldn't be shared. You can make them private with `mount
+   --make-private`. If you don't do that, `pivot_root` will fail with `EINVAL`.
+
+   You can check a device for being busy with `e2fsck -E journal_only`, which,
+   among other things, fails when `open("<dev>", O_RDONLY|O_EXCL) == EBUSY`.
+
+   You can use `fuser -m /dev/vda1` to list pids using a mount. On some systems
+   fuser output format is somewhat unusual: everything but pids gets sent to
+   stderr - so it's enough to do this: `fuser .. 2>/dev/null | xargs cmd`. Also,
+   try `sudo fuser -m /dev/nvme0n1p2 | xargs systemctl whoami` to show what
+   units are still using the filesystem.
+
+   Don't forget to `exec` into your `tmpfs` `init` as root, otherwise you'll
+   be locked out of performing any operations.
+
+   `fuser -mv` doesn't report roots and CWD's on a filesystem after a
+   pivot_root, so be careful to `chroot` *every* process that is running after a
+   pivot.

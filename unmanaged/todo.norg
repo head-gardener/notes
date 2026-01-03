@@ -1,5 +1,22 @@
 * Main TODO
-  - ( ) {:wellsss:}
-  - ( ) {:config:** Terminal farm};
-  - ( ) {:config:** Config render};
-  - ( ) {:port-logger:};
+** Current
+   - ( ) lilex update
+   - ( ) digital ocean vms
+   -- (x) {:umount-root:}
+   -- ( ) nixification
+** Planned
+   - ( ) {:pacific:}
+   -- ( ) {:incus:}
+   -- ( ) {:ubicloud:}
+   -- ( ) {:cicd:}
+   - ( ) notes rework
+   -- ( ) better landing page
+   -- ( ) tags
+   -- ( ) search
+   -- ( ) templates
+   -- ( ) get as pdf
+   -- ( ) organize everything
+   -- ( ) python script for building notes with a nice index
+   -- ( ) links
+   -- ( ) todo list parsing
+** Old

@@ -1,0 +1,54 @@
+* Overview
+  Cloud framework purpose-built for NixOS.
+
+* Goals
+** Network management
+   Sane network setup, with multi-cloud support - probably `wireguard`.
+
+** Caching
+   Dedicated and highly-available evaluation cache via `.drv` files and an
+   adequate installables caching.
+
+** VM/Container runtime
+   Incus or Kubernetes, whichever looks better.
+
+** Terraform interface
+   All *state* configurable via `terraform`. State managed via `S3` or `etcd`.
+
+** Observability
+   Observable VMMs, ready-to-use setup for container and VM observability.
+
+** NixOS Configuration to VM pipeline
+   Pre-configured way to deploy VMs from flakes, configurable via `terraform`.
+
+** SSOT for authorization
+   Some identity provider connected to as many components as possible.
+
+** Simple dashboard
+   Explicitly not an admin panel, only top-level information on running hosts
+   and services, with links to observability dashboards and things like
+   Kubernetes dashboard.
+
+* Implementation
+** Components
+*** Preface - state/configuration separation
+    *State* is runtime configuration that doesn't concern top-level services and
+    shouldn't be preserved between different installations of the cloud. State
+    includes launched processes, network tunnels, users, etc.
+
+    *Configuration* means settings of the cloud itself and needs to be
+    reproducible between different installations. Configuration should include
+    (mostly) everything that allows you to run and check a demo/test cloud
+    environment. This includes VPN configuration, services' configuration,
+    strictly required state objects, etc.
+
+*** NixOS module
+    Reads from a single configuraion object and configures each host
+    accordingly. Performs as much work as possible. Configuration options relate
+    to running services and service topography.
+
+*** Terraform module
+    Connects to controller's API for state management.
+
+*** Dashboard
+    A binary that serves a simple dashboard as described above.

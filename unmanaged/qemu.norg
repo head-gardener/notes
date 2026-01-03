@@ -1,0 +1,35 @@
+* Overview
+  Convinient and relatively simple emulation suit.
+
+* Tips
+** Cloud-init
+   For QEMU user-data is normally passed via an `.iso` image in a cdrom. You can
+   generate this image with `cloud-localds`, `genisoimage` or by creating a
+   `vfat` `iso` yourself and placing all your files in its root. See cloud-init
+   {https://cloudinit.readthedocs.io/en/latest/reference/datasources/nocloud.html}[docs]
+
+** Display modes
+   `vnc` or, preferrably, `spice` allow remote sessions on a VM.
+
+   `-nograpic` functionally embeds VM's shell in your terminal. Buggy but
+   convenient, since e.g. your host's tmux or paste buffer work (somewhat)
+   seamlessly.
+
+** Shared dirs
+   You can share dirs via 9P protocol:
+   @code sh
+   $ qemu-system-x86_64 ... \
+       -virtfs local,path=/path/on/host,mount_tag=host0,security_model=passthrough,id=host0
+   ~ mount -t 9p host0 /mnt
+   @end
+
+** QCOW2
+   QEMU images are often supplied in QCOW2 format. To mount them, use the `nbd`
+   driver:
+   @code sh
+   sudo modprobe nbd max_part=8
+   sudo qemu-nbd --connect=/dev/nbd0 ~/example.qcow2
+   sudo mount /dev/nbd0p1 /mnt
+   @end
+   Alternatively, you can convert it to `raw` with `qemu-img convert` and mount
+   as a loop device or use `guestmount` from `libguestfs`.

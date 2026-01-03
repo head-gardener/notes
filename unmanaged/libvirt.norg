@@ -1,0 +1,145 @@
+* Terraform
+  Terraform provider `dmacvicar/libvirt` can be used to control `libvirt` via
+  terraform. Since `0.9.1` it's essentially a thin wrapper over `libvirt`'s XML
+  schemas.
+
+  @code hcl
+  terraform {
+    required_providers {
+      libvirt = {
+        source = "dmacvicar/libvirt"
+        version = "0.9.1"
+      }
+    }
+  }
+
+  provider "libvirt" { }
+
+  variable "image_path" { }
+
+  variable "dev" {
+    default = false
+  }
+
+  resource "libvirt_pool" "test" {
+    name = "do_test"
+    type = "dir"
+    target = {
+      path = "/var/lib/libvirt/images/do_test"
+    }
+  }
+
+  resource "libvirt_cloudinit_disk" "init" {
+    name      = "do_init"
+    user_data = <<EOF
+    #cloud-config
+
+    runcmd:
+    - |
+    echo hi
+    EOF
+    meta_data = ""
+  }
+
+  resource "libvirt_volume" "cloudinit" {
+    name   = "vm-cloudinit"
+    pool   = libvirt_pool.test.name
+
+    create = {
+      content = {
+        url = libvirt_cloudinit_disk.init.path
+      }
+    }
+  }
+
+  resource "libvirt_domain" "test" {
+    name   = "machine"
+    memory = 1024
+    memory_unit = "MiB"
+    vcpu   = 1
+    type   = "qemu"
+
+    os = {
+      type         = "hvm"
+      type_arch    = "x86_64"
+      type_machine = "q35"
+    }
+
+    devices = {
+      disks = [
+        {
+          type = "file"
+          driver = {
+            type = "qcow2"
+          }
+          source = {
+            file = {
+              file = "/tmp/img.qcow2"
+            }
+          }
+          backing_store  = {
+            type = "file"
+            format = {
+              type = "qcow2"
+            }
+            source = {
+              file = {
+                file = var.image_path
+              }
+            }
+          }
+          target = {
+            dev = "vda"
+            bus = "virtio"
+          }
+          transient = { }
+        },
+        {
+          type = "volume"
+          driver = {
+            type = "raw"
+          }
+          source = {
+            volume = {
+              pool = libvirt_pool.test.name
+              volume = libvirt_volume.cloudinit.name
+            }
+          }
+          target = {
+            dev = "vdb"
+            bus = "virtio"
+          }
+        },
+      ]
+      # interfaces = [
+      #   {
+      #     model = {
+      #       type = "virtio"
+      #     }
+      #     source = {
+      #       network = {
+      #         network = "default"
+      #       }
+      #     }
+      #   }
+      # ]
+      serials = [
+        {
+          type = "pty"
+          target = {
+            # port = "0"
+          }
+        }
+      ]
+      consoles = [
+        {
+          type = "pty"
+          target = {
+            type = "serial"
+            # port = "0"
+          }
+        }
+      ]
+    }
+  }
+  @end

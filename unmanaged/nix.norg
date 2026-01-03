@@ -1,8 +1,5 @@
 * Command
 ** {./nix-copy.html}[nix-copy]
-** Tips
-   - `nix flake lock --update-input <input> --commit-lock-file` updates single input.
-   -- (=) was replaced with `nix flake update --update-input` in 2.19
 ** Changelog
 *** 2.19
     - (x) {https://nixos.org/manual/nix/stable/release-notes/rl-2.19}[notes].
@@ -85,32 +82,27 @@
 ** Examples
    - {./dotfiles-updater.html}[dotfiles-updater].
 
-* Installers
-  There are a couple installers and you can build your own.
-  To create an installer provide a configuration through a flake or a nix file, which has some module from `${modulesPath}/installer/` as import. E.g. `${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix` - the one you would most commonly use.
-  Example configuration:
-  @code nix
-  {
-    nixosConfigurations.installer = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        ({ pkgs, modulesPath, lib, ... }: {
-          imports = [
-            "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-          ];
-          boot.kernelPackages = pkgs.linuxPackages_latest;
-          boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
-          users.users.nixos.openssh.authorizedKeys.keyFiles = [ ./ssh/mykey ];
-        })
-        ./modules/default/tools.nix
-      ];
-    };
-  }
-  @end
-  Building configurations can be done with `nixos-generate --flake .#installer --format iso -o result` from `nixos-generators`. Beware that the process is quite slow due to `squashfs` generation and can take around 6 minutes.
-  Try out your installer before flashing with `nixos-rebuild build-vm --flake .#installer`.
-  Flash resulting iso with `dd if=result/iso/nixos-smth.iso of=/dev/disk/by-id/usb-ID status=progress && sync`.
+* Tricks
+** Updating inputs
+   `nix flake lock --update-input <input> --commit-lock-file` updates single input.
+   > (=) was replaced with `nix flake update --update-input` in 2.19
+
+** Transfering evaluation results for system bootstrap
+   When bootstrapping a new NixOS installation it's sometimes usefull to
+   evaluate your config separately first:
+   @code sh
+   mkdir /tmp/store
+   nix copy --to /tmp/store/ \
+   "$(nix path-info --derivation someflake#nixosConfigurations.hostname.config.system.build.toplevel)"
+   cd /tmp/store/
+   tar cz . | ssh host 'mkdir -p /tmp/store; cd /tmp/store; tar xzf -'
+   # on target
+   cd /tmp/store
+   drv="/$(find nix/store -maxdepth 1 -name "*nixos-system-hostname*" -type f)"
+   cd -
+   nix copy --from /tmp/store "$drv"
+   nix-store --realise "$drv"
+   @end
 
 * Rerences
   - {./btrfs-on-nixos.html}[btrfs-on-nixos]
